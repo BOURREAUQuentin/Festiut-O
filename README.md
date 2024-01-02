@@ -52,7 +52,7 @@ Pour lancer le projet, le mieux est d’avoir un environnement virtuel (virtuale
 Une fois récupéré le projet, vous avez simplement à suivre ces commandes pour la créer si vous ne l'avez pas encore fait :
 
 ```python
-cd SAE-FESTIUT-O
+cd FESTIUT-O
 ```
 Ceci va créé un répertoire venv
 ```python
