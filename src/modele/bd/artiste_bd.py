@@ -39,10 +39,10 @@ class ArtisteBD:
         try:
             query = text("select idA, nomA, descriptionA from ARTISTE where idA = " + str(id_artiste))
             resultat = self.__connexion.execute(query)
-            le_spectateur = None
+            l_artiste = None
             for id_artiste, nom, description in resultat:
-                le_spectateur = Artiste(id_artiste, nom, description)
-            return le_spectateur
+                l_artiste = Artiste(id_artiste, nom, description)
+            return l_artiste
         except Exception as exp:
             print("la connexion a échoué !")
             return None
