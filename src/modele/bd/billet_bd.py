@@ -49,7 +49,7 @@ class BilletBD:
     
     def vendre_billet(self, id_billet, prix, id_spectateur):
         try:
-            query = text(f"insert into BILLET values({str(id_billet)} ,'{str(prix)}', '{str(id_spectateur)}')")
+            query = text(f"insert into BILLET values({str(id_billet)} ,{str(prix)}, {str(id_spectateur)})")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Billet vendu !")

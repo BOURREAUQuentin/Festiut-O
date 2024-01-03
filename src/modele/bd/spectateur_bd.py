@@ -50,7 +50,7 @@ class SpectateurBD:
     def inserer_spectateur(self, id_spectateur, nom, prenom, mail, date_naissance, tel, nom_utilisateur, mdp):
         try:
             # met automatiquement N pour l'admin car on ne peut créer un admin sur l'application (uniquement en sql auparavant)
-            query = text(f"insert into SPECTATEUR values({str(id_spectateur)} ,'{nom}', '{prenom}' ,'{mail}' ,'{str(date_naissance)}' ,'{str(tel)}' ,'{nom_utilisateur}' ,'{mdp}' ,'N')")
+            query = text(f"insert into SPECTATEUR values({str(id_spectateur)} ,'{nom}', '{prenom}' ,'{mail}' ,{str(date_naissance)} ,{str(tel)} ,'{nom_utilisateur}' ,'{mdp}' ,'N')")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un spectateur réussi !")
