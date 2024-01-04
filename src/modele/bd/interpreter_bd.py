@@ -15,12 +15,12 @@ class InterpreterBD:
         try:
             query = text("select idG, idSt from INTERPRETER")
             resultat = self.__connexion.execute(query)
-            lisste_interpreter = []
+            liste_interpreter = []
             for id_groupe, id_style_musical in resultat:
-                lisste_interpreter.append(
+                liste_interpreter.append(
                     Interpreter(id_groupe, id_style_musical)
                 )
-            return lisste_interpreter
+            return liste_interpreter
         except Exception as exp:
             print(f"Erreur lors de la récupération des interpreter : {exp}")
             return None
