@@ -1,10 +1,9 @@
 class Evenement:
-    def __init__(self, id_evenement, nom, description, heure_debut, heure_fin, duree, tps_montage, tps_demontage, id_lieu, id_journee, id_groupe):
+    def __init__(self, id_evenement, nom, description, heure_debut, duree, tps_montage, tps_demontage, id_lieu, id_journee, id_groupe):
         self.__id_e = id_evenement
         self.__nom_e = nom
         self.__description_e = description
         self.__heure_debut_e = heure_debut
-        self.__heure_fin_e = heure_fin
         self.__duree_e = duree
         self.__tps_montage_e = tps_montage
         self.__tps_demontage_e = tps_demontage
@@ -23,9 +22,6 @@ class Evenement:
     
     def get_heure_debut(self):
         return self.__heure_debut_e
-    
-    def get_heure_fin(self):
-        return self.__heure_fin_e
     
     def get_duree(self):
         return self.__duree_e
@@ -54,8 +50,8 @@ class Evenement:
     def set_heure_debut(self, nouvelle_heure_debut):
         self.__heure_debut_e = nouvelle_heure_debut
     
-    def set_heure_fin(self, nouvelle_heure_fin):
-        self.__heure_fin_e = nouvelle_heure_fin
+    def set_duree(self, nouvelle_duree):
+        self.__duree_e = nouvelle_duree
     
     def set_tps_montage(self, nouveau_tps_montage):
         self.__tps_montage_e = nouveau_tps_montage
@@ -64,4 +60,4 @@ class Evenement:
         self.__tps_demontage_e = nouveau_tps_demontage
 
     def __str__(self):
-        return f"id evenement : {self.__id_e}, le nom : {self.__nom_e}, la description : {self.__description_e}, l'heure de début : {self.__heure_debut_e}, l'heure de fin : {self.__heure_fin_e}, la durée : {self.__duree_e}"
+        return f"id evenement : {self.__id_e}, le nom : {self.__nom_e}, la description : {self.__description_e}, l'heure de début : {self.__heure_debut_e}, la durée : {self.__duree_e}"
