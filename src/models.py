@@ -45,3 +45,21 @@ RESEAU_SOCIAL = ReseauSocialBD(connexion)
 RESEAU_VIDEO = ReseauVideoBD(connexion)
 SPECTATEUR = SpectateurBD(connexion)
 STYLE_MUSICAL = StyleMusicalBD(connexion)
+
+def lister_evenements_pour_groupe(id_groupe):
+    """
+        Retourne une liste de Evenement qui sont les évènements organisés du groupe.
+
+        Args:
+        Param: id_groupe : l'id du groupe.
+
+        Returns:
+            (List[Evenement]): la liste de Evenement qui sont les évènements organisés du groupe.
+    """
+    liste_evenements_du_groupe = []
+    liste_evenements = EvenementBD.get_all_evenements()
+    for evenementActuel in liste_evenements:
+        if evenementActuel.get_id_groupe() == id_groupe:
+            liste_evenements_du_groupe.append(evenementActuel)
+            print("evenement du groupe")
+    return liste_evenements_du_groupe
