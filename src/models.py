@@ -57,7 +57,7 @@ def lister_evenements_pour_groupe(id_groupe):
             (List[Evenement]): la liste de Evenement qui sont les évènements organisés du groupe.
     """
     liste_evenements_du_groupe = []
-    liste_evenements = EvenementBD.get_all_evenements()
+    liste_evenements = EVENEMENT.get_all_evenements()
     for evenementActuel in liste_evenements:
         if evenementActuel.get_id_groupe() == id_groupe:
             liste_evenements_du_groupe.append(evenementActuel)
