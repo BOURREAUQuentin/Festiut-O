@@ -75,7 +75,7 @@ def lister_billets_de_spectateur(id_spectateur):
             (List[BILLET]) :la liste des billets possédés par l'utilisateur demandé.
     """
     liste_billets_du_spectateur = []
-    liste_utilisateurs = SPECTATEUR.get_all_spectateurs()
+    liste_spectateurs = SPECTATEUR.get_all_spectateurs()
     for spectateurActuel in liste_spectateurs:
         if spectateurActuel.get_id_spectateur() == id_spectateur:
             liste_billets_du_spectateur.append(spectateurActuel)
@@ -98,6 +98,23 @@ def lister_groupe_meme_style(id_groupe):
         if groupeActuel.get_style(groupeActuel.get_id()) == GROUPE.get_style(id_groupe):
             liste_groupes_meme_style.append(groupeActuel)
     return liste_groupes_meme_style
+
+def lister_evenements_par_journee(dateJournee):
+    """
+        Liste les événement qui ont lieu durant la date donnée.
+        
+        Args:
+            dateJournee: La date de la journée à vérifier.
+
+        Args:
+            (List[EVENEMENT]): Les événement qui ont lieu durant dateJournee.
+    """
+    liste_evenements_journee= []
+    liste_evenements = EVENEMENT.get_all_evenements()
+    for evenementActuel in liste_evenements:
+        if evenementActuel.get_id_journee() == JOURNEE.get_par_date_journee(dateJournee).get_id():
+            liste_evenements_journee.append(evenementActuel)
+    return liste_evenements_journee
     
             
     
