@@ -1,4 +1,4 @@
 from .app import app, db
-import tuto.views
-import tuto.commands
-import tuto.models
+import src.views
+# import src.commands
+import src.models
