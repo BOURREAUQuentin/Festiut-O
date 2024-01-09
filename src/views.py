@@ -11,3 +11,7 @@ def accueil():
         Nous montre la premiere page la du lancement du site
     """
     return render_template("accueil.html", page_home=True)
+
+@app.route("/les-groupes")
+def les_groupes():
+    return render_template("les_groupes.html", page_les_groupes=True)
