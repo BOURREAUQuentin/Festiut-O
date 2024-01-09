@@ -23,10 +23,10 @@ INSERT INTO LIEU (idL, nomL, adresseL, nbMaxSpecL) VALUES
 (3, 'Opéra C', '101 Opera Lane', 700);
 
 -- Insertions pour la table GROUPE
-INSERT INTO GROUPE (idG, nomG, descriptionG) VALUES 
-(1, 'The Beatles', 'Légendaire groupe de rock britannique'),
-(2, 'The Rolling Stones', 'Groupe de rock emblématique'),
-(3, 'Orchestre Philharmonique de New York', 'Fameux orchestre symphonique américain');
+INSERT INTO GROUPE (idG, nomG, descriptionG, lienImageG) VALUES 
+(1, 'The Beatles', 'Légendaire groupe de rock britannique', 'fave.jpg'),
+(2, 'The Rolling Stones', 'Groupe de rock emblématique', 'gazo.jpg'),
+(3, 'Orchestre Philharmonique de New York', 'Fameux orchestre symphonique américain', 'ninho.jpg');
 
 -- Insertions pour la table INSTRUMENT
 INSERT INTO INSTRUMENT (idI, nomI) VALUES 

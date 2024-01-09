@@ -38,6 +38,7 @@ CREATE TABLE GROUPE (
   idG INT(40) NOT NULL,
   nomG VARCHAR(42) NOT NULL,
   descriptionG VARCHAR(100) NOT NULL,
+  lienImageG VARCHAR(100),
   PRIMARY KEY (idG)
 );
 
