@@ -1,20 +1,20 @@
 -- Insertions pour la table STYLE_MUSICAL
-INSERT INTO STYLE_MUSICAL (idSt, nomSt, caracteristiqueSt) VALUES 
+INSERT INTO STYLE_MUSICAL (idSt, nomSt, caracteristiquesSt) VALUES 
 (1, 'Jazz', 'Improvisation musicale'),
 (2, 'Rock', 'Rythmes puissants et guitares électriques'),
 (3, 'Classique', 'Musique orchestrale traditionnelle');
 
 -- Insertions pour la table SPECTATEUR
-INSERT INTO SPECTATEUR (idS, nomS, prenomS, mailS, dateNaissS, adresseS, cpS, villeS, paysS, telS, nomUtilisateurS, mdpS, adminS) VALUES 
-(1, 'Doe', 'John', 'john.doe@example.com', '1990-01-15', '123 Main St', 12345, 'Anytown', 'Country', '1234567890', 'johndoe', 'password', 'N'),
-(2, 'Smith', 'Alice', 'alice.smith@example.com', '1985-05-22', '456 Oak St', 67890, 'Othertown', 'Country', '9876543210', 'alicesmith', 'password', 'N'),
-(3, 'Johnson', 'Michael', 'michael.johnson@example.com', '1982-11-10', '789 Maple St', 13579, 'Anothertown', 'Country', '1122334455', 'michaeljohnson', 'password', 'N');
+INSERT INTO SPECTATEUR (idS, nomS, prenomS, mailS, dateNaissS, telS, nomUtilisateurS, mdpS, adminS) VALUES 
+(1, 'Doe', 'John', 'john.doe@example.com', '1990-01-15', '1234567890', 'johndoe', 'password', 'N'),
+(2, 'Smith', 'Alice', 'alice.smith@example.com', '1985-05-22', '9876543210', 'alicesmith', 'password', 'N'),
+(3, 'Johnson', 'Michael', 'michael.johnson@example.com', '1982-11-10', '1122334455', 'michaeljohnson', 'password', 'N');
 
 -- Insertions pour la table ARTISTE
-INSERT INTO ARTISTE (idA, nomA, prenomA, ageA, descriptionA) VALUES 
-(1, 'Lennon', 'John', 40, 'Guitariste et chanteur légendaire'),
-(2, 'Hendrix', 'Jimi', 27, "L'un des meilleurs guitaristes de tous les temps"),
-(3, 'Mozart', 'Wolfgang Amadeus', 35, 'Compositeur classique autrichien');
+INSERT INTO ARTISTE (idA, nomA, descriptionA) VALUES 
+(1, 'John Lennon', 'Guitariste et chanteur légendaire'),
+(2, 'Jimi Hendrix', "L'un des meilleurs guitaristes de tous les temps"),
+(3, 'Wolfgang Amadeus Mozart', 'Compositeur classique autrichien');
 
 -- Insertions pour la table LIEU
 INSERT INTO LIEU (idL, nomL, adresseL, nbMaxSpecL) VALUES 
@@ -60,9 +60,15 @@ INSERT INTO FAVORI (idS, idG) VALUES
 
 -- Insertions pour la table HEBERGEMENT
 INSERT INTO HEBERGEMENT (idH, nomH, adresseH, nbPlaceH, idG) VALUES 
-(1, 'Hôtel ABC', '789 Elm St', 100, 1),
-(2, 'Auberge XYZ', '123 Pine St', 50, 2),
-(3, 'Hôtel 123', '456 Oak St', 80, 3);
+(1, 'Hôtel ABC', '789 Elm St', 100),
+(2, 'Auberge XYZ', '123 Pine St', 50),
+(3, 'Hôtel 123', '456 Oak St', 80);
+
+-- Insertions pour la table HEBERGER
+INSERT INTO HEBERGER (idH, idG) VALUES 
+(1, 1),
+(2, 2),
+(3, 3);
 
 -- Insertions pour la table INTERPRETER
 INSERT INTO INTERPRETER (idG, idSt) VALUES 
