@@ -47,6 +47,20 @@ class StyleMusicalBD:
             print("la connexion a échoué !")
             return None
     
+    def get_recherche_par_nom_style_musical(self, nom_style_musical):
+        try:
+            query = text("select idSt, nomSt, caracteristiquesSt from STYLE_MUSICAL where nomSt LIKE '%" + nom_style_musical + "%'")
+            resultat = self.__connexion.execute(query)
+            liste_styles_musicaux_recherche = []
+            for id_style_musical, nom, caracteristiques in resultat:
+                liste_styles_musicaux_recherche.append(
+                    StyleMusical(id_style_musical, nom, caracteristiques)
+                )
+            return liste_styles_musicaux_recherche
+        except Exception as exp:
+            print(f"Erreur lors de la recherche des styles musicaux : {exp}")
+            return None
+    
     def ajouter_style_musical(self, id_style_musical, nom, caracteristiques):
         try:
             query = text(f"insert into STYLE_MUSICAL values({str(id_style_musical)} ,'{nom}', '{caracteristiques}')")

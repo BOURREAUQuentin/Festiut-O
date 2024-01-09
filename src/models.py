@@ -84,6 +84,18 @@ def lister_groupes_favoris_pour_spectateur(id_spectateur):
         liste_groupes_favoris.append(GROUPE.get_par_id_groupe(favori_spectateur.get_id_groupe()))
     return liste_groupes_favoris
 
+def rechercher_groupes_par_style_musical(nom_style_musical):
+    """
+        Retourne une liste de Groupe qui ont un style musical contenant la recherche d'un utilisateur.
+
+        Args:
+        Param: nom_style_musical : la recherche du style musical d'un utilisateur.
+
+        Returns:
+            (List[Groupe]): la liste de Groupe qui ont un style musical contenant la recherche d'un utilisateur.
+    """
+    return STYLE_MUSICAL.get_recherche_par_nom_style_musical(nom_style_musical)
+
 def lister_evenements_pour_groupe(id_groupe):
     """
         Retourne une liste de Evenement qui sont les évènements organisés du groupe.
