@@ -51,24 +51,38 @@ def lister_evenements_pour_billet(id_billet):
         Retourne une liste de Evenement qui sont les évènements accessibles avec l'id billet.
 
         Args:
-        Param: id_billet : l'id du groupe.
+        Param: id_billet : l'id du billet.
 
         Returns:
             (List[Evenement]): la liste de Evenement qui sont les évènements accessibles avec l'id billet.
     """
     liste_evenements_avec_billet = []
     liste_acceder_avec_billet = ACCEDER.get_par_id_billet(id_billet)
-    liste_journees_avec_billet = []
+    liste_id_journees_avec_billet = []
     for accederActuel in liste_acceder_avec_billet:
-        id_journee_accessible = accederActuel.get_id_journee()
-        liste_journees_avec_billet.append(JOURNEE.get_par_id_journee(id_journee_accessible))
-    # a partir de chaque journee on regarde evenement de cette journee
-    
+        liste_id_journees_avec_billet.append(accederActuel.get_id_journee())    
     liste_evenements = EVENEMENT.get_all_evenements()
     for evenementActuel in liste_evenements:
-        if evenementActuel.get_id_billet() == id_billet:
-            liste_evenements_avec_billet.append(evenementActuel)
+        for id_journee_avec_billet in liste_id_journees_avec_billet:
+            if evenementActuel.get_id_journee() == id_journee_avec_billet:
+                liste_evenements_avec_billet.append(evenementActuel)
     return liste_evenements_avec_billet
+
+def lister_groupes_favoris_pour_spectateur(id_spectateur):
+    """
+        Retourne une liste de Groupe qui sont les groupes en favoris du spectateur (utilisateur connecté).
+
+        Args:
+        Param: id_spectateur : l'id du spectateur.
+
+        Returns:
+            (List[Evenement]): la liste de Groupe qui sont les groupes en favoris du spectateur.
+    """
+    liste_groupes_favoris = []
+    liste_favoris_spectateur = FAVORI.get_par_id_spectateur(id_spectateur)
+    for favori_spectateur in liste_favoris_spectateur:
+        liste_groupes_favoris.append(GROUPE.get_par_id_groupe(favori_spectateur.get_id_groupe()))
+    return liste_groupes_favoris
 
 def lister_evenements_pour_groupe(id_groupe):
     """
