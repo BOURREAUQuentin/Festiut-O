@@ -59,7 +59,7 @@ INSERT INTO FAVORI (idS, idG) VALUES
 (3, 3);
 
 -- Insertions pour la table HEBERGEMENT
-INSERT INTO HEBERGEMENT (idH, nomH, adresseH, nbPlaceH, idG) VALUES 
+INSERT INTO HEBERGEMENT (idH, nomH, adresseH, nbPlacesMaxH) VALUES 
 (1, 'Hôtel ABC', '789 Elm St', 100),
 (2, 'Auberge XYZ', '123 Pine St', 50),
 (3, 'Hôtel 123', '456 Oak St', 80);
@@ -83,22 +83,22 @@ INSERT INTO JOUER (idA, idI) VALUES
 (3, 3);
 
 -- Insertions pour la table RESEAU_SOCIAL
-INSERT INTO RESEAU_SOCIAL (idR, nomR, lienR, idG) VALUES 
+INSERT INTO RESEAU_SOCIAL (idRS, nomRS, lienRS, idG) VALUES 
 (1, 'Facebook', 'https://www.facebook.com/thebeatles', 1),
 (2, 'Twitter', 'https://twitter.com/therollingstones', 2),
 (3, 'Instagram', 'https://www.instagram.com/orchestraphilharmonic/', 3);
 
 -- Insertions pour la table RESEAU_VIDEO
-INSERT INTO RESEAU_VIDEO (idV, nomV, idG) VALUES 
-(1, 'YouTube', 1),
-(2, 'Vimeo', 2),
-(3, 'Dailymotion', 3);
+INSERT INTO RESEAU_VIDEO (idRV, nomRV, lienRV, idG) VALUES 
+(1, 'YouTube', 'https://youtube.com', 1),
+(2, 'Vimeo', 'https://youtube.com', 2),
+(3, 'Dailymotion', 'https://youtube.com', 3);
 
 -- Insertions pour la table BILLET
-INSERT INTO BILLET (idB, nomB, prixB, idS) VALUES 
-(1, 'Billet Concert Beatles', 50, 1),
-(2, 'Billet Concert Rolling Stones', 55, 2),
-(3, 'Billet Concert Orchestre Philharmonique', 40, 3);
+INSERT INTO BILLET (idB, prixB, idS) VALUES 
+(1, 50, 1),
+(2, 55, 2),
+(3, 40, 3);
 
 -- Insertions pour la table ACCEDER
 INSERT INTO ACCEDER (idB, idJ) VALUES 

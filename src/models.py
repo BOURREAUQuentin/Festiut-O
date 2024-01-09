@@ -46,6 +46,30 @@ RESEAU_VIDEO = ReseauVideoBD(connexion)
 SPECTATEUR = SpectateurBD(connexion)
 STYLE_MUSICAL = StyleMusicalBD(connexion)
 
+def lister_evenements_pour_billet(id_billet):
+    """
+        Retourne une liste de Evenement qui sont les évènements accessibles avec l'id billet.
+
+        Args:
+        Param: id_billet : l'id du groupe.
+
+        Returns:
+            (List[Evenement]): la liste de Evenement qui sont les évènements accessibles avec l'id billet.
+    """
+    liste_evenements_avec_billet = []
+    liste_acceder_avec_billet = ACCEDER.get_par_id_billet(id_billet)
+    liste_journees_avec_billet = []
+    for accederActuel in liste_acceder_avec_billet:
+        id_journee_accessible = accederActuel.get_id_journee()
+        liste_journees_avec_billet.append(JOURNEE.get_par_id_journee(id_journee_accessible))
+    # a partir de chaque journee on regarde evenement de cette journee
+    
+    liste_evenements = EVENEMENT.get_all_evenements()
+    for evenementActuel in liste_evenements:
+        if evenementActuel.get_id_billet() == id_billet:
+            liste_evenements_avec_billet.append(evenementActuel)
+    return liste_evenements_avec_billet
+
 def lister_evenements_pour_groupe(id_groupe):
     """
         Retourne une liste de Evenement qui sont les évènements organisés du groupe.
@@ -57,7 +81,7 @@ def lister_evenements_pour_groupe(id_groupe):
             (List[Evenement]): la liste de Evenement qui sont les évènements organisés du groupe.
     """
     liste_evenements_du_groupe = []
-    liste_evenements = EvenementBD.get_all_evenements()
+    liste_evenements = EVENEMENT.get_all_evenements()
     for evenementActuel in liste_evenements:
         if evenementActuel.get_id_groupe() == id_groupe:
             liste_evenements_du_groupe.append(evenementActuel)
