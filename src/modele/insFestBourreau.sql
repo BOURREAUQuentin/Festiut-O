@@ -139,6 +139,11 @@ INSERT INTO ACHETER (idB, idS) VALUES
 
 -- Insertions pour la table ACCEDER
 INSERT INTO ACCEDER (idB, idJ) VALUES 
+-- billet id 1 donne accès -> journée 1
+-- billet id 2 donne accès -> journée 1
+-- billet id 3 donne accès -> journée 2
+-- billet id 4 donne accès -> journée 1 et 2 (pass 2 jours pour idB = 4)
+-- billet id 5 donne accès -> journée 1
 (1, 1),
 (2, 1),
 (3, 2),
