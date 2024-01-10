@@ -54,6 +54,16 @@ class Spectateur:
     
     def set_mdp(self, nouveau_mdp):
         self.__mdp_s = nouveau_mdp
+
+    def set_all(self, id, nom, prenom, mail, date_naissance, tel, nom_utilisateur, mdp):
+        self.__id_s = id
+        self.__nom_s = nom
+        self.__prenom_s = prenom
+        self.__mail_s = mail
+        self.__date_naissance_s = date_naissance
+        self.__tel_s = tel
+        self.__nom_utilisateur_s = nom_utilisateur
+        self.__mdp_s = mdp
     
     def __str__(self):
         return f"id spectateur : {self.__id_s}, le nom : {self.__nom_s}, le prenom : {self.__prenom_s}, le nom utilisateur : {self.__nom_utilisateur_s}"
