@@ -7,9 +7,10 @@ INSERT INTO STYLE_MUSICAL (idSt, nomSt, caracteristiquesSt) VALUES
 
 -- Insertions pour la table SPECTATEUR
 INSERT INTO SPECTATEUR (idS, nomS, prenomS, mailS, dateNaissS, telS, nomUtilisateurS, mdpS, adminS) VALUES 
-(1, 'Doe', 'John', 'john.doe@example.com', '1990-01-15', '1234567890', 'ad', 'ad', 'N'),
+(1, 'Doe', 'John', 'john.doe@example.com', '1990-01-15', '1234567890', 'adm', 'adm', 'O'),
 (2, 'Smith', 'Alice', 'alice.smith@example.com', '1985-05-22', '9876543210', 'alicesmith', 'password', 'N'),
-(3, 'Johnson', 'Michael', 'michael.johnson@example.com', '1982-11-10', '1122334455', 'michaeljohnson', 'password', 'N');
+(3, 'Johnson', 'Michael', 'michael.johnson@example.com', '1982-11-10', '1122334455', 'michaeljohnson', 'password', 'N'),
+(4, 'Bourreau', 'Quentin', 'quentin.bourreau@example.com', '2004-12-14', '0684525642', 'quentin', 'quentin', 'N');
 
 -- Insertions pour la table ARTISTE
 INSERT INTO ARTISTE (idA, nomA, descriptionA, lienImageA) VALUES 
@@ -44,14 +45,13 @@ INSERT INTO INSTRUMENT (idI, nomI) VALUES
 -- Insertions pour la table JOURNEE
 INSERT INTO JOURNEE (idJ, dateJ) VALUES 
 (1, '2024-07-18'),
-(2, '2024-07-19'),
-(3, '2024-07-20');
+(2, '2024-07-19');
 
 -- Insertions pour la table EVENEMENT
 INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG) VALUES 
-(1, 'Concert des Beatles', 'Concert exceptionnel du célèbre groupe', '20:00:00', '02:00:00', '03:00:00', '01:00:00', 1, 1, 1),
-(2, 'Concert des Rolling Stones', 'Performance live des légendaires Rolling Stones', '19:30:00', '02:30:00', '02:30:00', '00:45:00', 2, 2, 2),
-(3, "Concert de l'Orchestre Philharmonique", "Soirée musicale avec l'orchestre symphonique", '19:00:00', '03:00:00', '03:30:00', '01:15:00', 3, 3, 3);
+(1, 'Concert des Beatles', 'Concert exceptionnel du célèbre groupe', '20:00:00', '02:00:00', '03:00:00', '01:00:00', 1, 1, 5),
+(2, 'Concert de Favé', 'Performance live du légendaire Favé', '19:30:00', '02:30:00', '02:30:00', '00:45:00', 2, 2, 1),
+(3, "Concert de Gazo", "Soirée mouvementé par ses musiques connues à l'international", '19:00:00', '03:00:00', '03:30:00', '01:15:00', 3, 2, 2);
 
 -- Insertions pour la table FAIRE_PARTIE
 INSERT INTO FAIRE_PARTIE (idG, idA) VALUES
@@ -104,32 +104,4 @@ INSERT INTO RESEAU_SOCIAL (idRS, nomRS, lienRS, idG) VALUES
 -- Insertions pour la table RESEAU_VIDEO
 INSERT INTO RESEAU_VIDEO (idRV, nomRV, lienRV, idG) VALUES 
 (1, 'Youtube', 'https://www.youtube.com/channel/UC6yKbnMj2JpyaigY16AYQ9Q', 1),
-(2, 'Youtube', 'https://www.youtube.com/channel/UCn2DAE87nJp01zbFmUI8V5A', 2),
-(3, 'Youtube', 'https://www.youtube.com/channel/UCnE23B4C-iUTp_et-xl_EEQ', 3),
-(4, 'Youtube', 'https://www.youtube.com/channel/UCXdHJabqwLJ3NvPfx6XmS5Q', 4),
-(5, 'Youtube', 'https://www.youtube.com/channel/UCc4K7bAqpdBP8jh1j9XZAww', 5);
-
--- Insertions pour la table BILLET
-INSERT INTO BILLET (idB, prixB, idS) VALUES 
-(1, 50, 1),
-(2, 55, 2),
-(3, 40, 3);
-
--- Insertions pour la table ACCEDER
-INSERT INTO ACCEDER (idB, idJ) VALUES 
-(1, 1),
-(2, 2),
-(3, 3);
-
--- Insertions pour la table A_SOUS_STYLE
-INSERT INTO A_SOUS_STYLE (idSt1, idSt2) VALUES
-(1, 2), -- Le style musical 1 (Jazz) est lié au style musical 2 (Rock)
-(1, 3), -- Le style musical 1 (Jazz) est lié au style musical 3 (Classique)
-(2, 3); -- Le style musical 2 (Rock) est lié au style musical 3 (Classique)
-
-
--- Tentatives d'insertion d'un nouvel événement chevauchant la plage horaire (cette insertion devrait échouer en raison du trigger triggerSuperpositionEvenement)
--- INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG)
--- VALUES (4, 'Nouvel Événement', 'Description du nouvel événement', '16:00:00', '08:00:00', '00:00:00', '00:00:00', 1, 1, 2);
--- INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG)
--- VALUES (5, 'Nouvel Événement', 'Description du nouvel événement', '23:00:00', '01:00:00', '00:00:00', '00:00:00', 1, 1, 2);
+(2, 'Youtube', 'https://www.youtube.com/chann
