@@ -25,7 +25,8 @@ def accueil():
 
 @app.route("/les-groupes")
 def les_groupes():
-    return render_template("les_groupes.html", page_les_groupes=True)
+    liste_groupes=GROUPE.get_all_groupes()
+    return render_template("les_groupes.html", page_les_groupes=True, liste_groupes=liste_groupes)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

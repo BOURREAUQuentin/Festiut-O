@@ -128,3 +128,15 @@ def lister_evenements_pour_groupe(id_groupe):
             liste_evenements_du_groupe.append(evenementActuel)
             print("evenement du groupe")
     return liste_evenements_du_groupe
+
+def au_moins_deux_artistes_dans_groupe(id_groupe):
+    """
+        Retourne True si le groupe contient au moins 2 artistes (si ce n'est pas un artiste seul), sinon False.
+
+        Args:
+        Param: id_groupe : l'id du groupe.
+
+        Returns:
+            (boolean): True si le groupe contient au moins 2 artistes, sinon False.
+    """
+    return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1
