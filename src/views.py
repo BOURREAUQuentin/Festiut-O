@@ -14,7 +14,7 @@ sys.path.append(os.path.join(ROOT, 'modele/bd/'))
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), './')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
-le_spectateur_connecte = Spectateur(-1, "", "", "", "", "", "", "", "", "N")
+le_spectateur_connecte = Spectateur(-1, "", "", "", "", "", "", "", "N")
 
 @app.route("/")
 def accueil():

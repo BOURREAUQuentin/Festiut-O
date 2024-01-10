@@ -23,6 +23,7 @@ CREATE TABLE ARTISTE (
   idA INT(40) UNIQUE NOT NULL,
   nomA VARCHAR(42) NOT NULL,
   descriptionA VARCHAR(100),
+  lienImageA VARCHAR(100),
   PRIMARY KEY (idA)
 );
 
@@ -37,7 +38,8 @@ CREATE TABLE LIEU (
 CREATE TABLE GROUPE (
   idG INT(40) NOT NULL,
   nomG VARCHAR(42) NOT NULL,
-  descriptionG VARCHAR(100) NOT NULL,
+  courteDescriptionG VARCHAR(100) NOT NULL,
+  longueDescriptionG VARCHAR(1024) NOT NULL,
   lienImageG VARCHAR(100),
   PRIMARY KEY (idG)
 );
