@@ -94,6 +94,14 @@ def rechercher_groupes_par_style_musical(nom_style_musical):
         Returns:
             (List[Groupe]): la liste de Groupe qui ont un style musical contenant la recherche d'un utilisateur.
     """
+    liste_groupes_recherche = []
+    liste_styles_musicals_recherche = STYLE_MUSICAL.get_recherche_par_nom_style_musical(nom_style_musical)
+    for style_musical_recherche in liste_styles_musicals_recherche:
+        liste_interpreter_avec_style_actuel = INTERPRETER.get_par_id_style_musical(style_musical_recherche.get_id())
+        for interpreter_avec_style in liste_interpreter_avec_style_actuel:
+            groupe_actuel = GROUPE.get_par_id_groupe(interpreter_avec_style.get_id_groupe())
+            if groupe_actuel not in liste_groupes_recherche:
+                liste_groupes_recherche.append(groupe_actuel)
     return STYLE_MUSICAL.get_recherche_par_nom_style_musical(nom_style_musical)
 
 def lister_evenements_pour_groupe(id_groupe):
