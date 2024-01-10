@@ -104,4 +104,57 @@ INSERT INTO RESEAU_SOCIAL (idRS, nomRS, lienRS, idG) VALUES
 -- Insertions pour la table RESEAU_VIDEO
 INSERT INTO RESEAU_VIDEO (idRV, nomRV, lienRV, idG) VALUES 
 (1, 'Youtube', 'https://www.youtube.com/channel/UC6yKbnMj2JpyaigY16AYQ9Q', 1),
-(2, 'Youtube', 'https://www.youtube.com/chann
+(2, 'Youtube', 'https://www.youtube.com/channel/UCn2DAE87nJp01zbFmUI8V5A', 2),
+(3, 'Youtube', 'https://www.youtube.com/channel/UCnE23B4C-iUTp_et-xl_EEQ', 3),
+(4, 'Youtube', 'https://www.youtube.com/channel/UCXdHJabqwLJ3NvPfx6XmS5Q', 4),
+(5, 'Youtube', 'https://www.youtube.com/channel/UCc4K7bAqpdBP8jh1j9XZAww', 5);
+
+-- Insertions pour la table BILLET
+INSERT INTO BILLET (idB, prixB) VALUES
+-- billet id 1 donne accès -> journée 1
+-- billet id 2 donne accès -> journée 1
+-- billet id 3 donne accès -> journée 2
+-- billet id 4 donne accès -> journée 1 et 2 (pass 2 jours)
+-- billet id 5 donne accès -> journée 1
+(1, 65),
+(2, 65),
+(3, 65),
+(4, 105),
+(5, 65);
+
+-- Insertions pour la table PANIER
+INSERT INTO PANIER (idB, idS) VALUES
+-- spectateur id 1 dans son panier -> journée 1
+-- spectateur id 2 dans son panier -> journée 1 et journée 2 (avec pass 2 jours)
+-- spectateur id 3 dans son panier -> journée 1 et journée 2 (sans pass 2 jours)
+(1, 1),
+(4, 2),
+(2, 3),
+(3, 3);
+
+-- Insertions pour la table ACHETER
+INSERT INTO ACHETER (idB, idS) VALUES
+-- spectateur id 4 a acheté -> journée 1
+(5, 4);
+
+-- Insertions pour la table ACCEDER
+INSERT INTO ACCEDER (idB, idJ) VALUES 
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 1),
+(4, 2),
+(5, 1);
+
+-- Insertions pour la table A_SOUS_STYLE
+INSERT INTO A_SOUS_STYLE (idSt1, idSt2) VALUES
+(1, 2), -- Le style musical 1 (Jazz) est lié au style musical 2 (Rock)
+(1, 3), -- Le style musical 1 (Jazz) est lié au style musical 3 (Classique)
+(2, 3); -- Le style musical 2 (Rock) est lié au style musical 3 (Classique)
+
+
+-- Tentatives d'insertion d'un nouvel événement chevauchant la plage horaire (cette insertion devrait échouer en raison du trigger triggerSuperpositionEvenement)
+-- INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG)
+-- VALUES (4, 'Nouvel Événement', 'Description du nouvel événement', '16:00:00', '08:00:00', '00:00:00', '00:00:00', 1, 1, 2);
+-- INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG)
+-- VALUES (5, 'Nouvel Événement', 'Description du nouvel événement', '23:00:00', '01:00:00', '00:00:00', '00:00:00', 1, 1, 2);

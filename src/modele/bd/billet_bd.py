@@ -47,7 +47,7 @@ class BilletBD:
             print("la connexion a échoué !")
             return None
     
-    def vendre_billet(self, id_billet, prix):
+    def ajouter_billet(self, id_billet, prix):
         try:
             query = text(f"insert into BILLET values({str(id_billet)} ,{str(prix)})")
             self.__connexion.execute(query)
