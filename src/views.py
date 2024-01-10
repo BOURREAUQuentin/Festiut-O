@@ -4,7 +4,7 @@ import sys
 from flask import jsonify, render_template, send_file, url_for, redirect, request
 from flask import request
 from .app import app
-from .models import GROUPE, SPECTATEUR
+from .models import GROUPE, SPECTATEUR, inserer_le_spectateur
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -69,3 +69,29 @@ def connecter():
                                    spectateur_trouve.get_admin())
             return redirect(url_for("accueil"))
     return redirect(url_for("login"))
+
+@app.route("/inscription", methods=["GET", "POST"])
+def inscrire():
+    """
+    Permet d'inscrire le spectateur (utilisateur) qui n'a pas de compte
+    """
+    if request.method == "POST":
+        nom = request.form.get("nom")
+        prenom = request.form.get("prenom")
+        mail = request.form.get("mail")
+        date_naissance = request.form.get("date_naissance")
+        telephone = request.form.get("telephone")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        liste_spectateurs = SPECTATEUR.get_all_spectateurs()
+
+        for spectateur in liste_spectateurs:
+            if username == spectateur.get_nom_utilisateur() or mail == spectateur.get_mail():
+                # erreur car y'a déjà un spectateur portant ce username ou ce mail (gérer l'erreur)
+                #return jsonify({"error": "exists"})
+                pass
+        inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password)
+        le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
+                                   nom, prenom, mail, date_naissance, telephone, username, password, "N")
+        return redirect(url_for("accueil"))
+    return render_template("login.html", page_login=True)
