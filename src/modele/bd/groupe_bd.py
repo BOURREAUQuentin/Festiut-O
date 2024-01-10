@@ -26,9 +26,9 @@ class GroupeBD:
             query = text("select idG, nomG, descriptionG, lienImageG from GROUPE")
             resultat = self.__connexion.execute(query)
             liste_groupes = []
-            for id_groupe, nom, description in resultat:
+            for id_groupe, nom, description, lien_image in resultat:
                 liste_groupes.append(
-                    Groupe(id_groupe, nom, description)
+                    Groupe(id_groupe, nom, description, lien_image)
                 )
             return liste_groupes
         except Exception as exp:
@@ -40,8 +40,8 @@ class GroupeBD:
             query = text("select idG, nomG, descriptionG, lienImageG from GROUPE where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
             le_groupe = None
-            for id_groupe, nom, description in resultat:
-                le_groupe = Groupe(id_groupe, nom, description)
+            for id_groupe, nom, description, lien_image in resultat:
+                le_groupe = Groupe(id_groupe, nom, description, lien_image)
             return le_groupe
         except Exception as exp:
             print("la connexion a échoué !")
