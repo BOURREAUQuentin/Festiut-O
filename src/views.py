@@ -4,6 +4,7 @@ import sys
 from flask import jsonify, render_template, send_file, url_for, redirect, request
 from flask import request
 from .app import app
+from .models import GROUPE, ARTISTE
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 @app.route("/")
 def accueil():
@@ -14,4 +15,7 @@ def accueil():
 
 @app.route("/les-groupes")
 def les_groupes():
-    return render_template("les_groupes.html", page_les_groupes=True)
+    print(ARTISTE.get_all_artistes())
+    liste_groupes=GROUPE.get_all_groupes()
+    print(GROUPE.get_all_groupes())
+    return render_template("les_groupes.html", page_les_groupes=True, liste_groupes=liste_groupes)
