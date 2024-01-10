@@ -23,12 +23,12 @@ class BilletBD:
     
     def get_all_billets(self):
         try:
-            query = text("select idB, prixB, idS from BILLET")
+            query = text("select idB, prixB from BILLET")
             resultat = self.__connexion.execute(query)
             liste_billets = []
-            for id_billet, prix, id_spectateur in resultat:
+            for id_billet, prix in resultat:
                 liste_billets.append(
-                    Billet(id_billet, prix, id_spectateur)
+                    Billet(id_billet, prix)
                 )
             return liste_billets
         except Exception as exp:
@@ -37,19 +37,19 @@ class BilletBD:
     
     def get_par_id_billet(self, id_billet):
         try:
-            query = text("select idB, prixB, idS from BILLET where idB = " + str(id_billet))
+            query = text("select idB, prixB from BILLET where idB = " + str(id_billet))
             resultat = self.__connexion.execute(query)
             le_billet = None
-            for id_billet, prix, id_spectateur in resultat:
-                le_billet = Billet(id_billet, prix, id_spectateur)
+            for id_billet, prix in resultat:
+                le_billet = Billet(id_billet, prix)
             return le_billet
         except Exception as exp:
             print("la connexion a échoué !")
             return None
     
-    def vendre_billet(self, id_billet, prix, id_spectateur):
+    def vendre_billet(self, id_billet, prix):
         try:
-            query = text(f"insert into BILLET values({str(id_billet)} ,{str(prix)}, {str(id_spectateur)})")
+            query = text(f"insert into BILLET values({str(id_billet)} ,{str(prix)})")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Billet vendu !")
