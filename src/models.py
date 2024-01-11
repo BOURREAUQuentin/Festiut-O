@@ -144,3 +144,13 @@ def au_moins_deux_artistes_dans_groupe(id_groupe):
             (boolean): True si le groupe contient au moins 2 artistes, sinon False.
     """
     return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1
+
+def ajouter_panier(id_billet, id_spectateur):
+    """
+        Ajoute au panier le billet qui est associé au spectateur connecté.
+
+        Args:
+        Param: id_billet : l'id du billet.
+        Param: id_spectateur : l'id du spectateur.
+    """
+    PANIER.ajouter_panier(id_billet, id_spectateur)

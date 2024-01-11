@@ -48,6 +48,24 @@ class AccederBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+
+    def get_les_journees_billetterie(self):
+        try:
+            query = text("select idB, count(idJ) nbJ, idJ from ACCEDER group by idB")
+            resultat = self.__connexion.execute(query)
+            liste_journees = []
+            for _, nb_journees_accessible, id_journee in resultat:
+                if nb_journees_accessible > 1:
+                    liste_journees.append("Week-end")
+                else:
+                    if id_journee == '2024-07-18':
+                        liste_journees.append("Samedi")
+                    else:
+                        liste_journees.append("Dimanche")
+            return liste_journees
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
     
     def ajouter_acceder(self, id_billet, id_journee):
         try:
