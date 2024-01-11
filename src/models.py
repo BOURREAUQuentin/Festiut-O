@@ -4,6 +4,7 @@
 from connexion import connexion
 from a_sous_style_bd import ASousStyleBD
 from acceder_bd import AccederBD
+from acheter_bd import AcheterBD
 from artiste_bd import ArtisteBD
 from billet_bd import BilletBD
 from evenement_bd import EvenementBD
@@ -16,6 +17,7 @@ from interpreter_bd import InterpreterBD
 from jouer_bd import JouerBD
 from journee_bd import JourneeBD
 from lieu_bd import LieuBD
+from panier_bd import PanierBD
 from reseau_social_bd import ReseauSocialBD
 from reseau_video_bd import ReseauVideoBD
 from spectateur_bd import SpectateurBD
@@ -29,6 +31,7 @@ sys.path.append(os.path.join(ROOT, 'modele/bd/'))
 
 A_SOUS_STYLE = ASousStyleBD(connexion)
 ACCEDER = AccederBD(connexion)
+ACHETER = AcheterBD(connexion)
 ARTISTE = ArtisteBD(connexion)
 BILLET = BilletBD(connexion)
 EVENEMENT = EvenementBD(connexion)
@@ -41,6 +44,7 @@ INTERPRETER = InterpreterBD(connexion)
 JOUER = JouerBD(connexion)
 JOURNEE = JourneeBD(connexion)
 LIEU = LieuBD(connexion)
+PANIER = PanierBD(connexion)
 RESEAU_SOCIAL = ReseauSocialBD(connexion)
 RESEAU_VIDEO = ReseauVideoBD(connexion)
 SPECTATEUR = SpectateurBD(connexion)
@@ -128,3 +132,15 @@ def lister_evenements_pour_groupe(id_groupe):
             liste_evenements_du_groupe.append(evenementActuel)
             print("evenement du groupe")
     return liste_evenements_du_groupe
+
+def au_moins_deux_artistes_dans_groupe(id_groupe):
+    """
+        Retourne True si le groupe contient au moins 2 artistes (si ce n'est pas un artiste seul), sinon False.
+
+        Args:
+        Param: id_groupe : l'id du groupe.
+
+        Returns:
+            (boolean): True si le groupe contient au moins 2 artistes, sinon False.
+    """
+    return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1

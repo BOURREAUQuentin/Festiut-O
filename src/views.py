@@ -14,7 +14,7 @@ sys.path.append(os.path.join(ROOT, 'modele/bd/'))
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), './')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
-le_spectateur_connecte = Spectateur(-1, "", "", "", "", "", "", "", "", "N")
+le_spectateur_connecte = Spectateur(-1, "", "", "", "", "", "", "", "N")
 
 @app.route("/")
 def accueil():
@@ -25,7 +25,8 @@ def accueil():
 
 @app.route("/les-groupes")
 def les_groupes():
-    return render_template("les_groupes.html", page_les_groupes=True)
+    liste_groupes=GROUPE.get_all_groupes()
+    return render_template("les_groupes.html", page_les_groupes=True, liste_groupes=liste_groupes)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
