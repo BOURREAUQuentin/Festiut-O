@@ -2,7 +2,7 @@
 INSERT INTO STYLE_MUSICAL (idSt, nomSt, caracteristiquesSt) VALUES 
 (1, 'Jazz', 'Improvisation musicale'),
 (2, 'Rock', 'Rythmes puissants et guitares électriques'),
-(3, 'Rap', 'Égrener des couplets rimés séparés par des refrains, accompagnés de rythmes'),
+(3, 'Rap', 'Couplets rimés séparés par des refrains'),
 (4, 'Classique', 'Musique orchestrale traditionnelle');
 
 -- Insertions pour la table SPECTATEUR
@@ -111,16 +111,12 @@ INSERT INTO RESEAU_VIDEO (idRV, nomRV, lienRV, idG) VALUES
 
 -- Insertions pour la table BILLET
 INSERT INTO BILLET (idB, prixB) VALUES
--- billet id 1 donne accès -> journée 1
--- billet id 2 donne accès -> journée 1
--- billet id 3 donne accès -> journée 2
--- billet id 4 donne accès -> journée 1 et 2 (pass 2 jours)
--- billet id 5 donne accès -> journée 1
-(1, 65),
-(2, 65),
-(3, 65),
-(4, 105),
-(5, 65);
+-- billet id 1 donne accès -> journée 1 (samedi)
+-- billet id 2 donne accès -> journée 1 et 2 (week-end)
+-- billet id 3 donne accès -> journée 2 (dimanche)
+(1, 50),
+(2, 80),
+(3, 50);
 
 -- Insertions pour la table PANIER
 INSERT INTO PANIER (idB, idS) VALUES
@@ -128,28 +124,24 @@ INSERT INTO PANIER (idB, idS) VALUES
 -- spectateur id 2 dans son panier -> journée 1 et journée 2 (avec pass 2 jours)
 -- spectateur id 3 dans son panier -> journée 1 et journée 2 (sans pass 2 jours)
 (1, 1),
-(4, 2),
-(2, 3),
+(2, 2),
+(1, 3),
 (3, 3);
 
 -- Insertions pour la table ACHETER
 INSERT INTO ACHETER (idB, idS) VALUES
--- spectateur id 4 a acheté -> journée 1
-(5, 4);
+-- spectateur id 4 a acheté -> journée 1 et 2 (pass 2 jours)
+(2, 4);
 
 -- Insertions pour la table ACCEDER
-INSERT INTO ACCEDER (idB, idJ) VALUES 
--- billet id 1 donne accès -> journée 1
--- billet id 2 donne accès -> journée 1
--- billet id 3 donne accès -> journée 2
--- billet id 4 donne accès -> journée 1 et 2 (pass 2 jours pour idB = 4)
--- billet id 5 donne accès -> journée 1
+INSERT INTO ACCEDER (idB, idJ) VALUES
+-- billet id 1 donne accès -> journée 1 (samedi)
+-- billet id 2 donne accès -> journée 1 et 2 (week-end)
+-- billet id 3 donne accès -> journée 2 (dimanche)
 (1, 1),
 (2, 1),
-(3, 2),
-(4, 1),
-(4, 2),
-(5, 1);
+(2, 2),
+(3, 2);
 
 -- Insertions pour la table A_SOUS_STYLE
 INSERT INTO A_SOUS_STYLE (idSt1, idSt2) VALUES

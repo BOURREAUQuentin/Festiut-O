@@ -132,7 +132,6 @@ def lister_evenements_pour_groupe(id_groupe):
             liste_evenements_du_groupe.append(evenementActuel)
     return liste_evenements_du_groupe
 
-
 def lister_billets_de_spectateur(id_spectateur):
     """
         Liste les billets possédés par le spectateur avec l'id entré en paramètre.
@@ -149,7 +148,6 @@ def lister_billets_de_spectateur(id_spectateur):
         if spectateurActuel.get_id() == id_spectateur:
             liste_billets_du_spectateur.append(spectateurActuel)
     return liste_billets_du_spectateur
-
 
 def lister_groupe_meme_style(id_groupe):
     """
@@ -185,7 +183,6 @@ def lister_evenements_par_journee(dateJournee):
             liste_evenements_journee.append(evenementActuel)
     return liste_evenements_journee
 
-
 def au_moins_deux_artistes_dans_groupe(id_groupe):
     """
         Retourne True si le groupe contient au moins 2 artistes (si ce n'est pas un artiste seul), sinon False.
@@ -198,3 +195,12 @@ def au_moins_deux_artistes_dans_groupe(id_groupe):
     """
     return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1
 
+def ajouter_panier(id_billet, id_spectateur):
+    """
+        Ajoute au panier le billet qui est associé au spectateur connecté.
+
+        Args:
+        Param: id_billet : l'id du billet.
+        Param: id_spectateur : l'id du spectateur.
+    """
+    PANIER.ajouter_panier(id_billet, id_spectateur)

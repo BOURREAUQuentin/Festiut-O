@@ -49,7 +49,7 @@ class PanierBD:
             print("la connexion a échoué !")
             return None
     
-    def payer_billet(self, id_billet, id_spectateur):
+    def ajouter_panier(self, id_billet, id_spectateur):
         try:
             query = text(f"insert into PANIER values({str(id_billet)} , {str(id_spectateur)})")
             self.__connexion.execute(query)

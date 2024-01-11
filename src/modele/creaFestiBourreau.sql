@@ -1,7 +1,7 @@
 CREATE TABLE STYLE_MUSICAL (
   idSt INT(40) NOT NULL,
   nomSt VARCHAR(42) NOT NULL,
-  caracteristiquesSt VARCHAR(42) NOT NULL,
+  caracteristiquesSt VARCHAR(100) NOT NULL,
   PRIMARY KEY (idSt)
 );
 
@@ -22,7 +22,7 @@ CREATE TABLE SPECTATEUR (
 CREATE TABLE ARTISTE (
   idA INT(40) UNIQUE NOT NULL,
   nomA VARCHAR(42) NOT NULL,
-  descriptionA VARCHAR(100),
+  descriptionA VARCHAR(1024),
   lienImageA VARCHAR(100),
   PRIMARY KEY (idA)
 );
