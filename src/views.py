@@ -14,7 +14,7 @@ sys.path.append(os.path.join(ROOT, 'modele/bd/'))
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), './')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
-le_spectateur_connecte = Spectateur(-1, "", "", "", "", "", "", "", "", "N")
+le_spectateur_connecte = Spectateur(-1, "", "", "", "", "", "", "", "N")
 
 @app.route("/")
 def accueil():
@@ -95,3 +95,8 @@ def inscrire():
                                    nom, prenom, mail, date_naissance, telephone, username, password, "N")
         return redirect(url_for("accueil"))
     return render_template("login.html", page_login=True)
+
+@app.route("/billetterie")
+def billetterie():
+
+    return render_template("billetterie.html", page_billetterie=True)
