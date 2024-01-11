@@ -67,14 +67,14 @@ class JourneeBD:
             if journee_billetterie == "Dimanche":
                 date_journee = '2024-07-19'
             if journee_billetterie == "Dimanche" or journee_billetterie == "Samedi":
-                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from JOURNEE natural join EVENEMENT natural join GROUPE where dateJ = " + str(date_journee))
+                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from JOURNEE natural join EVENEMENT natural join GROUPE where dateJ = '" + str(date_journee) + "'")
                 resultat = self.__connexion.execute(query)
                 les_groupes_cette_journee = []
                 for id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe in resultat:
                     les_groupes_cette_journee.append(Groupe(id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe))
                 return les_groupes_cette_journee
             else: # cas où c'est le week-end
-                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE")
+                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE natural join EVENEMENT")
                 resultat = self.__connexion.execute(query)
                 les_groupes_ce_week_end = []
                 for id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe in resultat:

@@ -4,7 +4,7 @@ import sys
 from flask import jsonify, render_template, send_file, url_for, redirect, request
 from flask import request
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, inserer_le_spectateur, ajouter_panier
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, inserer_le_spectateur, ajouter_panier
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -100,4 +100,11 @@ def inscrire():
 @app.route("/billetterie")
 def billetterie():
     liste_billets = BILLET.get_all_billets()
-    return render_template("billetterie.html", page_billetterie=True)
+    liste_journees = ACCEDER.get_les_journees_billetterie()
+    # la suite car la liste_journees contient uniquement 3 valeurs (Samedi, Week-end, Dimanche) car le festival dure 2 jours
+    liste_groupes_samedi = JOURNEE.get_groupes_par_journee(liste_journees[0])
+    liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees[1])
+    liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees[2])
+    return render_template("billetterie.html", page_billetterie=True, liste_billets=liste_billets,
+                           liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
+                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche)
