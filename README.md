@@ -68,6 +68,12 @@ Puis, il faut installer toutes les bibliotèques de notre site contenues dans le
 pip install -r requirements.txt
 ```
 
+Pour finir, la dernière installation est celle pour se connecter à notre base de données locale, vous devrez taper cette commande :
+```python
+pip install mysql-connector-python
+pip install pymysql
+```
+
 Une fois ceci fait ou si vous aviez déjà votre virtualenv, vous avez juste à taper cette commande pour lancer le site :
 
 ```python
