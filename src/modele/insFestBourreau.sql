@@ -2,7 +2,7 @@
 INSERT INTO STYLE_MUSICAL (idSt, nomSt, caracteristiquesSt) VALUES 
 (1, 'Jazz', 'Improvisation musicale'),
 (2, 'Rock', 'Rythmes puissants et guitares électriques'),
-(3, 'Rap', 'Égrener des couplets rimés séparés par des refrains, accompagnés de rythmes'),
+(3, 'Rap', 'Couplets rimés séparés par des refrains'),
 (4, 'Classique', 'Musique orchestrale traditionnelle');
 
 -- Insertions pour la table SPECTATEUR
