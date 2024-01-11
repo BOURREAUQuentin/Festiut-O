@@ -58,3 +58,11 @@ class AcheterBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+
+    def modifier_quantite_billet(self, id_billet, id_spectateur, nouvelle_quantite_billet):
+        try:
+            query = text("update ACHETER set quantiteB = "+ nouvelle_quantite_billet + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
