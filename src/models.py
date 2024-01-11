@@ -130,8 +130,61 @@ def lister_evenements_pour_groupe(id_groupe):
     for evenementActuel in liste_evenements:
         if evenementActuel.get_id_groupe() == id_groupe:
             liste_evenements_du_groupe.append(evenementActuel)
-            print("evenement du groupe")
     return liste_evenements_du_groupe
+
+
+def lister_billets_de_spectateur(id_spectateur):
+    """
+        Liste les billets possédés par le spectateur avec l'id entré en paramètre.
+
+        Args:
+            id_spectateur (int): l'id du spectateur.
+            
+        Returns:
+            (List[BILLET]) :la liste des billets possédés par l'utilisateur demandé.
+    """
+    liste_billets_du_spectateur = []
+    liste_spectateurs = SPECTATEUR.get_all_spectateurs()
+    for spectateurActuel in liste_spectateurs:
+        if spectateurActuel.get_id() == id_spectateur:
+            liste_billets_du_spectateur.append(spectateurActuel)
+    return liste_billets_du_spectateur
+
+
+def lister_groupe_meme_style(id_groupe):
+    """
+        Liste les id de groupe des groupes qui ont le même style que celui entré en paramètre (recommandation selon le style d groupe actuel).
+        
+        Args:
+            id_groupe: l'id du groupe actuel et duquel la recommandation selon le style sera appliquée.
+
+        Args:
+            (List[GROUPES]): Les groupes avec le même style que le groupe passé en paramètre.
+    """
+    liste_groupes_meme_style = []
+    liste_groupes = GROUPE.get_all_groupes()
+    for groupeActuel in liste_groupes:
+        if GROUPE.get_style(groupeActuel.get_id()) == GROUPE.get_style(id_groupe):
+            liste_groupes_meme_style.append(groupeActuel)
+    return liste_groupes_meme_style
+
+def lister_evenements_par_journee(dateJournee):
+    """
+        Liste les événement qui ont lieu durant la date donnée.
+        
+        Args:
+            dateJournee: La date de la journée à vérifier.
+
+        Args:
+            (List[EVENEMENT]): Les événement qui ont lieu durant dateJournee.
+    """
+    liste_evenements_journee= []
+    liste_evenements = EVENEMENT.get_all_evenements()
+    for evenementActuel in liste_evenements:
+        if evenementActuel.get_id_journee() == JOURNEE.get_par_date_journee(dateJournee).get_id():
+            liste_evenements_journee.append(evenementActuel)
+    return liste_evenements_journee
+
 
 def au_moins_deux_artistes_dans_groupe(id_groupe):
     """
@@ -144,3 +197,4 @@ def au_moins_deux_artistes_dans_groupe(id_groupe):
             (boolean): True si le groupe contient au moins 2 artistes, sinon False.
     """
     return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1
+
