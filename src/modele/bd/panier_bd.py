@@ -48,8 +48,8 @@ class PanierBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
-    
-    def payer_billet(self, id_billet, id_spectateur, quantite_billet):
+ 
+    def ajouter_panier(self, id_billet, id_spectateur, quantite_billet):
         try:
             query = text(f"insert into PANIER values({str(id_billet)}, {str(id_spectateur)}, {str(quantite_billet)})")
             self.__connexion.execute(query)
