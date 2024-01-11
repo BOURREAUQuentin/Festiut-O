@@ -198,6 +198,11 @@ def au_moins_deux_artistes_dans_groupe(id_groupe):
 def supprimer_billet_panier(id_billet, id_spectateur):
     """
         Supprime un billet dans le panier du spectateur.
+        
+        Args:
+        Param: id_billet : l'id du billet.
+        Param: id_spectateur : l'id du spectateur.
+    """
     PANIER.supprimer_billet(id_billet, id_spectateur)
 
 def ajouter_billet_panier(id_billet, id_spectateur, quantite_billet):
