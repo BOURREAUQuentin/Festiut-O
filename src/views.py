@@ -11,12 +11,4 @@ def accueil():
     """
         Nous montre la premiere page la du lancement du site
     """
-    liste_evenements = lister_evenements_pour_groupe(1)
-    print(liste_evenements)
-    liste_evenements = lister_billets_de_spectateur(1)
-    print(liste_evenements)
-    liste_evenements = lister_groupe_meme_style(1)
-    print(liste_evenements)
-    liste_evenements = lister_evenements_par_journee(1)
-    print(liste_evenements)
     return render_template("accueil.html", page_home=True)
