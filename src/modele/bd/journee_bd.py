@@ -50,7 +50,7 @@ class JourneeBD:
     def get_par_date_journee(self, date_journee):
         try:
             # possible car la date de la journée est unique
-            query = text("select idJ, dateJ from JOURNEE where dateJ = " + str(date_journee))
+            query = text("select idJ, dateJ from JOURNEE where dateJ = '" + str(date_journee)+"'")
             resultat = self.__connexion.execute(query)
             la_journee = None
             for id_journee, date in resultat:
