@@ -6,7 +6,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from groupe import Groupe
-from style_musical import STYLE
+from style_musical import StyleMusical
 
 class GroupeBD:
     def __init__(self, connexion):
@@ -64,7 +64,7 @@ class GroupeBD:
             resultat = self.__connexion.execute(query)
             le_style = None
             for id_style in resultat:
-                le_style = Style(id_style)
+                le_style = StyleMusical(id_style)
             return le_style
         except Exception as exp:
             print("la connexion a échoué !")
