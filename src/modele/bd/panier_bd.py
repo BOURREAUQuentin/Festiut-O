@@ -58,3 +58,13 @@ class PanierBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+
+    def supprimer_billet(self, id_billet, id_spectateur):
+        try:
+            query = text("delete from PANIER where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression d'un billet du panier réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

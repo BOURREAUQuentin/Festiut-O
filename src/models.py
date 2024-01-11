@@ -144,3 +144,13 @@ def au_moins_deux_artistes_dans_groupe(id_groupe):
             (boolean): True si le groupe contient au moins 2 artistes, sinon False.
     """
     return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1
+
+def supprimer_billet_panier(id_billet, id_spectateur):
+    """
+        Supprime un billet dans le panier du spectateur.
+
+        Args:
+        Param: id_billet : l'id du billet.
+        Param: id_spectateur : l'id du spectateur.
+    """
+    PANIER.supprimer_billet(id_billet, id_spectateur)
