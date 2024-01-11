@@ -195,12 +195,41 @@ def au_moins_deux_artistes_dans_groupe(id_groupe):
     """
     return len(FAIRE_PARTIE.get_par_id_groupe(id_groupe)) > 1
 
-def ajouter_panier(id_billet, id_spectateur):
+def supprimer_billet_panier(id_billet, id_spectateur):
+    """
+        Supprime un billet dans le panier du spectateur.
+    PANIER.supprimer_billet(id_billet, id_spectateur)
+
+def ajouter_billet_panier(id_billet, id_spectateur, quantite_billet):
     """
         Ajoute au panier le billet qui est associé au spectateur connecté.
 
         Args:
         Param: id_billet : l'id du billet.
         Param: id_spectateur : l'id du spectateur.
+        Param: quantite_billet : la quantité du billet.
     """
-    PANIER.ajouter_panier(id_billet, id_spectateur)
+    PANIER.ajouter_panier(id_billet, id_spectateur, quantite_billet)
+
+def modifier_quantite_billet_panier(id_billet, id_spectateur, nouvelle_quantite_billet):
+    """
+        Modifie la quantité du billet sélectionné dans le panier.
+
+        Args:
+        Param: id_billet : l'id du billet.
+        Param: id_spectateur : l'id du spectateur.
+        Param: nouvelle_quantite_billet : la nouvelle quantite du billet.
+    """
+    PANIER.modifier_quantite_billet(id_billet, id_spectateur, nouvelle_quantite_billet)
+
+def payer_panier(id_spectateur):
+    """
+        Paye le panier du spectateur connecté.
+
+        Args:
+        Param: id_spectateur : l'id du spectateur.
+    """
+    liste_panier_spectateur = PANIER.get_par_id_spectateur(id_spectateur)
+    for billet_panier_spectateur in liste_panier_spectateur:
+        ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
+        PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())

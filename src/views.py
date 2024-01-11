@@ -4,7 +4,7 @@ import sys
 from flask import jsonify, render_template, send_file, url_for, redirect, request
 from flask import request
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, inserer_le_spectateur, ajouter_panier
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, inserer_le_spectateur, ajouter_panier, supprimer_billet_panier
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -96,6 +96,10 @@ def inscrire():
                                    nom, prenom, mail, date_naissance, telephone, username, password, "N")
         return redirect(url_for("accueil"))
     return render_template("login.html", page_login=True)
+
+@app.route("/panier")
+def panier():
+    return render_template("panier.html", page_panier=True)
 
 @app.route("/billetterie")
 def billetterie():

@@ -119,19 +119,19 @@ INSERT INTO BILLET (idB, prixB) VALUES
 (3, 50);
 
 -- Insertions pour la table PANIER
-INSERT INTO PANIER (idB, idS) VALUES
+INSERT INTO PANIER (idB, idS, quantiteB) VALUES
 -- spectateur id 1 dans son panier -> journée 1
 -- spectateur id 2 dans son panier -> journée 1 et journée 2 (avec pass 2 jours)
 -- spectateur id 3 dans son panier -> journée 1 et journée 2 (sans pass 2 jours)
-(1, 1),
-(2, 2),
-(1, 3),
-(3, 3);
+(1, 1, 1),
+(4, 2, 2),
+(2, 3, 3),
+(3, 3, 1);
 
 -- Insertions pour la table ACHETER
-INSERT INTO ACHETER (idB, idS) VALUES
--- spectateur id 4 a acheté -> journée 1 et 2 (pass 2 jours)
-(2, 4);
+INSERT INTO ACHETER (idB, idS, quantiteB) VALUES
+-- spectateur id 4 a acheté 2 billets -> journée 1
+(5, 4, 2);
 
 -- Insertions pour la table ACCEDER
 INSERT INTO ACCEDER (idB, idJ) VALUES
