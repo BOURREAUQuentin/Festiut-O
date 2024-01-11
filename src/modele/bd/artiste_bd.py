@@ -46,6 +46,20 @@ class ArtisteBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+        
+    def get_recherche_par_nom_artiste(self, nom_artiste):
+        try:
+            query = text("select idA, nomA, descriptionA from ARTISTE where nomA LIKE '%" + nom_artiste + "%'")
+            resultat = self.__connexion.execute(query)
+            liste_artistes = []
+            for id_artiste, nom_artiste, description_artiste in resultat:
+                liste_artistes.append(
+                    Artiste(id_artiste, nom_artiste, description_artiste)
+                )
+            return liste_artistes
+        except Exception as exp:
+            print(f"Erreur lors de la recherche des styles musicaux : {exp}")
+            return None
     
     def inserer_artiste(self, id_artiste, nom, description):
         try:
