@@ -149,7 +149,7 @@ def lister_billets_de_spectateur(id_spectateur):
             liste_billets_du_spectateur.append(spectateurActuel)
     return liste_billets_du_spectateur
 
-def lister_groupe_meme_style(id_groupe):
+def lister_groupes_meme_style(id_groupe):
     """
         Liste les id de groupe des groupes qui ont le même style que celui entré en paramètre (recommandation selon le style d groupe actuel).
         

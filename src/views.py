@@ -4,7 +4,7 @@ import sys
 from flask import jsonify, render_template, send_file, url_for, redirect, request
 from flask import request
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -133,5 +133,6 @@ def groupe_details(id_groupe):
     liste_artistes_groupe = []
     if au_moins_deux_artistes_dans_groupe:
         liste_artistes_groupe = FAIRE_PARTIE.get_artistes_par_id_groupe(id_groupe)
-    return render_template("groupe_details.html", page_groupe_details=True,
-                           groupe=GROUPE.get_par_id_groupe(id_groupe), liste_artistes=liste_artistes_groupe)
+    return render_template("groupe_details.html", page_groupe_details=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
+                           liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
+                           liste_groupes_meme_style=lister_groupes_meme_style(id_groupe))
