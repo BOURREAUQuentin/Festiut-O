@@ -56,3 +56,17 @@ class InstrumentBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+
+    def get_par_id_artiste(self, id_artiste):
+        try:
+            query = text("select idI, nomI from JOUER natural join INSTRUMENT where idA = " + str(id_artiste))
+            resultat = self.__connexion.execute(query)
+            liste_instruments = []
+            for id_instrument, nom in resultat:
+                liste_instruments.append(
+                    Instrument(id_instrument, nom)
+                )
+            return liste_instruments
+        except Exception as exp:
+            print(f"Erreur lors de la récupération des instruments : {exp}")
+            return None
