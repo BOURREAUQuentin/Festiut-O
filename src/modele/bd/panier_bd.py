@@ -76,3 +76,48 @@ class PanierBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+    
+    def get_prix_total_billet_par_id_spectateur(self, id_billet, id_spectateur):
+        """
+        Retourne le prix total d'un billet (suivant la quantité) sur le panier d'un spectateur.
+
+        Args:
+        Param: id_billet : l'id du billet.
+        Param: id_spectateur : l'id du spectateur.
+
+        Returns:
+            (int) : le prix total d'un billet (suivant la quantité) sur le panier d'un spectateur.
+        """
+        try:
+            query = text("select quantiteB*prixB from PANIER natural join BILLET where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+            prix_total_billet = 0
+            for prix_total in resultat:
+                prix_total_billet = prix_total
+            return prix_total_billet
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
+    
+    def get_prix_total_panier_par_id_spectateur(self, id_spectateur):
+        """
+        Retourne le prix total du panier d'un spectateur.
+
+
+        Args:
+        Param: id_spectateur : l'id du spectateur.
+
+
+        Returns:
+            (int) : le prix total du panier d'un spectateur.
+        """
+        try:
+            query = text("select idB from PANIER where idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+            prix_total_panier = 0
+            for id_billet in resultat:
+                prix_total_panier += self.get_prix_total_billet_par_id_spectateur(id_billet, id_spectateur)
+            return prix_total_panier
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
