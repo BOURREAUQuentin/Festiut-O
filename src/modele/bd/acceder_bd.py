@@ -1,3 +1,4 @@
+from datetime import datetime
 import sys
 import os
 from sqlalchemy.sql.expression import text
@@ -45,6 +46,25 @@ class AccederBD:
             for id_billet, id_journee in resultat:
                 les_acceder_journee.append(Acceder(id_billet, id_journee))
             return les_acceder_journee
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
+
+    def get_les_journees_billetterie(self):
+        try:
+            query = text("select idB, count(idJ) nbJ, dateJ from ACCEDER natural join JOURNEE group by idB")
+            resultat = self.__connexion.execute(query)
+            liste_journees = []
+            for _, nb_journees_accessible, date_journee in resultat:
+                if nb_journees_accessible > 1:
+                    liste_journees.append("Week-end")
+                else:
+                    # conversion de la date du 2024-07-18 en datetime comme dateJ dans la bd
+                    if date_journee == datetime.strptime("2024-07-18", "%Y-%m-%d").date():
+                        liste_journees.append("Samedi")
+                    else:
+                        liste_journees.append("Dimanche")
+            return liste_journees
         except Exception as exp:
             print("la connexion a échoué !")
             return None

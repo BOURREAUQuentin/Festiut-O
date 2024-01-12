@@ -6,6 +6,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from groupe import Groupe
+from style_musical import StyleMusical
 
 class GroupeBD:
     def __init__(self, connexion):
@@ -23,12 +24,12 @@ class GroupeBD:
 
     def get_all_groupes(self):
         try:
-            query = text("select idG, nomG, descriptionG, lienImageG from GROUPE")
+            query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE")
             resultat = self.__connexion.execute(query)
             liste_groupes = []
-            for id_groupe, nom, description, lien_image in resultat:
+            for id_groupe, nom, courte_description, longue_description, lien_image in resultat:
                 liste_groupes.append(
-                    Groupe(id_groupe, nom, description, lien_image)
+                    Groupe(id_groupe, nom, courte_description, longue_description, lien_image)
                 )
             return liste_groupes
         except Exception as exp:
@@ -37,22 +38,34 @@ class GroupeBD:
 
     def get_par_id_groupe(self, id_groupe):
         try:
-            query = text("select idG, nomG, descriptionG, lienImageG from GROUPE where idG = " + str(id_groupe))
+            query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
             le_groupe = None
-            for id_groupe, nom, description, lien_image in resultat:
-                le_groupe = Groupe(id_groupe, nom, description, lien_image)
+            for id_groupe, nom, courte_description, longue_description, lien_image in resultat:
+                le_groupe = Groupe(id_groupe, nom, courte_description, longue_description, lien_image)
             return le_groupe
         except Exception as exp:
             print("la connexion a échoué !")
             return None
     
-    def ajouter_groupe(self, id_groupe, nom, description, lien_image):
+    def ajouter_groupe(self, id_groupe, nom, courte_description, longue_description, lien_image):
         try:
-            query = text(f"insert into GROUPE values({str(id_groupe)} ,'{nom}', '{description}', '{lien_image}')")
+            query = text(f"insert into GROUPE values({str(id_groupe)} ,'{nom}', '{courte_description}', '{longue_description}', '{lien_image}')")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un groupe réussi !")
         except Exception as exp:
             print("La connexion a échoué !")
+            return None
+        
+    def get_style(self, id_groupe):
+        try:
+            query = text("select idSt from INTERPRETER where idG = " + str(id_groupe))
+            resultat = self.__connexion.execute(query)
+            le_style = None
+            for id_style in resultat:
+                le_style = StyleMusical(id_style)
+            return le_style
+        except Exception as exp:
+            print("la connexion a échoué !")
             return None
