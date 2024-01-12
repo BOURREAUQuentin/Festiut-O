@@ -136,3 +136,7 @@ def groupe_details(id_groupe):
     return render_template("groupe_details.html", page_groupe_details=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
                            liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
                            liste_groupes_meme_style=lister_groupes_meme_style(id_groupe))
+
+@app.route("/planning")
+def planning():
+    return render_template("planning.html", page_planning=True, dico_journees=JOURNEE.get_dico_journees())
