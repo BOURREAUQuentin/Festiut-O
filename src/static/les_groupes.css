@@ -4,7 +4,7 @@ body {
   align-items: center;
   gap: 50px;
   min-height: 100vh;
-  background: black;
+  background: #1f2029;
 }
 main{
   margin-top: 120px;

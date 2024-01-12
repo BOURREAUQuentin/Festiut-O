@@ -96,7 +96,7 @@ def inscrire():
                                    nom, prenom, mail, date_naissance, telephone, username, password, "N")
         return redirect(url_for("accueil"))
     return render_template("login.html", page_login=True)
-
+  
 @app.route("/panier")
 def panier():
     return render_template("panier.html", page_panier=True)
