@@ -6,6 +6,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from faire_partie import FairePartie
+from artiste import Artiste
 
 class FairePartieBD:
     def __init__(self, connexion):
@@ -57,4 +58,16 @@ class FairePartieBD:
             print("Ajout d'un faire_partie réussi !")
         except Exception as exp:
             print("La connexion a échoué !")
+            return None
+    
+    def get_artistes_par_id_groupe(self, id_groupe):
+        try:
+            query = text("select idA, nomA, descriptionA, lienImageA from FAIRE_PARTIE natural join ARTISTE where idG = " + str(id_groupe))
+            resultat = self.__connexion.execute(query)
+            liste_artistes_groupe = []
+            for id_artiste, nom, description, lien_image in resultat:
+                liste_artistes_groupe.append(Artiste(id_artiste, nom, description, lien_image))
+            return liste_artistes_groupe
+        except Exception as exp:
+            print("la connexion a échoué !")
             return None
