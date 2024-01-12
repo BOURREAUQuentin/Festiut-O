@@ -141,3 +141,7 @@ def groupe_details(id_groupe):
 def groupe_details(id_artiste):
     return render_template("artiste_details.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
                            liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste))
+
+@app.route("/planning")
+def planning():
+    return render_template("planning.html", page_planning=True, dico_journees=JOURNEE.get_dico_journees())
