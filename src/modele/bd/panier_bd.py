@@ -6,6 +6,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from panier import Panier
+from billet import Billet
 
 class PanierBD:
     def __init__(self, connexion):
@@ -120,4 +121,18 @@ class PanierBD:
             return prix_total_panier
         except Exception as exp:
             print("la connexion a échoué !")
+            return None
+
+    def get_all_billets_panier_spectateur(self, id_spectateur):
+        try:
+            query = text("select idB, prixB from BILLET natural join PANIER where idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+            liste_billets_panier_spectateur = []
+            for id_billet, prix in resultat:
+                liste_billets_panier_spectateur.append(
+                    Billet(id_billet, prix)
+                )
+            return liste_billets_panier_spectateur
+        except Exception as exp:
+            print(f"Erreur lors de la récupération des billets dans le panier du spectateur : {exp}")
             return None
