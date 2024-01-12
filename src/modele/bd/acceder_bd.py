@@ -78,3 +78,22 @@ class AccederBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+
+    def get_les_journees_panier_spectateur(self, id_spectateur):
+        try:
+            query = text("select idB, count(idJ) nbJ, dateJ from ACCEDER natural join JOURNEE natural join PANIER where idS = " + str(id_spectateur) + " group by idB")
+            resultat = self.__connexion.execute(query)
+            liste_journees_panier_spectateur = []
+            for _, nb_journees_accessible, date_journee in resultat:
+                if nb_journees_accessible > 1:
+                    liste_journees_panier_spectateur.append("Week-end")
+                else:
+                    # conversion de la date du 2024-07-18 en datetime comme dateJ dans la bd
+                    if date_journee == datetime.strptime("2024-07-18", "%Y-%m-%d").date():
+                        liste_journees_panier_spectateur.append("Samedi")
+                    else:
+                        liste_journees_panier_spectateur.append("Dimanche")
+            return liste_journees_panier_spectateur
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None

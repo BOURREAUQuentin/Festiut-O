@@ -4,7 +4,7 @@ import sys
 from flask import jsonify, render_template, send_file, url_for, redirect, request
 from flask import request
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -99,7 +99,22 @@ def inscrire():
   
 @app.route("/panier")
 def panier():
-    return render_template("panier.html", page_panier=True)
+    liste_billets_panier_spectateur = PANIER.get_all_billets_panier_spectateur(le_spectateur_connecte.get_id())
+    liste_journees_panier_spectateur = ACCEDER.get_les_journees_panier_spectateur(le_spectateur_connecte.get_id())
+    liste_groupes_samedi = []
+    liste_groupes_week_end = []
+    liste_groupes_dimanche = []
+    # test de quels jours le spectateur a dans son panier
+    for index_journee in range(len(liste_journees_panier_spectateur)):
+        if liste_journees_panier_spectateur[index_journee] == "Samedi":
+            liste_groupes_samedi = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
+        elif liste_journees_panier_spectateur[index_journee] == "Week-end":
+            liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
+        else:
+            liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
+    return render_template("panier.html", page_panier=True, liste_billets=liste_billets_panier_spectateur,
+                           liste_journees=liste_journees_panier_spectateur, liste_groupes_samedi=liste_groupes_samedi,
+                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche)
 
 @app.route("/billetterie")
 def billetterie():
