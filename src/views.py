@@ -157,7 +157,10 @@ def planning():
 
 @app.route("/profil")
 def profil():
-    liste_billets_achete_spectateur = ACHETER.get_all_billets_achete_spectateur(le_spectateur_connecte.get_id())
+    """
+    Permet de se diriger vers la page de profil (infos et billets achetés)
+    """
+    dico_billets_achete_spectateur = ACHETER.get_all_billets_achete_spectateur(le_spectateur_connecte.get_id())
     liste_journees_achete_spectateur = ACCEDER.get_les_journees_achete_spectateur(le_spectateur_connecte.get_id())
     liste_groupes_samedi = []
     liste_groupes_week_end = []
@@ -170,6 +173,6 @@ def profil():
             liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees_achete_spectateur[index_journee])
         else:
             liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_achete_spectateur[index_journee])
-    return render_template("profil.html", page_profil=True, liste_billets=liste_billets_achete_spectateur,
+    return render_template("profil.html", page_profil=True, liste_billets=dico_billets_achete_spectateur,
                            liste_journees=liste_journees_achete_spectateur, liste_groupes_samedi=liste_groupes_samedi,
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche)
