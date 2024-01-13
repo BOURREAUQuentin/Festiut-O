@@ -49,6 +49,28 @@ class PanierBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+    
+    def get_billet_deja_dans_panier(self, id_billet, id_spectateur):
+        try:
+            query = text("select idB, idS, quantiteB from PANIER where idB = "+ str(id_billet) + " and idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+            if len(resultat) > 0:
+                # si le spectateur a déjà ce billet dans son panier
+                return True
+            return False
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
+    
+    def update_quantite_billet_panier(self, id_billet, id_spectateur, quantite_billet):
+        try:
+            query = text("update PANIER set quantiteB = quantiteB +" + str(quantite_billet) + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Modification de la quantité réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
  
     def ajouter_panier(self, id_billet, id_spectateur, quantite_billet):
         try:
