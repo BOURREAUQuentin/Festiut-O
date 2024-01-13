@@ -99,7 +99,7 @@ def inscrire():
   
 @app.route("/panier")
 def panier():
-    liste_billets_panier_spectateur = PANIER.get_all_billets_panier_spectateur(le_spectateur_connecte.get_id())
+    dico_billets_panier_spectateur = PANIER.get_all_billets_panier_spectateur(le_spectateur_connecte.get_id())
     liste_journees_panier_spectateur = ACCEDER.get_les_journees_panier_spectateur(le_spectateur_connecte.get_id())
     liste_groupes_samedi = []
     liste_groupes_week_end = []
@@ -112,7 +112,7 @@ def panier():
             liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
         else:
             liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-    return render_template("panier.html", page_panier=True, liste_billets=liste_billets_panier_spectateur,
+    return render_template("panier.html", page_panier=True, liste_billets=dico_billets_panier_spectateur,
                            liste_journees=liste_journees_panier_spectateur, liste_groupes_samedi=liste_groupes_samedi,
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche)
 

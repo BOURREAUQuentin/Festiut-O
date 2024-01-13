@@ -124,15 +124,24 @@ class PanierBD:
             return None
 
     def get_all_billets_panier_spectateur(self, id_spectateur):
+        """
+        Retourne le dictionnaire des billets dans le panier du spectateur avec
+        comme clé le Billet et comme valeur la quantité de ce billet.
+
+        Args:
+        Param: id_spectateur : l'id du spectateur.
+
+        Returns:
+            (dict(Billet, int)) : le dictionnaire des billets dans le panier du spectateur avec
+            comme clé le Billet et comme valeur la quantité de ce billet.
+        """
         try:
-            query = text("select idB, prixB from BILLET natural join PANIER where idS = " + str(id_spectateur))
+            query = text("select idB, prixB, quantiteB from BILLET natural join PANIER where idS = " + str(id_spectateur))
             resultat = self.__connexion.execute(query)
-            liste_billets_panier_spectateur = []
-            for id_billet, prix in resultat:
-                liste_billets_panier_spectateur.append(
-                    Billet(id_billet, prix)
-                )
-            return liste_billets_panier_spectateur
+            dico_billets_panier_spectateur = set()
+            for id_billet, prix_billet, quantite_billet in resultat:
+                dico_billets_panier_spectateur.add(Billet(id_billet, prix_billet), quantite_billet)
+            return dico_billets_panier_spectateur
         except Exception as exp:
             print(f"Erreur lors de la récupération des billets dans le panier du spectateur : {exp}")
             return None
