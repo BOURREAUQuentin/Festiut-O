@@ -168,16 +168,16 @@ def lister_groupes_meme_style(id_groupe):
 
 def lister_evenements_par_journee(dateJournee):
     """
-        Liste les événement qui ont lieu durant la date donnée.
+        Liste les événements (avec le groupe associé et le lieu) qui ont lieu durant la date donnée (triés par heureDebutE croissant).
         
         Args:
             dateJournee: La date de la journée à vérifier.
 
         Args:
-            (List[EVENEMENT]): Les événement qui ont lieu durant dateJournee.
+            (List[tuple(Evenement, Groupe, Lieu)]): Les événements (avec le groupe associé et le lieu) qui ont lieu durant dateJournee et triés par heureDebutE croissant.
     """
     liste_evenements_journee= []
-    liste_evenements = EVENEMENT.get_all_evenements()
+    liste_evenements = EVENEMENT.get_all_evenements_pour_planning()
     for evenementActuel in liste_evenements:
         if evenementActuel.get_id_journee() == JOURNEE.get_par_date_journee(dateJournee).get_id():
             liste_evenements_journee.append(evenementActuel)
