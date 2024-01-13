@@ -236,5 +236,9 @@ def payer_panier(id_spectateur):
     """
     liste_panier_spectateur = PANIER.get_par_id_spectateur(id_spectateur)
     for billet_panier_spectateur in liste_panier_spectateur:
-        ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
+        if ACHETER.get_billet_deja_achete(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur()):
+            # si le spectateur a déjà le billet dans le panier, ca actualise juste la quantité de ce billet
+            ACHETER.update_quantite_billet_achete(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
+        else:
+            ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())
