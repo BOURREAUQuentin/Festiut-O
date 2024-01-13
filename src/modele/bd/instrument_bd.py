@@ -12,6 +12,11 @@ class InstrumentBD:
         self.__connexion = connexion
 
     def get_prochain_id_instrument(self):
+        """Calcul l'id du prochain instrument à ajouter dans la bd
+
+        Returns:
+            int: l'id du prochain instrument
+        """
         try:
             query = text("select max(idI) as m from INSTRUMENT")
             resultat = self.__connexion.execute(query).fetchone()
@@ -22,6 +27,11 @@ class InstrumentBD:
             return None
 
     def get_all_instruments(self):
+        """Renvoi la liste de tous les instruments
+
+        Returns:
+            List(Instrument): la liste de tous les instruments
+        """
         try:
             query = text("select idI, nomI from INSTRUMENT")
             resultat = self.__connexion.execute(query)
@@ -36,6 +46,14 @@ class InstrumentBD:
             return None
 
     def get_par_id_instrument(self, id_instrument):
+        """Renvoie l'instrument avec cet id
+
+        Args:
+            id_instrument (int): l'id de l'instrument recherché
+
+        Returns:
+            int: l'instrument avec cet id
+        """
         try:
             query = text("select idI, nomI from INSTRUMENT where idI = " + str(id_instrument))
             resultat = self.__connexion.execute(query)
@@ -48,6 +66,12 @@ class InstrumentBD:
             return None
     
     def ajouter_instrument(self, id_instrument, nom):
+        """Ajoute un instrument dans la bd
+
+        Args:
+            id_instrument (int): l'id de l'instrument
+            nom (String): le nom de l'instrument
+        """
         try:
             query = text(f"insert into INSTRUMENT values({str(id_instrument)} ,'{nom}')")
             self.__connexion.execute(query)

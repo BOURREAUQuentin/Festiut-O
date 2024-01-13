@@ -12,6 +12,11 @@ class StyleMusicalBD:
         self.__connexion = connexion
 
     def get_prochain_id_style_musical(self):
+        """Calcul l'id du prochain groupe musical a ajouter dans la bd
+
+        Returns:
+            int: l'id du prochain style musical
+        """
         try:
             query = text("select max(idSt) as m from STYLE_MUSICAL")
             resultat = self.__connexion.execute(query).fetchone()
@@ -22,6 +27,11 @@ class StyleMusicalBD:
             return None
 
     def get_all_styles_musicaux(self):
+        """Renvoie la liste de tous les styles musicaux dans la bd
+
+        Returns:
+            List(StyleMusical): la liste de tous les styles musicaux dans la bd
+        """
         try:
             query = text("select idSt, nomSt, caracteristiquesSt from STYLE_MUSICAL")
             resultat = self.__connexion.execute(query)
@@ -36,6 +46,14 @@ class StyleMusicalBD:
             return None
 
     def get_par_id_style_musical(self, id_style_musical):
+        """Renvoi le style musical avec cet id
+
+        Args:
+            id_style_musical (int): l'id du style musical recherché
+
+        Returns:
+            StyleMusical: le style musical correspondant
+        """
         try:
             query = text("select idSt, nomSt, caracteristiquesSt from STYLE_MUSICAL where idSt = " + str(id_style_musical))
             resultat = self.__connexion.execute(query)
@@ -48,6 +66,14 @@ class StyleMusicalBD:
             return None
     
     def get_recherche_par_nom_style_musical(self, nom_style_musical):
+        """Renvoi le style musical avec ce nom
+
+        Args:
+            nom_style_musical (nom): le nom du style musical recherché
+
+        Returns:
+            StyleMusical: le style musical correspondant
+        """
         try:
             query = text("select idSt, nomSt, caracteristiquesSt from STYLE_MUSICAL where nomSt LIKE '%" + nom_style_musical + "%'")
             resultat = self.__connexion.execute(query)
@@ -62,6 +88,13 @@ class StyleMusicalBD:
             return None
     
     def ajouter_style_musical(self, id_style_musical, nom, caracteristiques):
+        """Ajoute un style musical dans la bd
+
+        Args:
+            id_style_musical (int): l'id du style musical
+            nom (String): le nom du style musical
+            caracteristiques (String): les caractéristiques du style musical
+        """
         try:
             query = text(f"insert into STYLE_MUSICAL values({str(id_style_musical)} ,'{nom}', '{caracteristiques}')")
             self.__connexion.execute(query)

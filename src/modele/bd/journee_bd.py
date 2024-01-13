@@ -13,6 +13,11 @@ class JourneeBD:
         self.__connexion = connexion
 
     def get_prochain_id_journee(self):
+        """Calcul le prochain id de la journée dans la bd
+
+        Returns:
+            int: l'id de la prochaine journée
+        """
         try:
             query = text("select max(idJ) as m from JOURNEE")
             resultat = self.__connexion.execute(query).fetchone()
@@ -23,6 +28,11 @@ class JourneeBD:
             return None
 
     def get_all_journees(self):
+        """Renvoie la liste de toutes les journées de la bd
+
+        Returns:
+            List(Journee): la liste de toutes les journées
+        """
         try:
             query = text("select idJ, dateJ from JOURNEE")
             resultat = self.__connexion.execute(query)
@@ -37,6 +47,14 @@ class JourneeBD:
             return None
 
     def get_par_id_journee(self, id_journee):
+        """Renvoie la journée avec cet id
+
+        Args:
+            id_journee (int): l'id de la journée
+
+        Returns:
+            Journee: la journée correspondante
+        """
         try:
             query = text("select idJ, dateJ from JOURNEE where idJ = " + str(id_journee))
             resultat = self.__connexion.execute(query)
@@ -49,6 +67,14 @@ class JourneeBD:
             return None
     
     def get_par_date_journee(self, date_journee):
+        """Renvoie la journée avec cet date
+
+        Args:
+            date_journee (String): la date de la journée
+
+        Returns:
+            Journee: la journée correspondante
+        """
         try:
             # possible car la date de la journée est unique
             query = text("select idJ, dateJ from JOURNEE where dateJ = '" + str(date_journee)+"'")
@@ -62,6 +88,14 @@ class JourneeBD:
             return None
     
     def get_groupes_par_journee(self, journee_billetterie):
+        """Renvoie la liste de tous les groupes qui performent cette journée
+
+        Args:
+            journee_billetterie (String): le jour
+
+        Returns:
+            List(Group): la liste des groupes
+        """
         try:
             date_journee = '2024-07-18'
             if journee_billetterie == "Dimanche":
@@ -85,6 +119,12 @@ class JourneeBD:
             return None
     
     def ajouter_journee(self, id_journee, date):
+        """Ajoute une journée dans la bd
+
+        Args:
+            id_journee (int): l'id de la journée
+            date (String): la date
+        """
         try:
             query = text(f"insert into JOURNEE values({str(id_journee)} , {str(date)})")
             self.__connexion.execute(query)

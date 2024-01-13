@@ -12,6 +12,11 @@ class HebergementBD:
         self.__connexion = connexion
 
     def get_prochain_id_hebergement(self):
+        """Calcul l'id du prochain hebergement dans la bd
+
+        Returns:
+            int: l'id du prochain hébergement
+        """
         try:
             query = text("select max(idH) as m from HEBERGEMENT")
             resultat = self.__connexion.execute(query).fetchone()
@@ -22,6 +27,11 @@ class HebergementBD:
             return None
 
     def get_all_hebergements(self):
+        """Renvoie la liste de tous les hébergements
+
+        Returns:
+            List(Hebergement): la liste de tous les hébergements
+        """
         try:
             query = text("select idH, nomH, adresseH, nbPlacesMaxH from HEBERGEMENT")
             resultat = self.__connexion.execute(query)
@@ -36,6 +46,14 @@ class HebergementBD:
             return None
 
     def get_par_id_hebergement(self, id_hebergement):
+        """Renvoie l'hebergement avec cet id
+
+        Args:
+            id_hebergement (int): l'id de l'hebergement recherché
+
+        Returns:
+            Hebergement: l'hebergement avec cet id
+        """
         try:
             query = text("select idH, nomH, adresseH, nbPlacesMaxH from HEBERGEMENT where idH = " + str(id_hebergement))
             resultat = self.__connexion.execute(query)
@@ -48,6 +66,17 @@ class HebergementBD:
             return None
     
     def ajouter_hebergement(self, id_hebergement, nom, adresse, nb_places_max):
+        """Ajoute un hebergement dans la bd
+
+        Args:
+            id_hebergement (int): l'id de l'hebergement
+            nom (String): le nom de l'hebergement
+            adresse (String): l'adresse de l'hebergement
+            nb_places_max (int): le nombre de places max de l'hebergement
+
+        Returns:
+            _type_: _description_
+        """
         try:
             query = text(f"insert into HEBERGEMENT values({str(id_hebergement)} ,'{nom}','{adresse}' ,{str(nb_places_max)})")
             self.__connexion.execute(query)

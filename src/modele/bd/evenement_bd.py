@@ -12,6 +12,11 @@ class EvenementBD:
         self.__connexion = connexion
 
     def get_prochain_id_evenement(self):
+        """Permet de calculer l'id du prochain événement à insérer
+
+        Returns:
+            int: l'id du prochain événement
+        """
         try:
             query = text("select max(idE) as m from EVENEMENT")
             resultat = self.__connexion.execute(query).fetchone()
@@ -22,6 +27,11 @@ class EvenementBD:
             return None
 
     def get_all_evenements(self):
+        """Renvoie la liste de tous les événements dans la bd
+
+        Returns:
+            List(Evenement): la liste de tous les événements de la bd
+        """
         try:
             query = text("select idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG from EVENEMENT")
             resultat = self.__connexion.execute(query)
@@ -36,6 +46,14 @@ class EvenementBD:
             return None
 
     def get_par_id_evenement(self, id_evenement):
+        """Renvoie l'événement qui correspond à l'id
+
+        Args:
+            id_evenement (int): l'id de l'évenement
+
+        Returns:
+            Evenement: l'événement correspondant à l'id
+        """
         try:
             query = text("select idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG from EVENEMENT where idE = " + str(id_evenement))
             resultat = self.__connexion.execute(query)
@@ -48,6 +66,20 @@ class EvenementBD:
             return None
     
     def ajouter_evenement(self, id_evenement, nom, description, heure_debut, duree, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe):
+        """Ajoute un événement dans la bd
+
+        Args:
+            id_evenement (int): l'id de l'événement
+            nom (String): le nom de l'événement
+            description (String): la description de l'événement
+            heure_debut (DateTime): l'heure de début de l'évenement
+            duree (DateTime): la durée de l'évenement
+            tpsMontage (DateTime): le temps de montage de l'évenement
+            tpsDemontage (DateTime): le temps de démontage de l'évenement
+            id_lieu (int): l'id du lieu de l'évenement
+            id_journee (int): l'id de la journée
+            id_groupe (int): l'id du groupe
+        """
         try:
             query = text(f"insert into EVENEMENT values({str(id_evenement)} ,'{nom}', '{description}', {str(heure_debut)}, {str(duree)}, {str(tpsMontage)}, {str(tpsDemontage)}, {str(id_lieu)}, {str(id_journee)}, {str(id_groupe)})")
             self.__connexion.execute(query)

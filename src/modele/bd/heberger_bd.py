@@ -12,6 +12,11 @@ class HebergerBD:
         self.__connexion = connexion
 
     def get_all_heberger(self):
+        """Renvoie la liste de toutes les associations hebergement
+
+        Returns:
+            List(Heberger): la liste des associations hebergements 
+        """
         try:
             query = text("select idH, idG from HEBERGER")
             resultat = self.__connexion.execute(query)
@@ -26,6 +31,14 @@ class HebergerBD:
             return None
     
     def get_par_id_hebergement(self, id_hebergement):
+        """Renvoie l'association d'hebergement avec cet id
+
+        Args:
+            id_hebergement (int): l'id de l'hebergement
+
+        Returns:
+            int: l'association de l'hebergement avec cet id
+        """
         try:
             query = text("select idH, idG from HEBERGER where idH = " + str(id_hebergement))
             resultat = self.__connexion.execute(query)
@@ -38,6 +51,14 @@ class HebergerBD:
             return None
 
     def get_par_id_groupe(self, id_groupe):
+        """Renvoie l'association d'hebergement relié avec cet id de groupe
+
+        Args:
+            id_hebergement (int): l'id du groupe lié
+
+        Returns:
+            int: l'association de l'hebergement lié avec cet id
+        """
         try:
             query = text("select idH, idG from HEBERGER where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
@@ -50,6 +71,12 @@ class HebergerBD:
             return None
     
     def ajouter_heberger(self, id_hebergement, id_groupe):
+        """Ajoute une association heberger dans la bd
+
+        Args:
+            id_hebergement (int): l'id de l'hebergement
+            id_groupe (int): l'id du groupe
+        """
         try:
             query = text(f"insert into HEBERGER values({str(id_hebergement)} , {str(id_groupe)})")
             self.__connexion.execute(query)
