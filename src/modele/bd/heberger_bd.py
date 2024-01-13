@@ -85,3 +85,18 @@ class HebergerBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def supprimer_avec_id_groupe(self, id_groupe):
+        """Supprime l'association heberger dans la bd avec l'id du groupe
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+            query = text("delete from HEBERGER where idG = " + str(id_groupe))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de heberger réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

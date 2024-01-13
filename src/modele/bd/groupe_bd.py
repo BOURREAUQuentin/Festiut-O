@@ -107,3 +107,18 @@ class GroupeBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+
+    def supprimer_groupe(self, id_groupe):
+        """Supprime groupe dans la bd
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+            query = text("delete from GROUPE where idS = " + str(id_groupe))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression du groupe réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

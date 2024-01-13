@@ -22,6 +22,7 @@ from reseau_social_bd import ReseauSocialBD
 from reseau_video_bd import ReseauVideoBD
 from spectateur_bd import SpectateurBD
 from style_musical_bd import StyleMusicalBD
+from heberger_bd import HebergerBD
 
 import os
 import sys
@@ -247,9 +248,37 @@ def payer_panier(id_spectateur):
             ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())
         
-def supprimer_spectateur(id_spect):
+def supprimer_un_spectateur(id_spect):
+    """Supprime un spectateur dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du spectateur à supprimer
+    """
     AcheterBD.supprimer_avec_id_spectateur(id_spect)
     PanierBD.supprimer_avec_id_spectateur(id_spect)
     FavoriBD.supprimer_avec_id_spectateur(id_spect)
     SpectateurBD.supprimer_spectateur(id_spect)
             
+def supprimer_un_groupe(id_groupe):
+    """Supprime un groupe dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du groupe à supprimer
+    """
+    ReseauSocialBD.supprimer_avec_id_groupe(id_groupe)
+    ReseauSocialBD.supprimer_avec_id_groupe(id_groupe)
+    InterpreterBD.supprimer_avec_id_groupe(id_groupe)
+    HebergerBD.supprimer_avec_id_groupe(id_groupe)
+    FavoriBD.supprimer_avec_id_groupe(id_groupe)
+    FairePartieBD.supprimer_avec_id_groupe(id_groupe)
+    EvenementBD.supprimer_avec_id_groupe(id_groupe)
+    GroupeBD.supprimer_groupe(id_groupe)
+    
+def supprimer_un_evenement(id_evenement):
+    """Supprime un evenement dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id de l'événement à supprimer
+    """
+    EvenementBD.supprimer_evenement(id_evenement)
+    

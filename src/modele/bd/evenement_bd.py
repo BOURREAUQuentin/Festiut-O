@@ -114,3 +114,33 @@ class EvenementBD:
         except Exception as exp:
             print(f"Erreur lors de la récupération des évènements/groupes/lieux : {exp}")
             return None
+
+    def supprimer_avec_id_groupe(self, id_groupe):
+        """Supprime l'evenement dans la bd avec l'id du groupe
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+            query = text("delete from EVENEMENT where idG = " + str(id_groupe))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de evenement réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
+        
+    def supprimer_evenement(self, id_evenement):
+        """Supprime l'evenement dans la bd avec cet id
+
+        Args:
+            id_evenement (int): l'id de l'evenement a supprimer
+        """
+        try:
+            query = text("delete from EVENEMENT where idE = " + str(id_evenement))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de evenement réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

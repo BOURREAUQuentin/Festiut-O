@@ -101,7 +101,6 @@ class SpectateurBD:
             id_groupe (int): l'id du groupe
         """
         try:
-           
             query = text("delete from SPECTATEUR where idS = " + str(id_spect))
             self.__connexion.execute(query)
             self.__connexion.commit()

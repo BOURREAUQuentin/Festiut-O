@@ -71,3 +71,18 @@ class FairePartieBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+        
+    def supprimer_avec_id_groupe(self, id_groupe):
+        """Supprime l'association faire partie dans la bd avec l'id du groupe
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+            query = text("delete from FAIRE_PARTIE where idG = " + str(id_groupe))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de faire partie réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
