@@ -255,10 +255,10 @@ def supprimer_un_spectateur(id_spect):
     Args:
         id_spect (int): l'id du spectateur à supprimer
     """
-    AcheterBD.supprimer_avec_id_spectateur(id_spect)
-    PanierBD.supprimer_avec_id_spectateur(id_spect)
-    FavoriBD.supprimer_avec_id_spectateur(id_spect)
-    SpectateurBD.supprimer_spectateur(id_spect)
+    ACHETER.supprimer_avec_id_spectateur(id_spect)
+    PANIER.supprimer_avec_id_spectateur(id_spect)
+    FAVORI.supprimer_avec_id_spectateur(id_spect)
+    SPECTATEUR.supprimer_spectateur(id_spect)
             
 def supprimer_un_groupe(id_groupe):
     """Supprime un groupe dans la base de donnée en prenant en compte toutes ses associations
@@ -281,5 +281,5 @@ def supprimer_un_evenement(id_evenement):
     Args:
         id_spect (int): l'id de l'événement à supprimer
     """
-    EvenementBD.supprimer_evenement(id_evenement)
+    EVENEMENT.supprimer_evenement(id_evenement)
     
