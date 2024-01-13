@@ -40,6 +40,7 @@ FAIRE_PARTIE = FairePartieBD(connexion)
 FAVORI = FavoriBD(connexion)
 GROUPE = GroupeBD(connexion)
 HEBERGEMENT = HebergementBD(connexion)
+HEBERGER = HebergerBD(connexion)
 INSTRUMENT = InstrumentBD(connexion)
 INTERPRETER = InterpreterBD(connexion)
 JOUER = JouerBD(connexion)
@@ -265,14 +266,14 @@ def supprimer_un_groupe(id_groupe):
     Args:
         id_spect (int): l'id du groupe à supprimer
     """
-    ReseauSocialBD.supprimer_avec_id_groupe(id_groupe)
-    ReseauSocialBD.supprimer_avec_id_groupe(id_groupe)
-    InterpreterBD.supprimer_avec_id_groupe(id_groupe)
-    HebergerBD.supprimer_avec_id_groupe(id_groupe)
-    FavoriBD.supprimer_avec_id_groupe(id_groupe)
-    FairePartieBD.supprimer_avec_id_groupe(id_groupe)
-    EvenementBD.supprimer_avec_id_groupe(id_groupe)
-    GroupeBD.supprimer_groupe(id_groupe)
+    RESEAU_VIDEO.supprimer_avec_id_groupe(id_groupe)
+    RESEAU_SOCIAL.supprimer_avec_id_groupe(id_groupe)
+    INTERPRETER.supprimer_avec_id_groupe(id_groupe)
+    HEBERGER.supprimer_avec_id_groupe(id_groupe)
+    FAVORI.supprimer_avec_id_groupe(id_groupe)
+    FAIRE_PARTIE.supprimer_avec_id_groupe(id_groupe)
+    EVENEMENT.supprimer_avec_id_groupe(id_groupe)
+    GROUPE.supprimer_groupe(id_groupe)
     
 def supprimer_un_evenement(id_evenement):
     """Supprime un evenement dans la base de donnée en prenant en compte toutes ses associations

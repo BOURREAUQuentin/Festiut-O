@@ -6,9 +6,6 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from spectateur import Spectateur
-from acheter_bd import AcheterBD
-from panier_bd import PanierBD
-from favori_bd import FavoriBD
 
 class SpectateurBD:
     def __init__(self, connexion):

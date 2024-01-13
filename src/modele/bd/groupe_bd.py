@@ -115,7 +115,7 @@ class GroupeBD:
             id_groupe (int): l'id du groupe
         """
         try:
-            query = text("delete from GROUPE where idS = " + str(id_groupe))
+            query = text("delete from GROUPE where idG = " + str(id_groupe))
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Suppression du groupe réussi !")
