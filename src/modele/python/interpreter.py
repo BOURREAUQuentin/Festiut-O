@@ -4,9 +4,19 @@ class Interpreter:
         self.__id_style_musical_i = id_style_musical
     
     def get_id_groupe(self):
+        """Renvoie le nom du groupe
+
+        Returns:
+            int: l'id du groupe
+        """
         return self.__id_groupe_i
     
     def get_id_style_musical(self):
+        """Renvoie l'id du style musical
+
+        Returns:
+            int: l'id du style musical
+        """
         return self.__id_style_musical_i
 
     def __str__(self):

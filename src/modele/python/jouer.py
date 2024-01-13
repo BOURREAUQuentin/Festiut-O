@@ -4,9 +4,19 @@ class Jouer:
         self.__id_instrument_j = id_instrument
 
     def get_id_artiste(self):
+        """Renvoie l'id de l'artiste
+
+        Returns:
+            int: l'id de l'artiste
+        """
         return self.__id_artiste_j
     
     def get_id_instrument(self):
+        """Renvoie l'id de l'instrument
+
+        Returns:
+            int: id de l'instrument
+        """
         return self.__id_instrument_j
 
     def __str__(self):

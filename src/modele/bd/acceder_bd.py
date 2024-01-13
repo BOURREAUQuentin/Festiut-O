@@ -13,6 +13,11 @@ class AccederBD:
         self.__connexion = connexion
 
     def get_all_acceder(self):
+        """Fonction qui permet de récupérer tous les "accéder".
+
+        Returns:
+            List(acceder_bd): La liste accéder.
+        """
         try:
             query = text("select idB, idJ from ACCEDER")
             resultat = self.__connexion.execute(query)
@@ -27,6 +32,14 @@ class AccederBD:
             return None
 
     def get_par_id_billet(self, id_billet):
+        """Fonction qui permet de récupérer un accès grâce à un bittet
+
+        Args:
+            id_billet (int): Le billet
+
+        Returns:
+            List(Acceder): La liste des accès permis par le billet.
+        """
         try:
             query = text("select idB, idJ from ACCEDER where idB = " + str(id_billet))
             resultat = self.__connexion.execute(query)
@@ -39,6 +52,14 @@ class AccederBD:
             return None
 
     def get_par_id_journee(self, id_journee):
+        """Permet de recupérer les accès de la journée
+
+        Args:
+            id_journee (int): l'id de la journée
+
+        Returns:
+            List(Acceder): La list des accès de la journée
+        """
         try:
             query = text("select idB, idJ from ACCEDER where idJ = " + str(id_journee))
             resultat = self.__connexion.execute(query)
@@ -51,6 +72,11 @@ class AccederBD:
             return None
 
     def get_les_journees_billetterie(self):
+        """Recupère les journées accessibles par rapport au billet
+
+        Returns:
+            List(String): la liste des accès selon les billets (week-end,samedi,dimanche)
+        """
         try:
             query = text("select idB, count(idJ) nbJ, dateJ from ACCEDER natural join JOURNEE group by idB")
             resultat = self.__connexion.execute(query)
@@ -70,6 +96,12 @@ class AccederBD:
             return None
     
     def ajouter_acceder(self, id_billet, id_journee):
+        """Permet d'ajouter un accès dans la base de données
+
+        Args:
+            id_billet (int): le billet associé à l'accès
+            id_journee (int): la journée à laquelle il faut accéder
+        """
         try:
             query = text(f"insert into ACCEDER values({str(id_billet)} , {str(id_journee)})")
             self.__connexion.execute(query)

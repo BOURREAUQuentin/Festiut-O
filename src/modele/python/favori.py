@@ -4,9 +4,19 @@ class Favori:
         self.__id_groupe_f = id_groupe
     
     def get_id_spectateur(self):
+        """Renvoie d'id du spectateur
+
+        Returns:
+            int: id du spectateur
+        """
         return self.__id_spectateur_f
     
     def get_id_groupe(self):
+        """Renvoie l'id du groupe
+
+        Returns:
+            int l'id du groupe
+        """
         return self.__id_groupe_f
     
     def __str__(self):

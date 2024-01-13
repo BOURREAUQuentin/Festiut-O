@@ -12,6 +12,11 @@ class BilletBD:
         self.__connexion = connexion
     
     def get_prochain_id_billet(self):
+        """Permet de savoir l'id du prochain billet à insérer
+
+        Returns:
+            int: l'id du prochain billet
+        """
         try:
             query = text("select max(idB) as m from BILLET")
             resultat = self.__connexion.execute(query).fetchone()
@@ -22,6 +27,11 @@ class BilletBD:
             return None
     
     def get_all_billets(self):
+        """Renvoie tous les billets dans la bd
+
+        Returns:
+            List(Billet): la liste de tous les billets
+        """
         try:
             query = text("select idB, prixB from BILLET")
             resultat = self.__connexion.execute(query)
@@ -36,6 +46,13 @@ class BilletBD:
             return None
     
     def get_par_id_billet(self, id_billet):
+        """Renvoie le billet avec l'id correspondant
+
+        Args:
+            id_billet (int): l'id du billet
+
+        Returns:le billet correspondant à l'id
+        """
         try:
             query = text("select idB, prixB from BILLET where idB = " + str(id_billet))
             resultat = self.__connexion.execute(query)
@@ -48,6 +65,12 @@ class BilletBD:
             return None
     
     def ajouter_billet(self, id_billet, prix):
+        """Ajoute un billet dans la bd
+
+        Args:
+            id_billet (int): l'id du billet
+            prix (String): le prix du billet
+        """
         try:
             query = text(f"insert into BILLET values({str(id_billet)} ,{str(prix)})")
             self.__connexion.execute(query)
