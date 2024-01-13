@@ -6,6 +6,8 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from evenement import Evenement
+from groupe import Groupe
+from lieu import Lieu
 
 class EvenementBD:
     def __init__(self, connexion):
@@ -87,4 +89,28 @@ class EvenementBD:
             print("Ajout d'un évènement réussi !")
         except Exception as exp:
             print("La connexion a échoué !")
+            return None
+    
+    def get_all_evenements_pour_planning(self, dateJournee):
+        """
+        Retourne une liste de tuple contenant Evenement, Groupe, Lieu triés par heureDebutE croissant
+        pour être affiché dans la page planning
+
+        Returns:
+            List[tuple(Evenement, Groupe, Lieu)]: liste de tuple contenant Evenement, Groupe, Lieu
+            triés par heureDebutE croissant pour être affiché dans la page planning
+        """
+        try:
+            query = text("select idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG, nomL, adresseL, nbMaxSpecL from EVENEMENT natural join GROUPE natural join LIEU order by heureDebutE ASC")
+            resultat = self.__connexion.execute(query)
+            liste_evenements_planning = []
+            for id_evenement, nom, description, heure_debut, duree, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe, nom_lieu, adresse_lieu, nb_max_spect_lieu in resultat:
+                liste_evenements_planning.append(
+                    (Evenement(id_evenement, nom, description, heure_debut, duree, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe),
+                     Groupe(id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe),
+                     Lieu(id_lieu, nom_lieu, adresse_lieu, nb_max_spect_lieu))
+                )
+            return liste_evenements_planning
+        except Exception as exp:
+            print(f"Erreur lors de la récupération des évènements/groupes/lieux : {exp}")
             return None

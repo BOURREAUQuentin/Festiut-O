@@ -1,3 +1,4 @@
+from datetime import datetime
 import sys
 import os
 from sqlalchemy.sql.expression import text
@@ -101,14 +102,14 @@ class JourneeBD:
             if journee_billetterie == "Dimanche":
                 date_journee = '2024-07-19'
             if journee_billetterie == "Dimanche" or journee_billetterie == "Samedi":
-                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from JOURNEE natural join EVENEMENT natural join GROUPE where dateJ = '" + str(date_journee) + "'")
+                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from JOURNEE natural join EVENEMENT natural join GROUPE where dateJ = '" + str(date_journee) + "' limit 10")
                 resultat = self.__connexion.execute(query)
                 les_groupes_cette_journee = []
                 for id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe in resultat:
                     les_groupes_cette_journee.append(Groupe(id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe))
                 return les_groupes_cette_journee
             else: # cas où c'est le week-end
-                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE natural join EVENEMENT")
+                query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE natural join EVENEMENT limit 10")
                 resultat = self.__connexion.execute(query)
                 les_groupes_ce_week_end = []
                 for id_groupe, nom_groupe, courte_description_groupe, longue_description_groupe, lien_image_groupe in resultat:
@@ -132,4 +133,20 @@ class JourneeBD:
             print("Ajout d'une journée réussie !")
         except Exception as exp:
             print("La connexion a échoué !")
+            return None
+    
+    def get_dico_journees(self):
+        try:
+            query = text("select idJ, dateJ from JOURNEE")
+            resultat = self.__connexion.execute(query)
+            dico_journees = set()
+            for id_journee, date in resultat:
+                # conversion de la date du 2024-07-18 en datetime comme dateJ dans la bd
+                if date == datetime.strptime("2024-07-18", "%Y-%m-%d").date():
+                    dico_journees.add("Samedi", date)
+                else:
+                    dico_journees.add("Dimanche", date)
+            return dico_journees
+        except Exception as exp:
+            print("la connexion a échoué !")
             return None

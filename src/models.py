@@ -149,7 +149,7 @@ def lister_billets_de_spectateur(id_spectateur):
             liste_billets_du_spectateur.append(spectateurActuel)
     return liste_billets_du_spectateur
 
-def lister_groupe_meme_style(id_groupe):
+def lister_groupes_meme_style(id_groupe):
     """
         Liste les id de groupe des groupes qui ont le même style que celui entré en paramètre (recommandation selon le style d groupe actuel).
         
@@ -168,16 +168,16 @@ def lister_groupe_meme_style(id_groupe):
 
 def lister_evenements_par_journee(dateJournee):
     """
-        Liste les événement qui ont lieu durant la date donnée.
+        Liste les événements (avec le groupe associé et le lieu) qui ont lieu durant la date donnée (triés par heureDebutE croissant).
         
         Args:
             dateJournee: La date de la journée à vérifier.
 
         Args:
-            (List[EVENEMENT]): Les événement qui ont lieu durant dateJournee.
+            (List[tuple(Evenement, Groupe, Lieu)]): Les événements (avec le groupe associé et le lieu) qui ont lieu durant dateJournee et triés par heureDebutE croissant.
     """
     liste_evenements_journee= []
-    liste_evenements = EVENEMENT.get_all_evenements()
+    liste_evenements = EVENEMENT.get_all_evenements_pour_planning()
     for evenementActuel in liste_evenements:
         if evenementActuel.get_id_journee() == JOURNEE.get_par_date_journee(dateJournee).get_id():
             liste_evenements_journee.append(evenementActuel)
@@ -205,20 +205,24 @@ def supprimer_billet_panier(id_billet, id_spectateur):
     """
     PANIER.supprimer_billet(id_billet, id_spectateur)
 
-def ajouter_billet_panier(id_billet, id_spectateur, quantite_billet):
+def ajouter_billet_panier(id_billet, id_spectateur):
     """
         Ajoute au panier le billet qui est associé au spectateur connecté.
 
         Args:
         Param: id_billet : l'id du billet.
         Param: id_spectateur : l'id du spectateur.
-        Param: quantite_billet : la quantité du billet.
     """
-    PANIER.ajouter_panier(id_billet, id_spectateur, quantite_billet)
+    if PANIER.get_billet_deja_dans_panier():
+        # si le billet est déjà dans le panier ca modifie la quantité de ce billet (donc ajoute 1)
+        PANIER.update_quantite_billet_panier(id_billet, id_spectateur, 1)
+    else:
+        # le billet n'est pas déjà dans le panier du spectateur donc ca l'ajoute au panier (quantiteB = 1 par défaut)
+        PANIER.ajouter_panier(id_billet, id_spectateur, 1)
 
 def modifier_quantite_billet_panier(id_billet, id_spectateur, nouvelle_quantite_billet):
     """
-        Modifie la quantité du billet sélectionné dans le panier.
+        Modifie la quantité du billet sélectionné dans le panier (utilisable que dans la page panier).
 
         Args:
         Param: id_billet : l'id du billet.
@@ -236,5 +240,9 @@ def payer_panier(id_spectateur):
     """
     liste_panier_spectateur = PANIER.get_par_id_spectateur(id_spectateur)
     for billet_panier_spectateur in liste_panier_spectateur:
-        ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
+        if ACHETER.get_billet_deja_achete(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur()):
+            # si le spectateur a déjà le billet dans le panier, ca actualise juste la quantité de ce billet
+            ACHETER.update_quantite_billet_achete(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
+        else:
+            ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())
