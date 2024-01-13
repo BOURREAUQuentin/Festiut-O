@@ -135,3 +135,18 @@ class AcheterBD:
         except Exception as exp:
             print("la connexion a échoué !")
             return None
+
+    def supprimer_avec_id_spectateur(self, id_spect):
+        """Supprime l'association dans la bd grace à l'id spectateur
+
+        Args:
+            id_spect (int): l'id du spectateur
+        """
+        try:
+            query = text("delete from  ACHETER where idS = " + str(id_spect))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de l'association acheter réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

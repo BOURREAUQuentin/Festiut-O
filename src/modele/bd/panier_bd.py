@@ -211,3 +211,18 @@ class PanierBD:
         except Exception as exp:
             print(f"Erreur lors de la récupération des billets dans le panier du spectateur : {exp}")
             return None
+        
+    def supprimer_avec_id_spectateur(self, id_spect):
+        """Supprime le panier dans la bd
+
+        Args:
+            id_spect (int): l'id du spectateur du groupe
+        """
+        try:
+            query = text("delete from PANIER where idS = " + str(id_spect))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression du panier réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

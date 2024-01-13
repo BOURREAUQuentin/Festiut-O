@@ -22,6 +22,7 @@ from reseau_social_bd import ReseauSocialBD
 from reseau_video_bd import ReseauVideoBD
 from spectateur_bd import SpectateurBD
 from style_musical_bd import StyleMusicalBD
+from heberger_bd import HebergerBD
 
 import os
 import sys
@@ -39,6 +40,7 @@ FAIRE_PARTIE = FairePartieBD(connexion)
 FAVORI = FavoriBD(connexion)
 GROUPE = GroupeBD(connexion)
 HEBERGEMENT = HebergementBD(connexion)
+HEBERGER = HebergerBD(connexion)
 INSTRUMENT = InstrumentBD(connexion)
 INTERPRETER = InterpreterBD(connexion)
 JOUER = JouerBD(connexion)
@@ -246,3 +248,38 @@ def payer_panier(id_spectateur):
         else:
             ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())
+        
+def supprimer_un_spectateur(id_spect):
+    """Supprime un spectateur dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du spectateur à supprimer
+    """
+    ACHETER.supprimer_avec_id_spectateur(id_spect)
+    PANIER.supprimer_avec_id_spectateur(id_spect)
+    FAVORI.supprimer_avec_id_spectateur(id_spect)
+    SPECTATEUR.supprimer_spectateur(id_spect)
+            
+def supprimer_un_groupe(id_groupe):
+    """Supprime un groupe dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du groupe à supprimer
+    """
+    RESEAU_VIDEO.supprimer_avec_id_groupe(id_groupe)
+    RESEAU_SOCIAL.supprimer_avec_id_groupe(id_groupe)
+    INTERPRETER.supprimer_avec_id_groupe(id_groupe)
+    HEBERGER.supprimer_avec_id_groupe(id_groupe)
+    FAVORI.supprimer_avec_id_groupe(id_groupe)
+    FAIRE_PARTIE.supprimer_avec_id_groupe(id_groupe)
+    EVENEMENT.supprimer_avec_id_groupe(id_groupe)
+    GROUPE.supprimer_groupe(id_groupe)
+    
+def supprimer_un_evenement(id_evenement):
+    """Supprime un evenement dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id de l'événement à supprimer
+    """
+    EVENEMENT.supprimer_evenement(id_evenement)
+    

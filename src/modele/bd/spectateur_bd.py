@@ -90,3 +90,18 @@ class SpectateurBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def supprimer_spectateur(self, id_spect):
+        """Supprime groupe dans la bd
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+            query = text("delete from SPECTATEUR where idS = " + str(id_spect))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression du spectateur réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

@@ -81,3 +81,33 @@ class FavoriBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def supprimer_avec_id_spectateur(self, id_spect):
+        """Supprime le favori dans la bd
+
+        Args:
+            id_spect (int): l'id du spectateur du groupe
+        """
+        try:
+            query = text("delete from FAVORI where idS = " + str(id_spect))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression du favoris réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
+        
+    def supprimer_avec_id_groupe(self, id_groupe):
+        """Supprime l'association favori dans la bd avec l'id du groupe
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+            query = text("delete from FAVORI where idG = " + str(id_groupe))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de favori réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
