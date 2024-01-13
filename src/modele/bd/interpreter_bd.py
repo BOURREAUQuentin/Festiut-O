@@ -12,6 +12,11 @@ class InterpreterBD:
         self.__connexion = connexion
 
     def get_all_interpreter(self):
+        """Renvoie la liste de toutes les associations interpréter
+
+        Returns:
+            List(Interpreter): la liste de toutes les associations interpréter
+        """
         try:
             query = text("select idG, idSt from INTERPRETER")
             resultat = self.__connexion.execute(query)
@@ -26,6 +31,14 @@ class InterpreterBD:
             return None
 
     def get_par_id_groupe(self, id_groupe):
+        """Renvoie l'association liuée avec cet id de groupe
+
+        Args:
+            id_groupe (int): l'id de groupe
+
+        Returns:
+            Interpreter: l'association correspondante
+        """
         try:
             query = text("select idG, idSt from INTERPRETER where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
@@ -38,6 +51,14 @@ class InterpreterBD:
             return None
     
     def get_par_id_style_musical(self, id_style_musical):
+        """Renvoie l'association liée avec cet id de style musical
+
+        Args:
+            id_style_musical (int): l'id du style
+
+        Returns:
+            Interpreter: l'association correspondante
+        """
         try:
             query = text("select idG, idSt from INTERPRETER where idSt = " + str(id_style_musical))
             resultat = self.__connexion.execute(query)
@@ -50,6 +71,15 @@ class InterpreterBD:
             return None
     
     def ajouter_jouer(self, id_groupe, id_style_musical):
+        """Ajoute une association Interpreter dans la bd
+
+        Args:
+            id_groupe (int): l'id du groupe
+            id_style_musical (int): l'id du style musical
+
+        Returns:
+            _type_: _description_
+        """
         try:
             query = text(f"insert into INTERPRETER values({str(id_groupe)} , {str(id_style_musical)})")
             self.__connexion.execute(query)

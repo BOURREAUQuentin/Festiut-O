@@ -1,6 +1,8 @@
 import sqlalchemy
 
 def ouvrir_connexion(user, passwd, host, database):
+    """Ouvre la connexion à la bd
+    """
     try:
         # Créer un moteur pour intéragir avec le serveur de base de données
         engine = sqlalchemy.create_engine(

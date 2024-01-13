@@ -13,6 +13,11 @@ class GroupeBD:
         self.__connexion = connexion
 
     def get_prochain_id_groupe(self):
+        """Permet de calculer le prochain id du groupe à ajouter dans la bd
+
+        Returns:
+            int: l'id du prochain groupe
+        """
         try:
             query = text("select max(idG) as m from GROUPE")
             resultat = self.__connexion.execute(query).fetchone()
@@ -23,6 +28,11 @@ class GroupeBD:
             return None
 
     def get_all_groupes(self):
+        """Renvoie la liste de tous les groupes
+
+        Returns:
+            List(Group): la liste de tous les groupes
+        """
         try:
             query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE")
             resultat = self.__connexion.execute(query)
@@ -37,6 +47,14 @@ class GroupeBD:
             return None
 
     def get_par_id_groupe(self, id_groupe):
+        """Renvoie le groupe avec cet id
+
+        Args:
+            id_groupe (int): l'id du groupe recherché
+
+        Returns:
+            int: le groupe avec cet id
+        """
         try:
             query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
@@ -49,6 +67,18 @@ class GroupeBD:
             return None
     
     def ajouter_groupe(self, id_groupe, nom, courte_description, longue_description, lien_image):
+        """Ajoute un groupe dans la bd
+
+        Args:
+            id_groupe (int): l'id du groupe
+            nom (String): le nom du groupe
+            courte_description (String): la description courte du groupe
+            longue_description (String): la description longue du groupe
+            lien_image (String): le lien de l'image du groupe
+
+        Returns:
+            _type_: _description_
+        """
         try:
             query = text(f"insert into GROUPE values({str(id_groupe)} ,'{nom}', '{courte_description}', '{longue_description}', '{lien_image}')")
             self.__connexion.execute(query)
@@ -59,6 +89,14 @@ class GroupeBD:
             return None
         
     def get_style(self, id_groupe):
+        """Renvoie le style du groupe
+
+        Args:
+            id_groupe (int): l'id du groupe 
+
+        Returns:
+            Style: le style du groupe
+        """
         try:
             query = text("select idSt from INTERPRETER where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)

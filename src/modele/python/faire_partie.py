@@ -4,9 +4,19 @@ class FairePartie:
         self.__id_artiste_fp = id_artiste
     
     def get_id_groupe(self):
+        """Renvoie l'id du groupe
+
+        Returns:
+            int: l'id du groupe
+        """
         return self.__id_groupe_fp
     
     def get_id_artiste(self):
+        """Renvoie l'id de l'artiste qui fait parti du groupe
+
+        Returns:
+            int: l'id de l'artiste
+        """
         return self.__id_artiste_fp
 
     def __str__(self):

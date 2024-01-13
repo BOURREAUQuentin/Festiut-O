@@ -5,15 +5,35 @@ class Panier:
         self.__quantite_billet_panier = quantite_billet
     
     def get_id_billet(self):
+        """Renvoie l'id du billet dans le panier
+
+        Returns:
+            int: l'id du billet
+        """
         return self.__id_billet_panier
     
     def get_id_spectateur(self):
+        """Renvoie l'id du spectateur qui a le panier
+
+        Returns:
+            int: l'id du spectateur
+        """
         return self.__id_spectateur_panier
 
     def get_quantite_billet(self):
+        """Renvoie la quantité du billet dans le panier
+
+        Returns:
+            int: la quantié du billet
+        """
         return self.__quantite_billet_panier
     
     def set_quantite_billet(self, nouvelle_quantite_billet):
+        """Redéfini la quantité du billet dans le panier
+
+        Args:
+            nouvelle_quantite_billet (int): la nouvelle quantité
+        """
         self.__quantite_billet_panier = nouvelle_quantite_billet
 
     def __str__(self):

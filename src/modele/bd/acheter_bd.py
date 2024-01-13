@@ -13,6 +13,11 @@ class AcheterBD:
         self.__connexion = connexion
 
     def get_all_acheter(self):
+        """Récupère tous les achats effectués
+
+        Returns:
+            List(Acheter):la liste d'achats (Acheter)
+        """
         try:
             query = text("select idB, idS, quantiteB from ACHETER")
             resultat = self.__connexion.execute(query)
@@ -27,6 +32,14 @@ class AcheterBD:
             return None
 
     def get_par_id_billet(self, id_billet):
+        """Récupère les achats effectués selon le billet
+
+        Args:
+            id_billet (int): l'id du billet 
+
+        Returns:
+            List(Acheter): la liste des achats associés au billet
+        """
         try:
             query = text("select idB, idS, quantiteB from ACHETER where idB = " + str(id_billet))
             resultat = self.__connexion.execute(query)
@@ -39,6 +52,14 @@ class AcheterBD:
             return None
 
     def get_par_id_spectateur(self, id_spectateur):
+        """Récupère les achats selon le spectateur
+
+        Args:
+            id_spectateur (int): l'id du spectateur
+
+        Returns:
+            List(Acheter): la liste des achats du spectateur
+        """
         try:
             query = text("select idB, idS, quantiteB from ACHETER where idS = " + str(id_spectateur))
             resultat = self.__connexion.execute(query)
@@ -63,6 +84,16 @@ class AcheterBD:
             return None
     
     def payer_billet(self, id_billet, id_spectateur, quantite_billet):
+        """Fonction qui permet d'insérer un achat dans la base de données
+
+        Args:
+            id_billet (int): L'id du billet
+            id_spectateur (int): L'id du spectateur
+            quantite_billet (int): la quantité à insérer
+
+        Returns:
+            _type_: _description_
+        """
         try:
             query = text(f"insert into ACHETER values({str(id_billet)} , {str(id_spectateur)}, {str(quantite_billet)})")
             self.__connexion.execute(query)

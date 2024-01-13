@@ -12,6 +12,11 @@ class ASousStyleBD:
         self.__connexion = connexion
 
     def get_all_a_sous_style(self):
+        """Fonction qui permet de récupérer tous les sous styles.
+
+        Returns:
+            List(ASousStyle): La liste des sous styles.
+        """
         try:
             query = text("select idSt1, idSt2 from A_SOUS_STYLE")
             resultat = self.__connexion.execute(query)
@@ -26,6 +31,14 @@ class ASousStyleBD:
             return None
 
     def get_par_id_style_principal(self, id_style_principal):
+        """Fonction qui permet de récupérer les styles principaux d'un sous style
+
+        Args:
+            id_style_principal (int): Le style principal 
+
+        Returns:
+            List(ASousStyle): La liste des styles principaux associés au sous style.
+        """
         try:
             query = text("select idSt1, idSt2 from A_SOUS_STYLE where idSt1 = " + str(id_style_principal))
             resultat = self.__connexion.execute(query)
@@ -38,6 +51,13 @@ class ASousStyleBD:
             return None
 
     def get_par_id_sous_style(self, id_sous_style):
+        """Fonction qui permet de récupérer les sous styles d'un sous style
+
+        Args:
+            id_sous_style (int): l'id du sous style
+        Returns:
+            List(ASousStyle): La liste des sous styles
+        """
         try:
             query = text("select idSt1, idSt2 from A_SOUS_STYLE where idSt2 = " + str(id_sous_style))
             resultat = self.__connexion.execute(query)
@@ -50,6 +70,12 @@ class ASousStyleBD:
             return None
     
     def ajouter_a_sous_style(self, id_style_principal, id_sous_style):
+        """Fonction qui permet d'ajouter un sous style 
+
+        Args:
+            id_style_principal (int): l'id du style principal 
+            id_sous_style (int): l'id du sous style
+        """
         try:
             query = text(f"insert into A_SOUS_STYLE values({str(id_style_principal)} , {str(id_sous_style)})")
             self.__connexion.execute(query)

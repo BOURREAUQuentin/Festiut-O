@@ -12,6 +12,11 @@ class ArtisteBD:
         self.__connexion = connexion
     
     def get_prochain_id_artiste(self):
+        """Permet de connaitre l'id du prochain artiste à insérer
+
+        Returns:
+            int: l'id du prochain artiste
+        """
         try:
             query = text("select max(idA) as m from ARTISTE")
             resultat = self.__connexion.execute(query).fetchone()
@@ -22,6 +27,11 @@ class ArtisteBD:
             return None
     
     def get_all_artistes(self):
+        """Permet de récupérer la liste de tous les artistes
+
+        Returns:
+            List(Artiste): la liste de tous les artises
+        """
         try:
             query = text("select idA, nomA, descriptionA, lienImageA from ARTISTE")
             resultat = self.__connexion.execute(query)
@@ -36,6 +46,14 @@ class ArtisteBD:
             return None
     
     def get_par_id_artiste(self, id_artiste):
+        """Permet de récupérer un artiste grâce à son id
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+
+        Returns:
+            Artiste: l'artiste correspondant à l'id
+        """
         try:
             query = text("select idA, nomA, descriptionA, lienImageA from ARTISTE where idA = " + str(id_artiste))
             resultat = self.__connexion.execute(query)
@@ -48,6 +66,14 @@ class ArtisteBD:
             return None
         
     def get_recherche_par_nom_artiste(self, nom_artiste):
+        """Permet de récupérer un artiste grâce à son nom
+
+        Args:
+            nom_artiste (Strinf): Le nom de l'artiste
+
+        Returns:
+            Artiste: L'artiste correspondant au nom
+        """
         try:
             query = text("select idA, nomA, descriptionA from ARTISTE where nomA LIKE '%" + nom_artiste + "%'")
             resultat = self.__connexion.execute(query)
@@ -62,6 +88,15 @@ class ArtisteBD:
             return None
     
     def inserer_artiste(self, id_artiste, nom, description, lien_image):
+        """Permet d'insérer un artiste dans la base de données
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+            nom (String): le nom de l'artiste
+            description (String): la description de l'artiste
+            lien_image (String): l'image liée à l'artiste
+
+        """
         try:
             query = text(f"insert into ARTISTE values({str(id_artiste)} ,'{nom}', '{description}', '{lien_image}')")
             self.__connexion.execute(query)

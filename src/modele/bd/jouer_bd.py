@@ -12,6 +12,11 @@ class JouerBD:
         self.__connexion = connexion
 
     def get_all_jouer(self):
+        """Renvoie la liste de toutes les associations Jouer dans la bd
+
+        Returns:
+            List(Jouer): la liste de toutes les associations Jouer
+        """
         try:
             query = text("select idA, idI from JOUER")
             resultat = self.__connexion.execute(query)
@@ -26,6 +31,14 @@ class JouerBD:
             return None
 
     def get_par_id_artiste(self, id_artiste):
+        """Renvoie l'association Jouer liée avec cet id artiste
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+
+        Returns:
+            Jouer: l'association correspondante
+        """
         try:
             query = text("select idA, idI from JOUER where idA = " + str(id_artiste))
             resultat = self.__connexion.execute(query)
@@ -38,6 +51,14 @@ class JouerBD:
             return None
     
     def get_par_id_instrument(self, id_instrument):
+        """Renvoie l'association Jouer liée avec cet id instrument
+
+        Args:
+            id_instrument (int): l'id de l'instrument
+
+        Returns:
+            Jouer: l'association correspondante
+        """
         try:
             query = text("select idA, idI from JOUER where idI = " + str(id_instrument))
             resultat = self.__connexion.execute(query)
@@ -50,6 +71,12 @@ class JouerBD:
             return None
     
     def ajouter_jouer(self, id_artiste, id_instrument):
+        """Ajoute une association jouer dans la bd
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+            id_instrument (int): l'id de l'instrument
+        """
         try:
             query = text(f"insert into JOUER values({str(id_artiste)} , {str(id_instrument)})")
             self.__connexion.execute(query)
