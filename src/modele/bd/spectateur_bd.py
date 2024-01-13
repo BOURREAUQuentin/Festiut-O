@@ -6,6 +6,9 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from spectateur import Spectateur
+from acheter_bd import AcheterBD
+from panier_bd import PanierBD
+from favori_bd import FavoriBD
 
 class SpectateurBD:
     def __init__(self, connexion):
@@ -87,6 +90,22 @@ class SpectateurBD:
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un spectateur réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
+        
+    def supprimer_spectateur(self, id_spect):
+        """Supprime groupe dans la bd
+
+        Args:
+            id_groupe (int): l'id du groupe
+        """
+        try:
+           
+            query = text("delete from SPECTATEUR where idS = " + str(id_spect))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression du spectateur réussi !")
         except Exception as exp:
             print("La connexion a échoué !")
             return None

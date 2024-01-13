@@ -81,3 +81,18 @@ class FavoriBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def supprimer_avec_id_spectateur(self, id_spect):
+        """Supprime le favori dans la bd
+
+        Args:
+            id_spect (int): l'id du spectateur du groupe
+        """
+        try:
+            query = text("delete from FAVORI where idS = " + str(id_spect))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression du favoris réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

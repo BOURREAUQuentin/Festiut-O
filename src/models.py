@@ -246,3 +246,10 @@ def payer_panier(id_spectateur):
         else:
             ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())
+        
+def supprimer_spectateur(id_spect):
+    AcheterBD.supprimer_avec_id_spectateur(id_spect)
+    PanierBD.supprimer_avec_id_spectateur(id_spect)
+    FavoriBD.supprimer_avec_id_spectateur(id_spect)
+    SpectateurBD.supprimer_spectateur(id_spect)
+            
