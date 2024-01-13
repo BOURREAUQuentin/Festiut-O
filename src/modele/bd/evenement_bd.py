@@ -59,7 +59,7 @@ class EvenementBD:
             print("La connexion a échoué !")
             return None
     
-    def get_all_evenements_pour_planning(self):
+    def get_all_evenements_pour_planning(self, dateJournee):
         """
         Retourne une liste de tuple contenant Evenement, Groupe, Lieu triés par heureDebutE croissant
         pour être affiché dans la page planning
