@@ -6,6 +6,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..')
 sys.path.append(os.path.join(ROOT, 'modele/python/'))
 
 from acheter import Acheter
+from billet import Billet
 
 class AcheterBD:
     def __init__(self, connexion):
@@ -49,6 +50,18 @@ class AcheterBD:
             print("la connexion a échoué !")
             return None
     
+    def get_billet_deja_achete(self, id_billet, id_spectateur):
+        try:
+            query = text("select idB, idS, quantiteB from ACHETER where idB = "+ str(id_billet) + " and idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+            if len(resultat) > 0:
+                # si le spectateur a déjà payé ce billet
+                return True
+            return False
+        except Exception as exp:
+            print("la connexion a échoué !")
+            return None
+    
     def payer_billet(self, id_billet, id_spectateur, quantite_billet):
         try:
             query = text(f"insert into ACHETER values({str(id_billet)} , {str(id_spectateur)}, {str(quantite_billet)})")
@@ -57,4 +70,37 @@ class AcheterBD:
             print("Ajout d'un acheter réussi !")
         except Exception as exp:
             print("La connexion a échoué !")
+            return None
+
+    def update_quantite_billet_achete(self, id_billet, id_spectateur, quantite_billet):
+        try:
+            query = text("update ACHETER set quantiteB = quantiteB +" + str(quantite_billet) + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Modification de la quantité réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
+    
+    def get_all_billets_achete_spectateur(self, id_spectateur):
+        """
+        Retourne le dictionnaire des billets achetés par le spectateur avec
+        comme clé le Billet et comme valeur la quantité de ce billet.
+
+        Args:
+        Param: id_spectateur : l'id du spectateur.
+
+        Returns:
+            (dict(Billet, int)) : le dictionnaire des billets achetés par le spectateur avec
+            comme clé le Billet et comme valeur la quantité de ce billet.
+        """
+        try:
+            query = text("select idB, prixB, quantiteB from BILLET natural join ACHETER where idS = " + str(id_spectateur))
+            resultat = self.__connexion.execute(query)
+            dico_billets_achete_spectateur = set()
+            for id_billet, prix_billet, quantite_billet in resultat:
+                dico_billets_achete_spectateur.add(Billet(id_billet, prix_billet), quantite_billet)
+            return dico_billets_achete_spectateur
+        except Exception as exp:
+            print("la connexion a échoué !")
             return None
