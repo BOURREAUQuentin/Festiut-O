@@ -33,14 +33,7 @@ def login():
     """
         permet de se diriger vers la page login (connexion)
     """
-    return render_template("login.html", page_login=True)
-
-@app.route("/inscription")
-def inscription():
-    """
-        Permet de se diriger vers la page inscription
-    """
-    return render_template("inscription.html", page_inscription=True)
+    return render_template("login_signup.html", page_login_signup=True)
 
 @app.route("/les-parcours", methods=["GET", "POST"])
 def connecter():
