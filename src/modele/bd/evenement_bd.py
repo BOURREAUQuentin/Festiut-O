@@ -81,12 +81,21 @@ class EvenementBD:
             id_lieu (int): l'id du lieu de l'évenement
             id_journee (int): l'id de la journée
             id_groupe (int): l'id du groupe
+            
+        Returns:
+            bool: vrai si l'ajout s'est bien passé, False sinon
         """
         try:
-            query = text(f"insert into EVENEMENT values({str(id_evenement)} ,'{nom}', '{description}', {str(heure_debut)}, {str(duree)}, {str(tpsMontage)}, {str(tpsDemontage)}, {str(id_lieu)}, {str(id_journee)}, {str(id_groupe)})")
-            self.__connexion.execute(query)
-            self.__connexion.commit()
-            print("Ajout d'un évènement réussi !")
+            insertion_passee = False
+            try:
+                query = text(f"insert into EVENEMENT values({str(id_evenement)} ,'{nom}', '{description}', {str(heure_debut)}, {str(duree)}, {str(tpsMontage)}, {str(tpsDemontage)}, {str(id_lieu)}, {str(id_journee)}, {str(id_groupe)})")
+                self.__connexion.execute(query)
+                self.__connexion.commit()
+                print("Ajout d'un évènement réussi !")
+                insertion_passee = True
+            except Exception as expc:
+                print("erreur chevauchement evenements")
+            return insertion_passee
         except Exception as exp:
             print("La connexion a échoué !")
             return None
