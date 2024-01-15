@@ -73,7 +73,7 @@ class SpectateurBD:
             nom (String): le nom du spectateur
             prenom (String): le prenom du spectateur
             mail (String): le mail du spectateur
-            date_naissance (DateTime): le date de naissance du spectateur
+            date_naissance (String): le date de naissance du spectateur
             tel (String): le telephone du spectateur
             nom_utilisateur (String): le nom utilisateur du spectateur
             mdp (String): le mot de passe du spectateur
@@ -83,7 +83,7 @@ class SpectateurBD:
         """
         try:
             # met automatiquement N pour l'admin car on ne peut créer un admin sur l'application (uniquement en sql auparavant)
-            query = text(f"insert into SPECTATEUR values({str(id_spectateur)} ,'{nom}', '{prenom}' ,'{mail}' ,{str(date_naissance)} ,{str(tel)} ,'{nom_utilisateur}' ,'{mdp}' ,'N')")
+            query = text(f"insert into SPECTATEUR values({str(id_spectateur)} ,'{nom}', '{prenom}' ,'{mail}' ,'{date_naissance}' ,{str(tel)} ,'{nom_utilisateur}' ,'{mdp}' ,'N')")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un spectateur réussi !")

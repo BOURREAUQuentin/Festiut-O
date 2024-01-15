@@ -282,7 +282,7 @@ def supprimer_un_evenement(id_evenement):
         id_spect (int): l'id de l'événement à supprimer
     """
     EVENEMENT.supprimer_evenement(id_evenement)
-    
+
 def ajouter_evenement(nom, description, heure_debut, duree, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe):
     prochain_id = EVENEMENT.get_prochain_id_evenement()
     insertion_passee_evenement = EVENEMENT.ajouter_evenement(prochain_id, nom, description, heure_debut, duree, tpsMontage, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe)
@@ -297,4 +297,15 @@ def ajouter_artiste():
     prochain_id = ARTISTE.get_prochain_id_artiste()
     insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id)
     return insertion_passee_artiste
-    
+
+def spectateur_est_connecte(spectateur_connecte):
+    """
+    Retourne si le spectateur est connecté sur le site
+
+    Args:
+        spectateur_connecte (Spectateur): le spectateur connecté (s'il n'est pas connecté l'id = -1)
+
+    Returns:
+        (bool): true si le spectateur est connecté, sinon false
+    """
+    return spectateur_connecte.get_id() != -1
