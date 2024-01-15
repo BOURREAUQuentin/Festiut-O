@@ -12,8 +12,9 @@
                         <h1 class="pb-4">Choisissez votre <i class='uil uil-bus color-yellow'></i> billet</h1>
                         <div class="section">
                             <div>
-                            <input class="checkbox-ticket" type="radio" name="ticket" id="ticket-1">
-                            <label for="ticket-1">
+                                {% for i in range(3) %}
+                            <input class="checkbox-ticket" type="radio" name="ticket" id="ticket-{{ i }}">
+                            <label for="ticket-{{ i }}">
                                 <span class="top-dots">
                                     <span class="section dots">
                                         <span></span>
@@ -36,10 +37,10 @@
                                     </span>
                                 </span>
                                 <span class="date">
-                                    Samedi
+                                    {{ liste_journees[i] }}
                                 </span>
                                 <span class="price mt-2 pb-4 mb-3">
-                                    50€
+                                    {{ liste_billets[i].get_prix() }}€
                                 </span>
                                 <span class="section dots">
                                     <span></span>
@@ -64,159 +65,33 @@
                                     <i class='uil uil-clock-two mt-3'></i>
                                 </span>
                                 <span class="artists mt-2">
-                                    Fave - Gazo - Ninho
-                                </span>
-                                <span class="bottom-dots">
-                                    <span class="section dots">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </span>
-                            </label><!--
-                            --><input class="checkbox-ticket" type="radio" name="ticket" id="ticket-2">
-                            <label for="ticket-2">
-                                <span class="top-dots">
-                                    <span class="section dots">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </span>
-                                <span class="date">
-                                    Week-end
-                                </span>
-                                <span class="price mt-2 pb-4 mb-3">
-                                    80€
-                                </span>
-                                <span class="section dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </span>
-                                <span class="section pt-4">
-                                    <i class='uil uil-clock-two mt-3'></i>
-                                </span>
-                                <span class="artists mt-2">
-                                    Fave - Gazo - Ninho - Kerchak - Tiakola - So La Lune
-                                </span>
-                                <span class="bottom-dots">
-                                    <span class="section dots">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </span>
-                            </label><!--
-                            --><input class="checkbox-ticket" type="radio" name="ticket" id="ticket-3">
-                            <label for="ticket-3">
-                                <span class="top-dots">
-                                    <span class="section dots">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
-                                    </span>
-                                </span>
-                                <span class="date">
-                                    Dimanche
-                                </span>
-                                <span class="price mt-2 pb-4 mb-3">
-                                    50€
-                                </span>
-                                <span class="section dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </span>
-                                <span class="section pt-4">
-                                    <i class='uil uil-clock-two mt-3'></i>
-                                </span>
-                                <span class="artists mt-2">
-                                    Kerchak - Tiakola - So La Lune
+                                    {% if i == 0 %}
+                                        {% for groupe_samedi in liste_groupes_samedi %}
+                                            {% if groupe_samedi != liste_groupes_samedi[-1] %}
+                                                {{ groupe_samedi.get_nom() }} -
+                                            {% else %}
+                                                {{ groupe_samedi.get_nom() }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if i == 1 %}
+                                        {% for groupe_weekend in liste_groupes_week_end %}
+                                            {% if groupe_weekend != liste_groupes_week_end[-1] %}
+                                                {{ groupe_weekend.get_nom() }} -
+                                            {% else %}
+                                                {{ groupe_weekend.get_nom() }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if i == 2 %}
+                                        {% for groupe_dimanche in liste_groupes_dimanche %}
+                                            {% if groupe_dimanche != liste_groupes_dimanche[-1] %}
+                                                {{ groupe_dimanche.get_nom() }} -
+                                            {% else %}
+                                                {{ groupe_dimanche.get_nom() }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </span>
                                 <span class="bottom-dots">
                                     <span class="section dots">
@@ -240,6 +115,7 @@
                                     </span>
                                 </span>
                             </label>
+                            {% endfor %}
                         </div>
                             <div class="w-100"></div>
                             <a href="#" class="btn mt-4 mb-5"><i class="uil uil-ticket size-22 mr-2"></i>Ajouter au panier</a>
