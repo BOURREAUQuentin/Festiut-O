@@ -282,4 +282,15 @@ def supprimer_un_evenement(id_evenement):
         id_spect (int): l'id de l'événement à supprimer
     """
     EVENEMENT.supprimer_evenement(id_evenement)
-    
+
+def spectateur_est_connecte(spectateur_connecte):
+    """
+    Retourne si le spectateur est connecté sur le site
+
+    Args:
+        spectateur_connecte (Spectateur): le spectateur connecté (s'il n'est pas connecté l'id = -1)
+
+    Returns:
+        (bool): true si le spectateur est connecté, sinon false
+    """
+    return spectateur_connecte.get_id() != -1
