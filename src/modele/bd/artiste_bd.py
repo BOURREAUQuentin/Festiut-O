@@ -105,3 +105,29 @@ class ArtisteBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def ajouter_artiste(self, id_artiste, nom, description, lien_image):
+        """Ajoute un artiste dans la bd
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+            nom (String): le nom de l'artiste
+            description (String): la description de l'artiste
+            lien_image (String): le lien de l'image de l'artiste
+
+        Returns:
+            bool: vrai si l'ajout s'est bien passé, False sinon
+        """
+        try:
+            insertion_passee = False
+            try:
+                query = text(f"insert into ARTISTE values({str(id_artiste)} ,'{nom}', '{description}', '{lien_image}')")
+                self.__connexion.execute(query)
+                self.__connexion.commit()
+                print("Ajout de l'artiste réussi !")
+            except Exception as excp:
+                print("erreur ajout artiste")
+            return insertion_passee
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None

@@ -283,6 +283,21 @@ def supprimer_un_evenement(id_evenement):
     """
     EVENEMENT.supprimer_evenement(id_evenement)
 
+def ajouter_evenement(nom, description, heure_debut, duree, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe):
+    prochain_id = EVENEMENT.get_prochain_id_evenement()
+    insertion_passee_evenement = EVENEMENT.ajouter_evenement(prochain_id, nom, description, heure_debut, duree, tpsMontage, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe)
+    return insertion_passee_evenement
+
+def ajouter_groupe(nom, courte_description, longue_description, lien_image):
+    prochain_id = GROUPE.get_prochain_id_groupe()
+    insertion_passee_groupe = GROUPE.ajouter_groupe(prochain_id, nom, courte_description, longue_description, lien_image)
+    return insertion_passee_groupe
+
+def ajouter_artiste():
+    prochain_id = ARTISTE.get_prochain_id_artiste()
+    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id)
+    return insertion_passee_artiste
+
 def spectateur_est_connecte(spectateur_connecte):
     """
     Retourne si le spectateur est connecté sur le site
