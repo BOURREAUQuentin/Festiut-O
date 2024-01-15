@@ -31,16 +31,9 @@ def les_groupes():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """
-        permet de se diriger vers la page login (connexion)
+        permet de se diriger vers la page login (connexion/inscription)
     """
-    return render_template("login.html", page_login=True)
-
-@app.route("/inscription")
-def inscription():
-    """
-        Permet de se diriger vers la page inscription
-    """
-    return render_template("inscription.html", page_inscription=True)
+    return render_template("loginsignup.html", page_login_signup=True)
 
 @app.route("/les-parcours", methods=["GET", "POST"])
 def connecter():
@@ -76,6 +69,7 @@ def inscrire():
     """
     Permet d'inscrire le spectateur (utilisateur) qui n'a pas de compte
     """
+    error_message = ""
     if request.method == "POST":
         nom = request.form.get("nom")
         prenom = request.form.get("prenom")
@@ -87,15 +81,21 @@ def inscrire():
         liste_spectateurs = SPECTATEUR.get_all_spectateurs()
 
         for spectateur in liste_spectateurs:
-            if username == spectateur.get_nom_utilisateur() or mail == spectateur.get_mail():
-                # erreur car y'a déjà un spectateur portant ce username ou ce mail (gérer l'erreur)
-                #return jsonify({"error": "exists"})
-                pass
-        inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password)
-        le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
-                                   nom, prenom, mail, date_naissance, telephone, username, password, "N")
-        return redirect(url_for("accueil"))
-    return render_template("login.html", page_login=True)
+            if username == spectateur.get_nom_utilisateur():
+                # Il y a déjà un spectateur portant ce username
+                error_message += "Ce nom d'utilisateur existe déjà.\n"
+            elif mail == spectateur.get_mail():
+                # Il y a déjà un spectateur portant ce mail
+                error_message += "Cette adresse e-mail existe déjà.\n"
+
+        if error_message == "":
+            inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password)
+            le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
+                                    nom, prenom, mail, date_naissance, telephone, username, password, "N")
+            return redirect(url_for("accueil"))
+        # il y a une erreur, on retourne à la page avec le/les message(s) d'erreur(s)
+        return render_template("loginsignup.html", error_message=error_message)
+    return redirect(url_for("loginsignup"))
   
 @app.route("/panier")
 def panier():
