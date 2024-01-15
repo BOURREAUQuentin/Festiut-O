@@ -154,3 +154,16 @@
     color: white;
     text-shadow: 0 0 20px #00fffb, 0 0 40px #0081bc;
   }
+
+  .signup{
+    position: fixed;
+    right: 10px;
+  }
+  .signup>a{
+    text-decoration: none;
+  }
+  .signup p{
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00fffb, 0 0 10px #0081bc;
+  }
