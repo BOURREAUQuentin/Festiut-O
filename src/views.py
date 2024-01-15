@@ -33,7 +33,7 @@ def login():
     """
         permet de se diriger vers la page login (connexion/inscription)
     """
-    return render_template("loginsignup.html", page_login_signup=True)
+    return render_template("loginsignup.html", page_login_signup=True, error_message="")
 
 @app.route("/les-parcours", methods=["GET", "POST"])
 def connecter():
@@ -62,6 +62,9 @@ def connecter():
                                    spectateur_trouve.get_mdp(),
                                    spectateur_trouve.get_admin())
             return redirect(url_for("accueil"))
+        else:
+            error_message = "Nom d'utilisateur ou mot de passe non-correspondants."
+            return render_template("loginsignup.html", error_message=error_message)
     return redirect(url_for("login"))
 
 @app.route("/inscription", methods=["GET", "POST"])
@@ -95,7 +98,7 @@ def inscrire():
             return redirect(url_for("accueil"))
         # il y a une erreur, on retourne à la page avec le/les message(s) d'erreur(s)
         return render_template("loginsignup.html", error_message=error_message)
-    return redirect(url_for("loginsignup"))
+    return redirect(url_for("login"))
   
 @app.route("/panier")
 def panier():
