@@ -13,6 +13,9 @@
     {% if page_billetterie %}
         <link href="../static/billetterie.css" rel="stylesheet" />
     {% endif %}
+    {% if page_login_signup %}
+        <link href="../static/login_signup.css" rel="stylesheet" />
+    {% endif %}
     <title>Document</title>
     <script>
       function delayRedirect(url, delay) {
@@ -29,7 +32,11 @@
               {% if page_home %}
                 <li class="list active">
               {% else %}  
-                <li class="list">
+                {% if page_login_signup %}
+                  <li class="list active">
+                {% else %}  
+                  <li class="list">
+                {% endif %}
               {% endif %}
               
                 <a href="{{ url_for('accueil') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('accueil') }}', 400)">
@@ -82,6 +89,9 @@
               <div class="indicator"></div>
             </ul>
           </div>
+          <div class="signup">
+            <a href="{{ url_for('login') }}"><p >Sign up</p> </a>
+          </div>
     </header>
         {% block content %}
         {% endblock %}
@@ -89,6 +99,9 @@
         <p class="copyright">Copyright</p>
     </footer>
       <script src="../static/script/test.js"></script>
+      {% if page_login_signup %}
+      <script src="../static/script/login_signup.js"></script>
+    {% endif %}
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
