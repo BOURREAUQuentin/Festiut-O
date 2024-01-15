@@ -106,7 +106,7 @@ class ArtisteBD:
             print("La connexion a échoué !")
             return None
         
-    def ajouter_groupe(self, id_artiste, nom, description, lien_image):
+    def ajouter_artiste(self, id_artiste, nom, description, lien_image):
         """Ajoute un artiste dans la bd
 
         Args:

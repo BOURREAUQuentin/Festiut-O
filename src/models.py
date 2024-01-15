@@ -295,6 +295,6 @@ def ajouter_groupe(nom, courte_description, longue_description, lien_image):
 
 def ajouter_artiste():
     prochain_id = ARTISTE.get_prochain_id_artiste()
-    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, )
+    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id)
     return insertion_passee_artiste
     
