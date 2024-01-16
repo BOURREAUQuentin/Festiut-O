@@ -139,14 +139,15 @@ class JourneeBD:
         try:
             query = text("select idJ, dateJ from JOURNEE")
             resultat = self.__connexion.execute(query)
-            dico_journees = set()
+            dico_journees = {}
             for id_journee, date in resultat:
                 # conversion de la date du 2024-07-18 en datetime comme dateJ dans la bd
                 if date == datetime.strptime("2024-07-18", "%Y-%m-%d").date():
-                    dico_journees.add("Samedi", date)
+                    dico_journees["Samedi"] = str(date)
                 else:
-                    dico_journees.add("Dimanche", date)
+                    dico_journees["Dimanche"] = str(date)
             return dico_journees
         except Exception as exp:
+            print(exp)
             print("la connexion a échoué !")
             return None

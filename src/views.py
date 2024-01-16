@@ -33,16 +33,11 @@ def login():
     """
         permet de se diriger vers la page login (connexion/inscription)
     """
-    return render_template("loginsignup.html", page_login_signup=True, error_message="")
+    return render_template("login_signup.html", page_login_signup=True)
 
-@app.route("/les-parcours", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def connecter():
-    """
-        récupère les champs entrés dans la page de connexion et vérifie
-        si l'utilisateur à déjà un compte :
-        s'il a un compte, on le dirige vers la page des parcours.
-        sinon on le redirige sur la page connexion.
-    """
+    print("test")
     username = request.form.get("username")
     password = request.form.get("password")
     liste_spectateurs = SPECTATEUR.get_all_spectateurs()
@@ -61,10 +56,10 @@ def connecter():
                                    spectateur_trouve.get_nom_utilisateur(),
                                    spectateur_trouve.get_mdp(),
                                    spectateur_trouve.get_admin())
+            print("oui")
             return redirect(url_for("accueil"))
         else:
-            error_message = "Nom d'utilisateur ou mot de passe non-correspondants."
-            return render_template("loginsignup.html", error_message=error_message)
+            return redirect(url_for("login"))
     return redirect(url_for("login"))
 
 @app.route("/inscription", methods=["GET", "POST"])
@@ -97,7 +92,7 @@ def inscrire():
                                     nom, prenom, mail, date_naissance, telephone, username, password, "N")
             return redirect(url_for("accueil"))
         # il y a une erreur, on retourne à la page avec le/les message(s) d'erreur(s)
-        return render_template("loginsignup.html", error_message=error_message)
+        return render_template("login_signup.html")
     return redirect(url_for("login"))
   
 @app.route("/panier")

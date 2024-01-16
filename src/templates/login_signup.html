@@ -8,24 +8,24 @@
             <div class="signup">
                 <h2 class="form-title" id="signup">S'inscrire</h2>
                 <div class="form-holder">
-                    <input type="text" class="input" placeholder="Nom" />
-                    <input type="text" class="input" placeholder="Prénom" />
-                    <input type="text" class="input" placeholder="Date de naissance" />
-                    <input type="text" class="input" placeholder="Téléphone" />
-                    <input type="text" class="input" placeholder="Pseudo" />
-                    <input type="email" class="input" placeholder="Email" />
-                    <input type="password" class="input" placeholder="Mot de passe" />
+                    <input type="text" class="input" required placeholder="Nom" />
+                    <input type="text" class="input" required placeholder="Prénom" />
+                    <input type="text" class="input" required placeholder="Date de naissance" />
+                    <input type="text" class="input" required placeholder="Téléphone" />
+                    <input type="text" class="input" required placeholder="Pseudo" />
+                    <input type="email" class="input" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" title="Entrez une adresse e-mail valide" placeholder="Email" />
+                    <input type="password" class="input" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$" title="Le mot de passe doit comporter au moins 8 caractères, y compris au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial." placeholder="Mot de passe" />
                 </div>
-                <button class="submit-btn">S'inscrire</button>
+                <a href="{{ url_for('inscrire') }}"><button class="submit-btn">S'inscrire</button></a>
             </div>
             <div class="login slide-up">
                 <div class="center">
                     <h2 class="form-title" id="login">Se connecter</h2>
                     <div class="form-holder">
-                        <input type="email" class="input" placeholder="Email" />
-                        <input type="password" class="input" placeholder="Mot de passe" />
+                        <input type="email" class="input" required placeholder="Email" />
+                        <input type="password" class="input" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$" title="Le mot de passe doit comporter au moins 8 caractères, y compris au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial." placeholder="Mot de passe" />
                     </div>
-                    <button class="submit-btn">Se connecter</button>
+                    <a href="{{ url_for('connecter') }}"><button class="submit-btn">Se connecter</button></a>
                 </div>
             </div>
         </div>
