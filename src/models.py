@@ -179,9 +179,9 @@ def lister_evenements_par_journee(dateJournee):
             (List[tuple(Evenement, Groupe, Lieu)]): Les événements (avec le groupe associé et le lieu) qui ont lieu durant dateJournee et triés par heureDebutE croissant.
     """
     liste_evenements_journee= []
-    liste_evenements = EVENEMENT.get_all_evenements_pour_planning()
+    liste_evenements = EVENEMENT.get_all_evenements_pour_planning(dateJournee)
     for evenementActuel in liste_evenements:
-        if evenementActuel.get_id_journee() == JOURNEE.get_par_date_journee(dateJournee).get_id():
+        if evenementActuel[0].get_id_journee() == JOURNEE.get_par_date_journee(dateJournee).get_id():
             liste_evenements_journee.append(evenementActuel)
     return liste_evenements_journee
 

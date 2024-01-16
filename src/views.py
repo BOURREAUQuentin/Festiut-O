@@ -62,6 +62,7 @@ def connecter():
                                    spectateur_trouve.get_nom_utilisateur(),
                                    spectateur_trouve.get_mdp(),
                                    spectateur_trouve.get_admin())
+            print("oui")
             return redirect(url_for("accueil"))
         return redirect(url_for("login"))
     return redirect(url_for("login"))
