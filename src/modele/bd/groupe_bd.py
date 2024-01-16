@@ -77,13 +77,18 @@ class GroupeBD:
             lien_image (String): le lien de l'image du groupe
 
         Returns:
-            _type_: _description_
+            bool: vrai si l'ajout s'est bien passé, False sinon
         """
         try:
-            query = text(f"insert into GROUPE values({str(id_groupe)} ,'{nom}', '{courte_description}', '{longue_description}', '{lien_image}')")
-            self.__connexion.execute(query)
-            self.__connexion.commit()
-            print("Ajout d'un groupe réussi !")
+            insertion_passee = False
+            try:
+                query = text(f"insert into GROUPE values({str(id_groupe)} ,'{nom}', '{courte_description}', '{longue_description}', '{lien_image}')")
+                self.__connexion.execute(query)
+                self.__connexion.commit()
+                print("Ajout d'un groupe réussi !")
+            except Exception as excp:
+                print("erreur ajout groupe")
+            return insertion_passee
         except Exception as exp:
             print("La connexion a échoué !")
             return None

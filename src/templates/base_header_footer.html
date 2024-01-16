@@ -96,9 +96,15 @@
               <div class="indicator"></div>
             </ul>
           </div>
+          {% if connecte %}
           <div class="signup">
-            <a href="{{ url_for('login') }}"><p >Sign up</p> </a>
+            <a href="{{ url_for('deconnexion') }}"><p >Déconnexion</p> </a>
           </div>
+          {% else %}
+          <div class="signup">
+            <a href="{{ url_for('login') }}"><p >Connexion</p> </a>
+          </div>
+          {% endif %}
     </header>
         {% block content %}
         {% endblock %}
@@ -108,6 +114,38 @@
       <script src="../static/script/test.js"></script>
       {% if page_login_signup %}
       <script src="../static/script/login_signup.js"></script>
+      <!-- script en dur car on ne peut pas le mettre dans un fichier js et l'appeler -->
+      <script>
+        function showPopup(message) {
+          alert(message);
+        }
+        document.querySelector('.form-login').addEventListener('submit', function (event) {
+            event.preventDefault();
+        
+            const form = event.target;
+            const formData = new FormData(form);
+        
+            fetch('{{ url_for("inscrire") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error === 'exists-mail') {
+                  showPopup("Votre mail est déjà existant.");
+                  window.location.href = '{{ url_for("login") }}';
+                }
+                else if (data.error === 'exists-nomutilisateur') {
+                  showPopup("Votre nom d'utilisateur est déjà existant.");
+                  window.location.href = '{{ url_for("login") }}';
+                }
+                else if (data.success === 'registered') {
+                  showPopup("Merci d'avoir rejoint Festiut'O pour profiter de la musique ensemble.");
+                  window.location.href = '{{ url_for("accueil") }}';
+                }
+            });
+        });
+      </script>
     {% endif %}
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
