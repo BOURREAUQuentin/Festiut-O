@@ -283,29 +283,57 @@ def supprimer_un_evenement(id_evenement):
     """
     EVENEMENT.supprimer_evenement(id_evenement)
 
-def ajouter_evenement(nom, description, heure_debut, duree, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe):
+def ajouter_evenement(nom, description, heure_debut, duree, temps_montage, temps_demontage, id_lieu, id_journee, id_groupe):
+    """
+        Cette fonction permet d'appeler la fonction pour insérer un nouvel évènement.
+    """
     prochain_id = EVENEMENT.get_prochain_id_evenement()
-    insertion_passee_evenement = EVENEMENT.ajouter_evenement(prochain_id, nom, description, heure_debut, duree, tpsMontage, tpsMontage, tpsDemontage, id_lieu, id_journee, id_groupe)
+    insertion_passee_evenement = EVENEMENT.ajouter_evenement(prochain_id, nom, description, heure_debut, duree, temps_montage, temps_demontage, id_lieu, id_journee, id_groupe)
     return insertion_passee_evenement
 
 def ajouter_groupe(nom, courte_description, longue_description, lien_image):
+    """
+        Cette fonction permet d'appeler la fonction pour insérer un nouveau groupe.
+    """
     prochain_id = GROUPE.get_prochain_id_groupe()
     insertion_passee_groupe = GROUPE.ajouter_groupe(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_groupe
 
-def ajouter_artiste():
+def ajouter_artiste(nom, description, lien_image):
+    """
+        Cette fonction permet d'appeler la fonction pour insérer un nouvel artiste.
+    """
     prochain_id = ARTISTE.get_prochain_id_artiste()
-    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id)
+    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, description, lien_image)
     return insertion_passee_artiste
 
 def spectateur_est_connecte(spectateur_connecte):
     """
     Retourne si le spectateur est connecté sur le site
 
+
     Args:
         spectateur_connecte (Spectateur): le spectateur connecté (s'il n'est pas connecté l'id = -1)
+
 
     Returns:
         (bool): true si le spectateur est connecté, sinon false
     """
     return spectateur_connecte.get_id() != -1
+
+def modifier_infos_spectateur(id_spectateur, nom, prenom, mail, date_naissance, tel, nom_utilisateur, mdp):
+    """
+    Modifie les informations du spectateur
+
+
+    Args:
+        id_spectateur (int): l'id du spectateur
+        nom (String): le nom du spectateur
+        prenom (String): le prenom du spectateur
+        mail (String): le mail du spectateur
+        date_naissance (String): le date de naissance du spectateur
+        tel (String): le telephone du spectateur
+        nom_utilisateur (String): le nom utilisateur du spectateur
+        mdp (String): le mot de passe du spectateur
+    """
+    SPECTATEUR.modifier_spectateur(id_spectateur, nom, prenom, mail, date_naissance, tel, nom_utilisateur, mdp)
