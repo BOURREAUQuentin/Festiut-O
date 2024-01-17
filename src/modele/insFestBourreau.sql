@@ -19,8 +19,6 @@ INSERT INTO ARTISTE (idA, nomA, descriptionA, lienImageA) VALUES
 (3, 'Paul McCartney', 'Compositeur classique autrichien', 'paulmccartney.jpg'),
 (4, 'Favé', 'Difficile de passer à côté du phénomène Favé !', 'fave.jpg'),
 (5, 'Gazo', 'Gazo la mala est gangx boy', 'gazo.jpg'),
-(6, 'Kerchak', 'Le rappeur jeune cagoulé', 'kerchak.jpg'),
-(7, 'Ninho', 'Ninho le crack de fou malade', 'ninho.jpg'),
 (6, 'Chris Martin', 'Chanteur de Coldplay', 'chrismartin.jpg'),
 (7, 'Thom Yorke', 'Chanteur de Radiohead', 'thomyorke.jpg'),
 (8, 'Freddie Mercury', 'Chanteur de Queen', 'freddiemercury.jpg'),
@@ -30,7 +28,7 @@ INSERT INTO ARTISTE (idA, nomA, descriptionA, lienImageA) VALUES
 (12, 'Chester Bennington', 'Chanteur de Linkin Park', 'chesterbennington.jpg'),
 (13, 'Win Butler', "Chanteur d'Arcade Fire", 'winbutler.jpg'),
 (14, 'Anthony Kiedis', 'Chanteur des Red Hot Chili Peppers', 'anthonykiedis.jpg'),
-(15, 'Dave Grohl', 'Chanteur des Foo Fighters', 'davegrohl.jpg')
+(15, 'Dave Grohl', 'Chanteur des Foo Fighters', 'davegrohl.jpg'),
 (16, 'Alex Turner', 'Chanteur des Arctic Monkeys', 'alexturner.jpg'),
 (17, 'Matthew Bellamy', 'Chanteur de Muse', 'matthewbellamy.jpg'),
 (18, 'Brandon Flowers', 'Chanteur des Killers', 'brandonflowers.jpg'),
@@ -50,7 +48,9 @@ INSERT INTO ARTISTE (idA, nomA, descriptionA, lienImageA) VALUES
 (32, 'Chris Wolstenholme', 'Bassiste de Muse', 'chriswolstenholme.jpg'),
 (33, 'Dave Keuning', 'Guitariste des Killers', 'davekeuning.jpg'),
 (34, 'Mike Dirnt', 'Bassiste de Green Day', 'mikedirnt.jpg'),
-(35, 'Graham Coxon', 'Guitariste de Blur', 'grahamcoxon.jpg');
+(35, 'Graham Coxon', 'Guitariste de Blur', 'grahamcoxon.jpg'),
+(36, 'Kerchak', 'Le rappeur jeune cagoulé', 'kerchak.jpg'),
+(37, 'Ninho', 'Ninho le crack de fou malade', 'ninho.jpg');
 
 -- Insertions pour la table LIEU
 INSERT INTO LIEU (idL, nomL, adresseL, nbMaxSpecL) VALUES 
@@ -94,7 +94,7 @@ INSERT INTO JOURNEE (idJ, dateJ) VALUES
 (2, '2024-07-19');
 
 -- Insertions pour la table EVENEMENT
-INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG) VALUES 
+INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG) VALUES
 -- Samedi
 (1, "Concert de Metallica", "Dernier concert de leur groupe pour Metallica", '19:45:00', '03:00:00', '01:30:00', '01:30:00', 3, 1, 10),
 (2, 'Concert des Beatles', 'Concert exceptionnel du célèbre groupe', '20:00:00', '02:00:00', '02:00:00', '01:00:00', 1, 1, 5),
@@ -104,7 +104,7 @@ INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE
 -- Dimanche
 (6, 'Concert de Favé', 'Performance live du légendaire Favé', '19:30:00', '02:30:00', '00:30:00', '00:45:00', 2, 2, 1),
 (7, "Concert de Gazo", "Soirée mouvementé par ses musiques connues à l'international", '19:00:00', '03:00:00', '01:30:00', '01:15:00', 3, 2, 2),
-(8, 'Showcase de Ninho', 'Showcase organisé sur son dernier album NI', '23:15:00', '01:30:00', '00:30:00', '00:15:00', 2, 2, 4);
+(8, 'Showcase de Ninho', 'Showcase organisé sur son dernier album NI', '23:15:00', '01:30:00', '00:30:00', '00:15:00', 2, 2, 4),
 (9, "Concert d'Arctic Monkeys", 'Performance live du groupe de rock indépendant', '00:30:00', '02:15:00', '01:45:00', '01:00:00', 1, 2, 16),
 (10, 'Concert de Muse', 'Expérience musicale avec le groupe de rock alternatif', '16:00:00', '01:45:00', '01:00:00', '00:45:00', 2, 2, 17),
 (11, 'Concert de Blur', 'Britpop et expérimentation sonore en direct', '16:30:00', '02:30:00', '02:00:00', '02:30:00', 1, 2, 20);
@@ -113,8 +113,8 @@ INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE
 INSERT INTO FAIRE_PARTIE (idG, idA) VALUES
 (1, 4),
 (2, 5),
-(3, 6),
-(4, 7),
+(3, 36),
+(4, 37),
 (5, 1),
 (5, 2),
 (5, 3),
@@ -142,7 +142,7 @@ INSERT INTO FAIRE_PARTIE (idG, idA) VALUES
 (12, 27), -- Chester Bennington dans Linkin Park
 (13, 28), -- Win Butler dans Arcade Fire
 (14, 29), -- Flea dans Red Hot Chili Peppers
-(15, 30); -- Dave Grohl dans Foo Fighters
+(15, 30), -- Dave Grohl dans Foo Fighters
 (16, 31), -- Jamie Cook dans Arctic Monkeys
 (17, 32), -- Chris Wolstenholme dans Muse
 (18, 33), -- Dave Keuning dans The Killers
