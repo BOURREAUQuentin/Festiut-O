@@ -105,3 +105,27 @@ class SpectateurBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+    
+    def modifier_spectateur(self, id_spectateur, nom, prenom, mail, date_naissance, tel, nom_utilisateur, mdp):
+        """
+        Modifie les informations du spectateur
+
+
+        Args:
+            id_spectateur (int): l'id du spectateur
+            nom (String): le nom du spectateur
+            prenom (String): le prenom du spectateur
+            mail (String): le mail du spectateur
+            date_naissance (String): le date de naissance du spectateur
+            tel (String): le telephone du spectateur
+            nom_utilisateur (String): le nom utilisateur du spectateur
+            mdp (String): le mot de passe du spectateur
+        """
+        try:
+            query = text("update SPECTATEUR set nomS = '"+ nom + "', prenomS = '"+ prenom + "', mail = '"+ mail + "', dateNaissS = '"+ date_naissance + "', telS = '"+ tel + "', nomUtilisateurS = '"+ nom_utilisateur + "', mdpS = '" + mdp + "' where idS = " + str(id_spectateur))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Modification du spectateur réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
