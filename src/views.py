@@ -1,4 +1,3 @@
-from datetime import datetime
 import os
 import sys
 import hashlib
@@ -81,10 +80,8 @@ def inscrire():
         mail = request.form.get("mail")
         print(mail)
         date_naissance = request.form.get("date_naissance")
-        date_objet = datetime.strptime(date_naissance, '%d/%m/%Y')
-        # Formater la nouvelle date selon le format souhaité (dans la bd aaaa-mm-jj)
-        date_naissance_nouveau_format = date_objet.strftime('%Y-%m-%d')
-        print(date_naissance_nouveau_format)
+        print(type(date_naissance))
+        print(date_naissance)
         telephone = request.form.get("telephone")
         username = request.form.get("username")
         password = request.form.get("password")
@@ -96,9 +93,9 @@ def inscrire():
                 return jsonify({"error": "exists-nomutilisateur"})
             if mail == spectateur.get_mail():
                 return jsonify({"error": "exists-mail"})
-        inserer_le_spectateur(nom, prenom, mail, date_naissance_nouveau_format, telephone, username, password_chiffre)
+        inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password_chiffre)
         le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
-                                       nom, prenom, mail, date_naissance_nouveau_format, telephone, username, password_chiffre, "N")
+                                       nom, prenom, mail, date_naissance, telephone, username, password_chiffre, "N")
         return jsonify({"success": "registered"})
     return redirect(url_for("login"))
 
