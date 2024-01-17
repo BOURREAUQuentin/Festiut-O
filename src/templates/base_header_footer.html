@@ -133,11 +133,9 @@
             .then(data => {
                 if (data.error === 'exists-mail') {
                   showPopup("Votre mail est déjà existant.");
-                  window.location.href = '{{ url_for("login") }}';
                 }
                 else if (data.error === 'exists-nomutilisateur') {
                   showPopup("Votre nom d'utilisateur est déjà existant.");
-                  window.location.href = '{{ url_for("login") }}';
                 }
                 else if (data.success === 'registered') {
                   showPopup("Merci d'avoir rejoint Festiut'O pour profiter de la musique ensemble.");
