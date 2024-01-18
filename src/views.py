@@ -3,7 +3,7 @@ import sys
 import hashlib
 
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, EVENEMENT, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin, supprimer_un_groupe, supprimer_un_evenement
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -204,3 +204,18 @@ def admin():
                            liste_groupes=GROUPE.get_all_groupes(), liste_artistes=ARTISTE.get_all_artistes(),
                            liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte),
                            admin=est_admin(le_spectateur_connecte))
+    
+@app.route("/supprimer_evenement/<id_evenement>")
+def supprimer_evenement(id_evenement):
+    supprimer_un_evenement(id_evenement)
+    return redirect(url_for("admin"))
+
+@app.route("/supprimer_groupe/<id_groupe>")
+def supprimer_groupe(id_groupe):
+    supprimer_un_groupe(id_groupe)
+    return redirect(url_for("admin"))
+
+@app.route("/supprimer_artiste/<id_artiste>")
+def supprimer_artiste(id_artiste):
+    supprimer_artiste(id_artiste)
+    return redirect(url_for("admin"))

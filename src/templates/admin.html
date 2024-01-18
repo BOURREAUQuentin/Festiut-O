@@ -30,7 +30,7 @@
                       <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_duree() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_tps_montage() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_tps_demontage() }}</div>
-                      <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
+                      <div class="st_column poubelle"><a href="{{ url_for('supprimer_evenement', id_evenement = tuple_evenement_samedi[0].get_id()) }}"><ion-icon class="icon-poubelle" name="trash"></a></ion-icon> </div>
                   </div>
               {% endfor %}
           </div>
@@ -53,7 +53,7 @@
           <div class="st_table">
               {% for tuple_evenement_dimanche in liste_evenements_dimanche %}
                   <div class="st_row">
-                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_heure_debut() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_nom() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[1].get_nom() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[2].get_nom() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_heure_debut() }}</div>
@@ -61,7 +61,7 @@
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_duree() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_tps_montage() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_tps_demontage() }}</div>
-                      <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
+                      <div class="st_column poubelle"><a href="{{ url_for('supprimer_evenement', id_evenement = tuple_evenement_dimanche[0].get_id()) }}"><ion-icon class="icon-poubelle" name="trash"></a></ion-icon> </div>
                   </div>
               {% endfor %}
           </div>
@@ -85,7 +85,7 @@
 					<div class="st_column groupe">{{ groupe.get_courte_description() }}</div>
 					<div class="st_column groupe">{{ groupe.get_longue_description() }}</div>
 					<div class="st_column groupe">{{ groupe.get_lien_image() }}</div>
-                    <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
+                    <div class="st_column poubelle"><a href="{{ url_for('supprimer_groupe', id_groupe = groupe.get_id()) }}"><ion-icon class="icon-poubelle" name="trash"></a></ion-icon> </div>
 				</div>
 			{% endfor %}
           </div>
@@ -104,9 +104,10 @@
             {% for artiste in liste_artistes %}
                 <div class="st_row">
                     <div class="st_column artiste">{{ artiste.get_nom() }}</div>
-                    <div class="st_column artiste">{{ artiste.get_description() }}</div>
+                    <div class="st_column artiste">{{ artiste.get_courte_description() }}</div>
+                    <div class="st_column artiste">{{ artiste.get_longue_description() }}</div>
                     <div class="st_column artiste">{{ artiste.get_lien_image() }}</div>
-                    <div class="st_column poubelle"><button><ion-icon class="icon-poubelle" name="trash"></button></ion-icon> </div>
+                    <div class="st_column poubelle"><a><ion-icon class="icon-poubelle" name="trash"></ion-icon></a></div>
                 </div>
             {% endfor %}
         </div>
