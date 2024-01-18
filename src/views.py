@@ -157,8 +157,8 @@ def planning():
             liste_evenements_samedi = lister_evenements_par_journee(date_journee)
         else:
             liste_evenements_dimanche = lister_evenements_par_journee(date_journee)
-    return render_template("planning.html", page_planning=True, dico_journees=dico_journees,
-                           liste_evenements_samedi=liste_evenements_samedi, liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+    return render_template("planning.html", page_planning=True, liste_evenements_samedi=liste_evenements_samedi,
+                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
 
 @app.route("/profil")
 def profil():

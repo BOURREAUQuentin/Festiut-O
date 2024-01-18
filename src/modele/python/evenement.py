@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 class Evenement:
     def __init__(self, id_evenement, nom, description, heure_debut, duree, tps_montage, tps_demontage, id_lieu, id_journee, id_groupe):
         self.__id_e = id_evenement
@@ -41,7 +43,9 @@ class Evenement:
         Returns:
             DateTime: L'heure de début de l'événement
         """
-        return self.__heure_debut_e
+        # Formatter la durée en une chaîne "HH:MM"
+        heure_lisible = str(self.__heure_debut_e.seconds // 3600).zfill(2) + ":" + str((self.__heure_debut_e.seconds % 3600) // 60).zfill(2)
+        return heure_lisible
     
     def get_duree(self):
         """Renvoie la durée de l'événemment
