@@ -13,44 +13,44 @@ INSERT INTO SPECTATEUR (idS, nomS, prenomS, mailS, dateNaissS, telS, nomUtilisat
 (4, 'Bourreau', 'Quentin', 'quentin.bourreau@example.com', '2004-12-14', '0684525642', 'quentin', 'quentin', 'N');
 
 -- Insertions pour la table ARTISTE
-INSERT INTO ARTISTE (idA, nomA, descriptionA, lienImageA) VALUES 
-(1, 'John Lennon', 'Guitariste et chanteur légendaire', 'johnlennon.jpg'),
-(2, 'George Harrison', "L'un des meilleurs guitaristes de tous les temps", 'georgeharrison.jpg'),
-(3, 'Paul McCartney', 'Compositeur classique autrichien', 'paulmccartney.jpg'),
-(4, 'Favé', 'Difficile de passer à côté du phénomène Favé !', 'fave.jpg'),
-(5, 'Gazo', 'Gazo la mala est gangx boy', 'gazo.jpg'),
-(6, 'Chris Martin', 'Chanteur de Coldplay', 'chrismartin.jpg'),
-(7, 'Thom Yorke', 'Chanteur de Radiohead', 'thomyorke.jpg'),
-(8, 'Freddie Mercury', 'Chanteur de Queen', 'freddiemercury.jpg'),
-(9, 'Bono', 'Chanteur de U2', 'bono.jpg'),
-(10, 'James Hetfield', 'Chanteur et guitariste de Metallica', 'jameshetfield.jpg'),
-(11, 'Mick Jagger', 'Chanteur des Rolling Stones', 'mickjagger.jpg'),
-(12, 'Chester Bennington', 'Chanteur de Linkin Park', 'chesterbennington.jpg'),
-(13, 'Win Butler', "Chanteur d'Arcade Fire", 'winbutler.jpg'),
-(14, 'Anthony Kiedis', 'Chanteur des Red Hot Chili Peppers', 'anthonykiedis.jpg'),
-(15, 'Dave Grohl', 'Chanteur des Foo Fighters', 'davegrohl.jpg'),
-(16, 'Alex Turner', 'Chanteur des Arctic Monkeys', 'alexturner.jpg'),
-(17, 'Matthew Bellamy', 'Chanteur de Muse', 'matthewbellamy.jpg'),
-(18, 'Brandon Flowers', 'Chanteur des Killers', 'brandonflowers.jpg'),
-(19, 'Billie Joe Armstrong', 'Chanteur de Green Day', 'billiejoearmstrong.jpg'),
-(20, 'Damon Albarn', 'Chanteur de Blur', 'damonalbarn.jpg'),
-(21, 'Jonny Buckland', 'Guitariste de Coldplay', 'jonnybuckland.jpg'),
-(22, 'Thom Yorke', 'Chanteur de Radiohead', 'thomyorke.jpg'),
-(23, 'Brian May', 'Guitariste de Queen', 'brianmay.jpg'),
-(24, 'The Edge', 'Guitariste de U2', 'theedge.jpg'),
-(25, 'Lars Ulrich', 'Batteur de Metallica', 'larsulrich.jpg'),
-(26, 'Keith Richards', 'Guitariste des Rolling Stones', 'keithrichards.jpg'),
-(27, 'Chester Bennington', 'Chanteur de Linkin Park', 'chesterbennington.jpg'),
-(28, 'Win Butler', "Chanteur d'Arcade Fire", 'winbutler.jpg'),
-(29, 'Flea', 'Bassiste des Red Hot Chili Peppers', 'flea.jpg'),
-(30, 'Dave Grohl', 'Chanteur des Foo Fighters', 'davegrohl.jpg'),
-(31, 'Jamie Cook', 'Guitariste des Arctic Monkeys', 'jamiecook.jpg'),
-(32, 'Chris Wolstenholme', 'Bassiste de Muse', 'chriswolstenholme.jpg'),
-(33, 'Dave Keuning', 'Guitariste des Killers', 'davekeuning.jpg'),
-(34, 'Mike Dirnt', 'Bassiste de Green Day', 'mikedirnt.jpg'),
-(35, 'Graham Coxon', 'Guitariste de Blur', 'grahamcoxon.jpg'),
-(36, 'Kerchak', 'Le rappeur jeune cagoulé', 'kerchak.jpg'),
-(37, 'Ninho', 'Ninho le crack de fou malade', 'ninho.jpg');
+INSERT INTO ARTISTE (idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA) VALUES 
+(1, 'John Lennon', 'Guitariste et chanteur légendaire', "John Lennon était un guitariste et chanteur légendaire, membre fondateur des Beatles. Son influence transcendante dans le monde de la musique a laissé une empreinte indélébile, combinant un talent musical exceptionnel avec un engagement envers la paix et l'activisme social.", 'johnlennon.jpg'),
+(2, 'George Harrison', "L'un des meilleurs guitaristes de tous les temps", "George Harrison, souvent qualifié comme l'un des meilleurs guitaristes de tous les temps, était un membre crucial des Beatles. Sa contribution musicale variée et son intérêt pour la spiritualité ont enrichi le son du groupe.", 'georgeharrison.jpg'),
+(3, 'Paul McCartney', 'Compositeur classique autrichien', "Bien que décrit comme un compositeur classique autrichien (remarque : Paul McCartney est en fait britannique), Paul McCartney est une légende de la musique pop-rock. En tant que membre des Beatles et artiste solo, il a laissé une empreinte indélébile sur l'histoire de la musique, créant des mélodies intemporelles et des œuvres musicales emblématiques.", 'paulmccartney.jpg'),
+(4, 'Favé', 'Difficile de passer à côté du phénomène Favé !', "Difficile de passer à côté du phénomène Favé ! Cet artiste contemporain est devenu une figure incontournable de la scène musicale actuelle. Avec un style unique, des paroles percutantes et une présence captivante, Favé a su conquérir un public diversifié et marquer son territoire dans l'industrie musicale moderne.", 'fave.jpg'),
+(5, 'Gazo', 'Gazo la mala est gangx boy', "Gazo, alias Gazo la mala, est un artiste émergent reconnu pour son style distinctif et ses paroles percutantes. Il incarne l'esprit du gangsta rap et a rapidement gagné en popularité dans le monde de la musique.", 'gazo.jpg'),
+(6, 'Chris Martin', 'Chanteur de Coldplay', "Chris Martin est le charismatique chanteur du groupe Coldplay. Son timbre de voix unique et sa capacité à composer des mélodies captivantes ont contribué au succès international de Coldplay.", 'chrismartin.jpg'),
+(7, 'Thom Yorke', 'Chanteur de Radiohead', "Thom Yorke est le chanteur emblématique du groupe Radiohead. Son approche expérimentale de la musique et ses paroles introspectives ont défini le son distinctif du groupe.", 'thomyorke.jpg'),
+(8, 'Freddie Mercury', 'Chanteur de Queen', "Freddie Mercury était le charismatique chanteur du groupe Queen. Sa voix puissante et sa présence scénique inoubliable ont fait de lui l'une des figures les plus emblématiques de l'histoire du rock.", 'freddiemercury.jpg'),
+(9, 'Bono', 'Chanteur de U2', "Bono est le leader du groupe U2, connu pour ses performances énergiques et son engagement social. Sa voix distinctive et son activisme ont marqué la scène musicale mondiale.", 'bono.jpg'),
+(10, 'James Hetfield', "James Hetfield est le chanteur et guitariste principal du groupe Metallica. Il est reconnu pour ses compétences de guitariste et sa voix rauque, contribuant au succès durable de Metallica dans le heavy metal.", 'Chanteur et guitariste de Metallica', 'jameshetfield.jpg'),
+(11, 'Mick Jagger', "Mick Jagger est le légendaire chanteur des Rolling Stones. Son énergie sur scène, son charisme et son style inimitable ont solidifié sa place parmi les icônes du rock.", 'Chanteur des Rolling Stones', 'mickjagger.jpg'),
+(12, 'Chester Bennington', "Chester Bennington était le regretté chanteur de Linkin Park. Sa voix puissante et émotionnelle a laissé une empreinte indélébile sur la scène musicale, en particulier dans le genre nu-metal.", 'Chanteur de Linkin Park', 'chesterbennington.jpg'),
+(13, 'Win Butler', "Win Butler est le chanteur principal du groupe Arcade Fire. Son approche artistique novatrice et ses performances passionnées ont contribué à l'impact global du groupe.", "Chanteur d'Arcade Fire", 'winbutler.jpg'),
+(14, 'Anthony Kiedis', "Anthony Kiedis est le chanteur des Red Hot Chili Peppers. Connu pour son style excentrique et ses paroles personnelles, il a été une force motrice derrière le succès continu du groupe.", 'Chanteur des Red Hot Chili Peppers', 'anthonykiedis.jpg'),
+(15, 'Dave Grohl', "Dave Grohl est le chanteur des Foo Fighters et ancien batteur de Nirvana. Sa polyvalence musicale, son talent en tant que parolier et sa personnalité charismatique en font une figure incontournable du rock moderne.", 'Chanteur des Foo Fighters', 'davegrohl.jpg'),
+(16, 'Alex Turner', "Alex Turner est le chanteur des Arctic Monkeys. Son approche lyrique distinctive et son charme ont contribué à l'évolution du son des Arctic Monkeys au fil des années.", 'Chanteur des Arctic Monkeys', 'alexturner.jpg'),
+(17, 'Matthew Bellamy', "Matthew Bellamy est le chanteur et guitariste principal du groupe Muse. Sa virtuosité musicale et ses performances énergiques ont été au cœur du succès du groupe dans le rock alternatif.", 'Chanteur de Muse', 'matthewbellamy.jpg'),
+(18, 'Brandon Flowers', "Brandon Flowers est le chanteur des Killers. Connue pour sa voix distinctive et son style flamboyant, il a été un élément clé du succès commercial du groupe.", 'Chanteur des Killers', 'brandonflowers.jpg'),
+(19, 'Billie Joe Armstrong', "Billie Joe Armstrong est le chanteur de Green Day. Sa personnalité rebelle, son énergie sur scène et ses compétences de composition ont fait de lui une figure emblématique du punk rock.", 'Chanteur de Green Day', 'billiejoearmstrong.jpg'),
+(20, 'Damon Albarn', "Damon Albarn est le chanteur de Blur et a également été impliqué dans des projets tels que Gorillaz. Sa créativité et sa polyvalence musicale ont contribué à son statut d'artiste influent.", 'Chanteur de Blur', 'damonalbarn.jpg'),
+(21, 'Jonny Buckland', "Jonny Buckland est le guitariste de Coldplay. Son jeu de guitare distinctif et ses contributions musicales ont joué un rôle essentiel dans le son du groupe.", 'Guitariste de Coldplay', 'jonnybuckland.jpg'),
+(22, 'Thom Yorke', 'Chanteur de Radiohead', "Thomas Yorke, dit Thom Yorke, est un musicien auteur-compositeur, chanteur et guitariste britannique, né le 7 octobre 1968 à Wellingborough dans le Northamptonshire. Il est le chanteur et le principal compositeur de Radiohead.", 'thomyorke.jpg'),
+(23, 'Brian May', 'Guitariste de Queen', "Brian May est le légendaire guitariste de Queen. Sa maîtrise de la guitare et sa contribution à la composition ont contribué à créer certaines des chansons les plus emblématiques de l'histoire de la musique.", 'brianmay.jpg'),
+(24, 'The Edge', 'Guitariste de U2', "The Edge est le guitariste de U2. Reconnu pour son utilisation novatrice des effets de guitare, il a été un pilier du son distinctif de U2.", 'theedge.jpg'),
+(25, 'Lars Ulrich', 'Batteur de Metallica', "Lars Ulrich est le batteur de Metallica. En plus de ses talents de batteur, il est également co-fondateur du groupe et a participé activement à la composition de leurs chansons.", 'larsulrich.jpg'),
+(26, 'Keith Richards', 'Guitariste des Rolling Stones', "Keith Richards est le légendaire guitariste des Rolling Stones. Sa contribution à la création de riffs de guitare emblématiques a été cruciale pour le succès du groupe.", 'keithrichards.jpg'),
+(27, 'Brad Delson', 'Guitariste de Linkin Park', "Bradford Phillip Delson (surnommé Big Bad Brad), né le 1er décembre 1977 à Agoura Hills, est le guitariste soliste et l'un des fondateurs du groupe américain Linkin Park. Il est reconnaissable à son casque qu'il porte à chaque concert.", 'chesterbennington.jpg'),
+(28, 'Jeremy Gara', "Batteur et chanteur d'Arcade Fire", "Jeremy Gara (6 juin 1978 à Ottawa) est un musicien canadien. C'est le batteur du groupe Arcade Fire", 'winbutler.jpg'),
+(29, 'Flea', 'Bassiste des Red Hot Chili Peppers', "Flea est le bassiste des Red Hot Chili Peppers. Connu pour son style de jeu unique et son énergie sur scène, il a été un pilier du son funk-rock du groupe.", 'flea.jpg'),
+(30, 'Pat Smear', 'Guitariste des Foo Fighters', "Georg Albert Ruthenberg dit Pat Smear est un guitariste de punk, rock et grunge américain, né le 5 août 1959 à Los Angeles (Californie). Il est issu d'un père juif d'origine allemande et d'une mère d'origine afro-américaine et amérindienne.", 'davegrohl.jpg'),
+(31, 'Jamie Cook', 'Guitariste des Arctic Monkeys', "Jamie Cook est le guitariste des Arctic Monkeys. Sa contribution au son du groupe et son habileté à créer des riffs mémorables ont été saluées par les fans et les critiques.", 'jamiecook.jpg'),
+(32, 'Chris Wolstenholme', 'Bassiste de Muse', "Chris Wolstenholme est le bassiste de Muse. Reconnu pour ses compétences musicales étendues, il a joué un rôle essentiel dans la création du son épique et progressif de Muse.", 'chriswolstenholme.jpg'),
+(33, 'Dave Keuning', 'Guitariste des Killers', "Dave Keuning est le guitariste des Killers. Son jeu de guitare distinctif et ses contributions créatives ont contribué au succès commercial du groupe.", 'davekeuning.jpg'),
+(34, 'Mike Dirnt', 'Bassiste de Green Day', "Mike Dirnt est le bassiste de Green Day. Sa technique de basse solide et son énergie sur scène ont contribué à l'identité sonore unique de Green Day.", 'mikedirnt.jpg'),
+(35, 'Graham Coxon', 'Guitariste de Blur', "Graham Coxon est le guitariste de Blur. Sa créativité musicale et son approche éclectique ont été des éléments clés du succès de Blur dans le monde de la britpop.", 'grahamcoxon.jpg'),
+(36, 'Kerchak', 'Le rappeur jeune cagoulé', "Kerchak est un rappeur jeune cagoulé, émergeant sur la scène musicale avec un style distinctif. Son flow et ses paroles reflètent l'énergie de la nouvelle génération du rap.", 'kerchak.jpg'),
+(37, 'Ninho', 'Ninho la masterclass du rap', "Ninho, également connu sous le surnom 'Ninho NI', est un rappeur français renommé. Sa capacité à mélanger différents styles musicaux et son succès commercial ont fait de lui une figure marquante du rap francophone.", 'ninho.jpg');
 
 -- Insertions pour la table LIEU
 INSERT INTO LIEU (idL, nomL, adresseL, nbMaxSpecL) VALUES 
@@ -162,10 +162,10 @@ INSERT INTO FAIRE_PARTIE (idG, idA) VALUES
 (9, 24),  -- The Edge dans U2
 (10, 25), -- Lars Ulrich dans Metallica
 (11, 26), -- Keith Richards dans The Rolling Stones
-(12, 27), -- Chester Bennington dans Linkin Park
-(13, 28), -- Win Butler dans Arcade Fire
+(12, 27), -- Brad Delson dans Linkin Park
+(13, 28), -- Jeremy Gara dans Arcade Fire
 (14, 29), -- Flea dans Red Hot Chili Peppers
-(15, 30), -- Dave Grohl dans Foo Fighters
+(15, 30), -- Pat Smear dans Foo Fighters
 (16, 31), -- Jamie Cook dans Arctic Monkeys
 (17, 32), -- Chris Wolstenholme dans Muse
 (18, 33), -- Dave Keuning dans The Killers
