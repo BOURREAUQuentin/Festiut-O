@@ -70,7 +70,7 @@
                                             {% if groupe_samedi != liste_groupes_samedi[-1] %}
                                                 {{ groupe_samedi.get_nom() }} -
                                             {% else %}
-                                                {{ groupe_samedi.get_nom() }}
+                                                {{ groupe_samedi.get_nom() }}...
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
@@ -79,7 +79,7 @@
                                             {% if groupe_weekend != liste_groupes_week_end[-1] %}
                                                 {{ groupe_weekend.get_nom() }} -
                                             {% else %}
-                                                {{ groupe_weekend.get_nom() }}
+                                                {{ groupe_weekend.get_nom() }}...
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
@@ -88,7 +88,7 @@
                                             {% if groupe_dimanche != liste_groupes_dimanche[-1] %}
                                                 {{ groupe_dimanche.get_nom() }} -
                                             {% else %}
-                                                {{ groupe_dimanche.get_nom() }}
+                                                {{ groupe_dimanche.get_nom() }}...
                                             {% endif %}
                                         {% endfor %}
                                     {% endif %}
