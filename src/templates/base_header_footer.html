@@ -19,6 +19,9 @@
     {% if page_planning %}
         <link href="../static/planning.css" rel="stylesheet" />
     {% endif %}
+    {% if page_panier %}
+        <link href="../static/panier.css" rel="stylesheet" />
+    {% endif %}
     <title>Document</title>
     <script>
       function delayRedirect(url, delay) {
@@ -85,8 +88,12 @@
                   <span class="text">Planning</span>
                 </a>
               </li>
-              <li class="list">
-                <a href="#">
+              {% if page_panier %}
+                <li class="list active">
+              {% else %}  
+                <li class="list">
+              {% endif %}
+                <a href="{{ url_for('panier') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('panier') }}', 400)">
                   <span class="icon">
                     <ion-icon name="cart-outline"></ion-icon>
                   </span>
@@ -112,6 +119,9 @@
         <p class="copyright">Copyright</p>
     </footer>
       <script src="../static/script/test.js"></script>
+      {% if page_panier %}
+      <script src="../static/script/plusmoins.js"></script>
+      {% endif %}
       {% if page_login_signup %}
       <script src="../static/script/login_signup.js"></script>
       <!-- script en dur car on ne peut pas le mettre dans un fichier js et l'appeler -->
