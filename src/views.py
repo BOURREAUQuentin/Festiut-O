@@ -133,18 +133,18 @@ def billetterie():
                            liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
 
-@app.route("/groupe_details/<id_groupe>")
-def groupe_details(id_groupe):
+@app.route("/groupe/<id_groupe>")
+def groupes(id_groupe):
     liste_artistes_groupe = []
     if au_moins_deux_artistes_dans_groupe:
         liste_artistes_groupe = FAIRE_PARTIE.get_artistes_par_id_groupe(id_groupe)
-    return render_template("groupe_details.html", page_groupe_details=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
+    return render_template("groupe.html", page_groupe=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
                            liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
                            liste_groupes_meme_style=lister_groupes_meme_style(id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte))
 
-@app.route("/artiste_details/<id_artiste>")
-def artiste_details(id_artiste):
-    return render_template("artiste_details.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
+@app.route("/artiste/<id_artiste>")
+def artiste(id_artiste):
+    return render_template("artiste.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
                            liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte))
 
 @app.route("/planning")
