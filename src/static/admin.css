@@ -26,14 +26,24 @@
     background-color: #FF1EFC;
   }
   
-  .evenement{
+  .evenement, .poubelle{
     width: 200px;
     text-align: center;
+  }
+
+  .desc{
+    text-align: justify;
   }
 
   .groupe, .artiste{
     width: 460px;
     text-align: center;
+  }
+
+  .icon-poubelle{
+    width: 40px;
+    height: 40px;
+    justify-content: center;
   }
   
   pre{

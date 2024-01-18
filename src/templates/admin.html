@@ -16,6 +16,7 @@
                 <div class="st_column evenement">Durée</div>
                 <div class="st_column evenement">temps montage</div>
                 <div class="st_column evenement">temps demontage</div>
+                <div class="st_column poubelle"></div>
               </div>
           </div>
           <div class="st_table">
@@ -29,6 +30,7 @@
                       <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_duree() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_tps_montage() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_tps_demontage() }}</div>
+                      <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
                   </div>
               {% endfor %}
           </div>
@@ -45,6 +47,7 @@
                 <div class="st_column evenement">Durée</div>
                 <div class="st_column evenement">temps montage</div>
                 <div class="st_column evenement">temps demontage</div>
+                <div class="st_column poubelle"></div>
               </div>
           </div>
           <div class="st_table">
@@ -58,6 +61,7 @@
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_duree() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_tps_montage() }}</div>
                       <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_tps_demontage() }}</div>
+                      <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
                   </div>
               {% endfor %}
           </div>
@@ -71,6 +75,7 @@
               <div class="st_column groupe">Courte description</div>
               <div class="st_column groupe">Longue description</div>
               <div class="st_column groupe">Lien image</div>
+              <div class="st_column poubelle"></div>
             </div>
 		</div>
           <div class="st_table">
@@ -80,6 +85,7 @@
 					<div class="st_column groupe">{{ groupe.get_courte_description() }}</div>
 					<div class="st_column groupe">{{ groupe.get_longue_description() }}</div>
 					<div class="st_column groupe">{{ groupe.get_lien_image() }}</div>
+                    <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
 				</div>
 			{% endfor %}
           </div>
@@ -91,6 +97,7 @@
             <div class="st_column artiste">Nom</div>
             <div class="st_column artiste">Description</div>
             <div class="st_column artiste">Lien image</div>
+            <div class="st_column poubelle"></div>
             </div>
         </div>
         <div class="st_table">
@@ -99,6 +106,7 @@
                     <div class="st_column artiste">{{ artiste.get_nom() }}</div>
                     <div class="st_column artiste">{{ artiste.get_description() }}</div>
                     <div class="st_column artiste">{{ artiste.get_lien_image() }}</div>
+                    <div class="st_column poubelle"> <ion-icon class="icon-poubelle" name="trash"></ion-icon> </div>
                 </div>
             {% endfor %}
         </div>
