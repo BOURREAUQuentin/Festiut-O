@@ -96,18 +96,41 @@ INSERT INTO JOURNEE (idJ, dateJ) VALUES
 -- Insertions pour la table EVENEMENT
 INSERT INTO EVENEMENT (idE, nomE, descriptionE, heureDebutE, dureeE, tpsMontageE, tpsDemontageE, idL, idJ, idG) VALUES
 -- Samedi
-(1, "Concert de Metallica", "Dernier concert de leur groupe pour Metallica", '19:45:00', '03:00:00', '01:30:00', '01:30:00', 3, 1, 10),
-(2, 'Concert des Beatles', 'Concert exceptionnel du célèbre groupe', '20:00:00', '02:00:00', '02:00:00', '01:00:00', 1, 1, 5),
-(3, 'Concert des The Killers', 'Indie rock et new wave en live', '18:30:00', '01:00:00', '00:15:00', '00:15:00', 2, 1, 18),
-(4, 'Showcase de Green Day', 'Une soirée punk rock avec Green Day', '21:15:00', '01:45:00', '01:15:00', '01:30:00', 2, 1, 19),
-(5, 'Concert de Favé', "Une soirée très énergique pour son album 'Il le fallait'", '22:00:00', '02:15:00', '01:15:00', '00:45:00', 1, 1, 1),
+-- Lieu id 1
+(1, 'Concert des The Rolling Stones', "Un concert de rock à l'état pur avec les Rolling Stones", '14:15:00', '01:15:00', '00:30:00', '00:45:00', 1, 1, 11),
+(2, 'Concert de Linkin Park', 'Une soirée punk rock avec Linkin Park', '16:45:00', '01:00:00', '00:30:00', '00:30:00', 1, 1, 12),
+(3, 'Concert des Beatles', 'Concert exceptionnel du célèbre groupe', '19:00:00', '02:00:00', '00:45:00', '01:00:00', 1, 1, 5),
+(4, 'Concert de Favé', "Une soirée très énergique pour son album 'Il le fallait'", '23:00:00', '02:15:00', '00:45:00', '00:45:00', 1, 1, 1),
+(5, 'Concert des The Killers', "Une soirée inoubliable d'assuré avec les The Killers", '03:30:00', '02:00:00', '00:30:00', '01:00:00', 1, 1, 18),
+-- Lieu id 2
+(6, 'Concert des U2', 'Concert exceptionnel du célèbre groupe U2', '13:00:00', '01:30:00', '01:00:00', '00:30:00', 2, 1, 9),
+(7, 'Concert des Arcade Fire', 'Le rock en concert avec Arcade Fire', '15:45:00', '01:15:00', '00:45:00', '00:30:00', 2, 1, 13),
+(8, 'Concert des Queen', 'Un concert des Légendes du rock', '18:00:00', '00:45:00', '00:15:00', '00:15:00', 2, 1, 8),
+(9, 'Concert des Blur', 'Indie rock et new wave en live', '19:30:00', '01:00:00', '00:30:00', '00:30:00', 2, 1, 20),
+(10, 'Showcase de Green Day', 'Une soirée punk rock avec Green Day', '22:15:00', '01:45:00', '01:15:00', '01:30:00', 2, 1, 19),
+(11, 'Concert des Foo Fighters', 'Un concert du fameux groupe Foo Fighters', '03:15:00', '01:30:00', '01:15:00', '01:30:00', 2, 1, 15),
+-- Lieu id 3
+(12, 'Showcase de Kerchak', "Venez voir le rappeur cagoulé qui fait parler", '13:00:00', '00:30:00', '00:10:00', '00:15:00', 3, 1, 3),
+(13, 'Showcase de Gazo', 'Le roi de la drill en showcase unique', '14:00:00', '00:45:00', '00:15:00', '00:15:00', 3, 1, 2),
+(14, "Concert de Coldplay", "Un concert qui va être iconique", '15:45:00', '01:15:00', '00:30:00', '00:45:00', 3, 1, 6),
+(15, "Concert de Metallica", "Dernier long concert de leur groupe pour Metallica", '19:45:00', '03:00:00', '01:30:00', '01:30:00', 3, 1, 10),
+(16, 'Showcase de Ninho', "Petit showcase pour Ninho pour les souvenirs", '00:45:00', '00:45:00', '00:30:00', '00:45:00', 1, 1, 4),
+(17, 'Concert des Artic Monkey', 'Un concert spécial pour les Artic Monkey', '03:30:00', '01:30:00', '00:45:00', '00:45:00', 3, 1, 7),
 -- Dimanche
-(6, 'Concert de Favé', 'Performance live du légendaire Favé', '19:30:00', '02:30:00', '00:30:00', '00:45:00', 2, 2, 1),
-(7, "Concert de Gazo", "Soirée mouvementé par ses musiques connues à l'international", '19:00:00', '03:00:00', '01:30:00', '01:15:00', 3, 2, 2),
-(8, 'Showcase de Ninho', 'Showcase organisé sur son dernier album NI', '23:15:00', '01:30:00', '00:30:00', '00:15:00', 2, 2, 4),
-(9, "Concert d'Arctic Monkeys", 'Performance live du groupe de rock indépendant', '00:30:00', '02:15:00', '01:45:00', '01:00:00', 1, 2, 16),
-(10, 'Concert de Muse', 'Expérience musicale avec le groupe de rock alternatif', '16:00:00', '01:45:00', '01:00:00', '00:45:00', 2, 2, 17),
-(11, 'Concert de Blur', 'Britpop et expérimentation sonore en direct', '16:30:00', '02:30:00', '02:00:00', '02:30:00', 1, 2, 20);
+-- Lieu id 1
+(18, 'Concert des Arcade Fire', 'Le rock en concert avec Arcade Fire', '17:00:00', '01:30:00', '01:15:00', '01:15:00', 1, 2, 13),
+(19, 'Concert des Foo Fighters', 'Un concert du fameux groupe Foo Fighters', '21:30:00', '01:00:00', '00:45:00', '01:00:00', 1, 2, 15),
+(20, 'Concert des Artic Monkey', 'Un concert spécial pour les Artic Monkey', '23:45:00', '00:45:00', '00:15:00', '00:30:00', 1, 2, 7),
+-- Lieu id 2
+(21, 'Concert de Muse', 'Expérience musicale avec le groupe de rock alternatif', '14:45:00', '01:00:00', '00:45:00', '00:45:00', 2, 2, 17),
+(22, 'Concert de Blur', 'Britpop et expérimentation sonore en direct', '17:30:00', '02:00:00', '00:30:00', '00:30:00', 1, 2, 20),
+(23, 'Concert des The Killers', 'Indie rock et new wave en live', '20:00:00', '01:00:00', '00:00:00', '00:30:00', 2, 2, 18),
+(24, 'Concert de Favé', 'Performance live du légendaire Favé', '22:30:00', '01:15:00', '00:30:00', '00:45:00', 2, 2, 1),
+(25, 'Showcase de Ninho', 'Showcase organisé sur son dernier album NI', '01:00:00', '00:30:00', '00:15:00', '00:15:00', 2, 2, 4),
+(26, 'Showcase de Green Day', 'Une soirée punk rock avec Green Day', '03:15:00', '01:45:00', '01:15:00', '01:30:00', 2, 2, 19),
+-- Lieu id 3
+(27, "Concert de Gazo", "Soirée mouvementé par ses musiques connues à l'international", '19:00:00', '03:00:00', '01:30:00', '01:15:00', 3, 2, 2),
+(28, 'Concert des The Rolling Stones', "Un concert de rock à l'état pur avec les Rolling Stones", '01:30:00', '01:45:00', '01:00:00', '01:30:00', 3, 2, 11);
 
 -- Insertions pour la table FAIRE_PARTIE
 INSERT INTO FAIRE_PARTIE (idG, idA) VALUES
