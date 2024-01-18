@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 import sys
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -19,20 +19,21 @@ def accueil():
     """
         Nous montre la premiere page la du lancement du site
     """
-    return render_template("accueil.html", page_home=True, connecte=spectateur_est_connecte(le_spectateur_connecte))
+    return render_template("accueil.html", page_home=True, connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
 
 @app.route("/les-groupes")
 def les_groupes():
     liste_groupes=GROUPE.get_all_groupes()
     print(le_spectateur_connecte.get_nom_utilisateur())
-    return render_template("les_groupes.html", page_les_groupes=True, liste_groupes=liste_groupes, connecte=spectateur_est_connecte(le_spectateur_connecte))
+    return render_template("les_groupes.html", page_les_groupes=True, liste_groupes=liste_groupes, connecte=spectateur_est_connecte(le_spectateur_connecte),
+                           admin=est_admin(le_spectateur_connecte))
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """
         permet de se diriger vers la page login (connexion/inscription)
     """
-    return render_template("login_signup.html", page_login_signup=True, connecte=spectateur_est_connecte(le_spectateur_connecte))
+    return render_template("login_signup.html", page_login_signup=True, connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
 
 @app.route("/deconnexion")
 def deconnexion():
@@ -115,7 +116,8 @@ def panier():
             liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
     return render_template("panier.html", page_panier=True, liste_billets=dico_billets_panier_spectateur,
                            liste_journees=liste_journees_panier_spectateur, liste_groupes_samedi=liste_groupes_samedi,
-                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
+                           connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
 
 @app.route("/billetterie")
 def billetterie():
@@ -127,7 +129,8 @@ def billetterie():
     liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees[2])
     return render_template("billetterie.html", page_billetterie=True, liste_billets=liste_billets,
                            liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
-                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
+                           connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
 
 @app.route("/groupe_details/<id_groupe>")
 def groupe_details(id_groupe):
@@ -136,12 +139,14 @@ def groupe_details(id_groupe):
         liste_artistes_groupe = FAIRE_PARTIE.get_artistes_par_id_groupe(id_groupe)
     return render_template("groupe_details.html", page_groupe_details=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
                            liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
-                           liste_groupes_meme_style=lister_groupes_meme_style(id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_groupes_meme_style=lister_groupes_meme_style(id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte),
+                           admin=est_admin(le_spectateur_connecte))
 
 @app.route("/artiste_details/<id_artiste>")
 def artiste_details(id_artiste):
     return render_template("artiste_details.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
-                           liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte),
+                           admin=est_admin(le_spectateur_connecte))
 
 @app.route("/planning")
 def planning():
@@ -154,7 +159,8 @@ def planning():
         else:
             liste_evenements_dimanche = lister_evenements_par_journee(date_journee)
     return render_template("planning.html", page_planning=True, liste_evenements_samedi=liste_evenements_samedi,
-                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte),
+                           admin=est_admin(le_spectateur_connecte))
 
 @app.route("/profil")
 def profil():
@@ -176,7 +182,8 @@ def profil():
             liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_achete_spectateur[index_journee])
     return render_template("profil.html", page_profil=True, liste_billets=dico_billets_achete_spectateur,
                            liste_journees=liste_journees_achete_spectateur, liste_groupes_samedi=liste_groupes_samedi,
-                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
+                           connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
 
 @app.route("/admin")
 def admin():
@@ -190,4 +197,5 @@ def admin():
             liste_evenements_dimanche = lister_evenements_par_journee(date_journee)
     return render_template("admin.html", page_admin=True, liste_evenements_samedi=liste_evenements_samedi,
                            liste_groupes=GROUPE.get_all_groupes(), liste_artistes=ARTISTE.get_all_artistes(),
-                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte),
+                           admin=est_admin(le_spectateur_connecte))

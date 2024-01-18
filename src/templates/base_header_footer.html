@@ -51,6 +51,12 @@
                     {% endif %}
                 {% endif %}
               {% endif %}
+
+              {% if admin %}
+            <div class="admin">
+              <a href="{{ url_for('admin') }}"><p>Administrateur</p> </a>
+            </div>
+            {% endif %}
               
                 <a href="{{ url_for('accueil') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('accueil') }}', 400)">
                   <span class="icon">
