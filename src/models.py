@@ -56,7 +56,7 @@ def inserer_le_spectateur(nom, prenom, mail, date_naissance,tel, nom_utilisateur
     """
         Cette permet d'appeler la fonction pour insérer un nouveau spectateur (utilisateur).
     """
-    SPECTATEUR.inserer_spectateur(SPECTATEUR.get_prochain_id_spectateur(), nom, prenom,
+    return SPECTATEUR.inserer_spectateur(SPECTATEUR.get_prochain_id_spectateur(), nom, prenom,
                                   mail, date_naissance, tel, nom_utilisateur, mdp)
 
 def lister_evenements_pour_billet(id_billet):

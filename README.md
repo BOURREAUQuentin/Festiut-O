@@ -72,11 +72,14 @@ Pour finir, la dernière installation est celle pour se connecter à notre base 
 ```python
 pip install mysql-connector-python
 pip install pymysql
+pip install sqlachemy
+pip install Flask-SQLAlchemy
 ```
 
-Une fois ceci fait ou si vous aviez déjà votre virtualenv, vous avez juste à taper cette commande pour lancer le site :
+Une fois ceci fait ou si vous aviez déjà votre virtualenv, vous avez juste à vous déplacer dans le dossier src et taper cette commande pour lancer le site :
 
 ```python
+cd src
 flask run
 ```
 
