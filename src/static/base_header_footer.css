@@ -167,3 +167,18 @@
     font-weight: bold;
     text-shadow: 0 0 5px #00fffb, 0 0 10px #0081bc;
   }
+
+  .admin{
+    position: fixed;
+    left: 10px;
+  }
+
+  .admin>a{
+    text-decoration: none;
+  }
+
+  .admin p{
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00fffb, 0 0 10px #0081bc;
+  }

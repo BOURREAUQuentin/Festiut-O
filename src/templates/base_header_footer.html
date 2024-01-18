@@ -19,6 +19,9 @@
     {% if page_planning %}
         <link href="../static/planning.css" rel="stylesheet" />
     {% endif %}
+    {% if page_admin %}
+        <link href="../static/admin.css" rel="stylesheet" />
+    {% endif %}
     {% if page_panier %}
         <link href="../static/panier.css" rel="stylesheet" />
     {% endif %}
@@ -40,10 +43,20 @@
               {% else %}  
                 {% if page_login_signup %}
                   <li class="list active">
-                {% else %}  
+                {% else %} 
+                  {% if page_admin %}
+                    <li class="list active">
+                  {% else %}  
                   <li class="list">
+                    {% endif %}
                 {% endif %}
               {% endif %}
+
+              {% if admin %}
+            <div class="admin">
+              <a href="{{ url_for('admin') }}"><p>Administrateur</p> </a>
+            </div>
+            {% endif %}
               
                 <a href="{{ url_for('accueil') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('accueil') }}', 400)">
                   <span class="icon">
