@@ -1,6 +1,7 @@
-from datetime import datetime
 import os
 import sys
+import hashlib
+
 from .app import app
 from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
@@ -47,11 +48,13 @@ def deconnexion():
 def connecter():
     username = request.form.get('username')
     password = request.form.get("password")
+    # Chiffrer le mot de passe avec SHA-256 car dans la bd le password est chiffré
+    password_chiffre = hashlib.sha256(password.encode()).hexdigest()
     liste_spectateurs = SPECTATEUR.get_all_spectateurs()
     if liste_spectateurs:
         spectateur_trouve = None
         for spectateur in liste_spectateurs:
-            if (spectateur.get_nom_utilisateur() == username or spectateur.get_mail() == username) and spectateur.get_mdp() == password:
+            if (spectateur.get_nom_utilisateur() == username or spectateur.get_mail() == username) and spectateur.get_mdp() == password_chiffre:
                 spectateur_trouve = spectateur
         if spectateur_trouve:
             le_spectateur_connecte.set_all(spectateur_trouve.get_id(),
@@ -63,7 +66,6 @@ def connecter():
                                    spectateur_trouve.get_nom_utilisateur(),
                                    spectateur_trouve.get_mdp(),
                                    spectateur_trouve.get_admin())
-            print("oui")
             return redirect(url_for("accueil"))
         return redirect(url_for("login"))
     return redirect(url_for("login"))
@@ -79,24 +81,26 @@ def inscrire():
         mail = request.form.get("mail")
         print(mail)
         date_naissance = request.form.get("date_naissance")
-        date_objet = datetime.strptime(date_naissance, '%d/%m/%Y')
-        # Formater la nouvelle date selon le format souhaité (dans la bd aaaa-mm-jj)
-        date_naissance_nouveau_format = date_objet.strftime('%Y-%m-%d')
-        print(date_naissance_nouveau_format)
+        print(type(date_naissance))
+        print(date_naissance)
         telephone = request.form.get("telephone")
         username = request.form.get("username")
         password = request.form.get("password")
+        # Chiffrer le mot de passe avec SHA-256
+        password_chiffre = hashlib.sha256(password.encode()).hexdigest()
         liste_spectateurs = SPECTATEUR.get_all_spectateurs()
-
         for spectateur in liste_spectateurs:
             if username == spectateur.get_nom_utilisateur():
                 return jsonify({"error": "exists-nomutilisateur"})
             if mail == spectateur.get_mail():
                 return jsonify({"error": "exists-mail"})
-        inserer_le_spectateur(nom, prenom, mail, date_naissance_nouveau_format, telephone, username, password)
-        le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
-                                       nom, prenom, mail, date_naissance_nouveau_format, telephone, username, password, "N")
-        return jsonify({"success": "registered"})
+        insertion_passee = inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password_chiffre)
+        if insertion_passee:
+            le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
+                                       nom, prenom, mail, date_naissance, telephone, username, password_chiffre, "N")
+            return jsonify({"success": "registered"})
+        else: # erreur sur la date de naissance (le spectateur n'a pas 18 ans)
+            return jsonify({"error": "not-age-required"})
     return redirect(url_for("login"))
 
 @app.route("/panier")
@@ -132,21 +136,22 @@ def billetterie():
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
                            connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
 
-@app.route("/groupe_details/<id_groupe>")
-def groupe_details(id_groupe):
+@app.route("/groupe/<id_groupe>")
+def groupes(id_groupe):
     liste_artistes_groupe = []
     if au_moins_deux_artistes_dans_groupe:
         liste_artistes_groupe = FAIRE_PARTIE.get_artistes_par_id_groupe(id_groupe)
-    return render_template("groupe_details.html", page_groupe_details=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
+    return render_template("groupe.html", page_groupe=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
                            liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
                            liste_groupes_meme_style=lister_groupes_meme_style(id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte),
                            admin=est_admin(le_spectateur_connecte))
 
-@app.route("/artiste_details/<id_artiste>")
-def artiste_details(id_artiste):
-    return render_template("artiste_details.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
-                           liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte),
-                           admin=est_admin(le_spectateur_connecte))
+
+@app.route("/artiste/<id_artiste>")
+def artiste(id_artiste):
+    return render_template("artiste.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
+                           liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte))
+
 
 @app.route("/planning")
 def planning():

@@ -79,7 +79,7 @@ class SpectateurBD:
             mdp (String): le mot de passe du spectateur
 
         Returns:
-            _type_: _description_
+            bool: True si l'insertion c'est bien passé, sinon False
         """
         try:
             # met automatiquement N pour l'admin car on ne peut créer un admin sur l'application (uniquement en sql auparavant)
@@ -87,9 +87,10 @@ class SpectateurBD:
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un spectateur réussi !")
+            return True
         except Exception as exp:
             print("La connexion a échoué !")
-            return None
+            return False
         
     def supprimer_spectateur(self, id_spect):
         """Supprime groupe dans la bd

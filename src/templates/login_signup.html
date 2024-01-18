@@ -7,7 +7,6 @@
         <div class="form-structor">
             <div class="signup">
                 <h2 class="form-title" id="signup">S'inscrire</h2>
-
                 <form action="{{ url_for('inscrire') }}" role="form" method="POST" class="form-login">
                     <div class="form-holder">
                         <input type="text" class="input" name="nom" id="nom" placeholder="Nom" required />
@@ -16,7 +15,10 @@
                         <input type="text" class="input" name="telephone" id="telephone" placeholder="Téléphone" required pattern="^\d{10}$" title="Entrez un numéro de téléphone valide (0691585152)" />
                         <input type="text" class="input" name="username" id="username" placeholder="Nom d'utilisateur" required />
                         <input type="email" class="input" name="mail" id="mail" placeholder="Email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" title="Entrez une adresse e-mail valide"/>
-                        <input type="password" class="input" name="password" id="password" placeholder="Mot de passe" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$" title="Le mot de passe doit comporter au moins 8 caractères, y compris au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."/>
+                        <div class="password-input-container">
+                            <input type="password" class="input" name="password" id="passwordInscription" placeholder="Mot de passe" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$" title="Le mot de passe doit comporter au moins 8 caractères, y compris au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial." />
+                            <img id="togglePasswordInscription" class="password-toggle" src="../static/img/oeilFerme.png" alt="Afficher le mot de passe" onclick="togglePasswordVisibility('inscription')" />
+                        </div>
                     </div>
                     <div class="form-label">
                         <input type="submit" class="submit-btn" value="S'inscrire" />
@@ -29,7 +31,10 @@
                     <form action="{{ url_for('connecter') }}" role="form" method="POST" class="form-login">
                         <div class="form-holder">
                             <input type="text" class="input" name="username" id="username" placeholder="Email ou nom d'utilisateur" required />
-                            <input type="password" class="input" name="password" id="password" placeholder="Mot de passe" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$" title="Le mot de passe doit comporter au moins 8 caractères, y compris au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial." />
+                            <div class="password-input-container">
+                                <input type="password" class="input" name="password" id="passwordLogin" placeholder="Mot de passe" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$" title="Le mot de passe doit comporter au moins 8 caractères, y compris au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial." />
+                                <img id="togglePasswordLogin" class="password-toggle" src="../static/img/oeilFerme.png" alt="Afficher le mot de passe" onclick="togglePasswordVisibility('login')" />
+                            </div>
                         </div>
                         <div class="form-label">
                             <input type="submit" class="submit-btn" value="Se connecter" />
