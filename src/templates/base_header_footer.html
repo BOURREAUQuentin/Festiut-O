@@ -137,6 +137,9 @@
                 else if (data.error === 'exists-nomutilisateur') {
                   showPopup("Votre nom d'utilisateur est déjà existant.");
                 }
+                else if (data.error === 'not-age-required') {
+                  showPopup("Vous n'avez pas l'âge requis pour participer à ce festival (-18 ans).");
+                }
                 else if (data.success === 'registered') {
                   showPopup("Merci d'avoir rejoint Festiut'O pour profiter de la musique ensemble.");
                   window.location.href = '{{ url_for("accueil") }}';

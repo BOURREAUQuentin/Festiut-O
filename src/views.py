@@ -93,10 +93,13 @@ def inscrire():
                 return jsonify({"error": "exists-nomutilisateur"})
             if mail == spectateur.get_mail():
                 return jsonify({"error": "exists-mail"})
-        inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password_chiffre)
-        le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
+        insertion_passee = inserer_le_spectateur(nom, prenom, mail, date_naissance, telephone, username, password_chiffre)
+        if insertion_passee:
+            le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
                                        nom, prenom, mail, date_naissance, telephone, username, password_chiffre, "N")
-        return jsonify({"success": "registered"})
+            return jsonify({"success": "registered"})
+        else: # erreur sur la date de naissance (le spectateur n'a pas 18 ans)
+            return jsonify({"error": "not-age-required"})
     return redirect(url_for("login"))
 
 @app.route("/panier")
