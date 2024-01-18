@@ -26,17 +26,9 @@
     background-color: #FF1EFC;
   }
   
-  .heure{
-    min-width: 80px;
-  }
-  ._id{
-    min-width: 60px;
-  }
-  .event{
-    min-width: 130px;
-  }
-  .groupe{
-    min-width: 130px;
+  .heure, ._id, .event, .groupe, .lieu{
+    width: 160px;
+    text-align: center;
   }
   
   pre{

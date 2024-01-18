@@ -11,74 +11,18 @@
               <div class="st_column heure">Heure</div>
               <div class="st_column event">Evenement</div>
               <div class="st_column groupe">Groupes</div>
+              <div class="st_column lieu">Lieux</div>
             </div>
 		</div>
           <div class="st_table">
-            <div class="st_row">
-              <div class="st_column heure">8h</div>
-              <div class="st_column event">Concert</div>
-              <div class="st_column groupe">Fave</div>
-            </div>
-			<div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>           
+			{% for tuple_evenement_samedi in liste_evenements_samedi %}
+				<div class="st_row">
+					<div class="st_column heure">{{ tuple_evenement_samedi[0].get_heure_debut() }}</div>
+					<div class="st_column event">{{ tuple_evenement_samedi[0].get_nom() }}</div>
+					<div class="st_column groupe">{{ tuple_evenement_samedi[1].get_nom() }}</div>
+					<div class="st_column lieu">{{ tuple_evenement_samedi[2].get_nom() }}</div>
+				</div>
+			{% endfor %}
         </div>
         <div class="st_wrap_table" data-table_id="1">
           <div class="st_table_header">
@@ -87,124 +31,18 @@
               <div class="st_column heure">Heure</div>
               <div class="st_column event">Evenement</div>
               <div class="st_column groupe">Groupes</div>
+              <div class="st_column lieu">Lieux</div>
             </div>
 		</div>
           <div class="st_table">
-            <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>
-			  <div class="st_row">
-				<div class="st_column heure">8h</div>
-				<div class="st_column event">Concert</div>
-				<div class="st_column groupe">Fave</div>
-			  </div>       
+            {% for tuple_evenement_dimanche in liste_evenements_dimanche %}
+				<div class="st_row">
+					<div class="st_column heure">{{ tuple_evenement_dimanche[0].get_heure_debut() }}</div>
+					<div class="st_column event">{{ tuple_evenement_dimanche[0].get_nom() }}</div>
+					<div class="st_column groupe">{{ tuple_evenement_dimanche[1].get_nom() }}</div>
+					<div class="st_column lieu">{{ tuple_evenement_dimanche[2].get_nom() }}</div>
+				</div>
+			{% endfor %}
           </div>
         </div>
       </main>
