@@ -177,3 +177,17 @@ def profil():
     return render_template("profil.html", page_profil=True, liste_billets=dico_billets_achete_spectateur,
                            liste_journees=liste_journees_achete_spectateur, liste_groupes_samedi=liste_groupes_samedi,
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
+
+@app.route("/admin")
+def admin():
+    dico_journees = JOURNEE.get_dico_journees()
+    liste_evenements_samedi = []
+    liste_evenements_dimanche = []
+    for journee, date_journee in dico_journees.items():
+        if journee == "Samedi":
+            liste_evenements_samedi = lister_evenements_par_journee(date_journee)
+        else:
+            liste_evenements_dimanche = lister_evenements_par_journee(date_journee)
+    return render_template("admin.html", page_admin=True, liste_evenements_samedi=liste_evenements_samedi,
+                           liste_groupes=GROUPE.get_all_groupes(), liste_artistes=ARTISTE.get_all_artistes(),
+                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte))
