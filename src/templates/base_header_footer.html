@@ -16,9 +16,6 @@
     {% if page_login_signup %}
         <link href="../static/login_signup.css" rel="stylesheet" />
     {% endif %}
-    {% if page_planning %}
-        <link href="../static/planning.css" rel="stylesheet" />
-    {% endif %}
     <title>Document</title>
     <script>
       function delayRedirect(url, delay) {
@@ -66,19 +63,15 @@
               {% else %}  
                 <li class="list">
               {% endif %}
-                <a href="{{ url_for('billetterie') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('billetterie') }}', 400)">
+                <a href="{{ url_for('les_groupes') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('billetterie') }}', 400)">
                   <span class="icon">
                     <ion-icon name="ticket-outline"></ion-icon>
                   </span>
                   <span class="text">Billetterie</span>
                 </a>
               </li>
-              {% if page_planning %}
-                <li class="list active">
-              {% else %}  
-                <li class="list">
-              {% endif %}
-                <a href="{{ url_for('planning') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('planning') }}', 400)">
+              <li class="list">
+                <a href="#">
                   <span class="icon">
                     <ion-icon name="calendar-clear-outline"></ion-icon>
                   </span>
@@ -114,6 +107,7 @@
       <script src="../static/script/test.js"></script>
       {% if page_login_signup %}
       <script src="../static/script/login_signup.js"></script>
+      <script src="../static/script/toggle_password.js"></script>
       <!-- script en dur car on ne peut pas le mettre dans un fichier js et l'appeler -->
       <script>
         function showPopup(message) {
@@ -133,12 +127,11 @@
             .then(data => {
                 if (data.error === 'exists-mail') {
                   showPopup("Votre mail est déjà existant.");
+                  window.location.href = '{{ url_for("login") }}';
                 }
                 else if (data.error === 'exists-nomutilisateur') {
                   showPopup("Votre nom d'utilisateur est déjà existant.");
-                }
-                else if (data.error === 'not-age-required') {
-                  showPopup("Vous n'avez pas l'âge requis pour participer à ce festival (-18 ans).");
+                  window.location.href = '{{ url_for("login") }}';
                 }
                 else if (data.success === 'registered') {
                   showPopup("Merci d'avoir rejoint Festiut'O pour profiter de la musique ensemble.");

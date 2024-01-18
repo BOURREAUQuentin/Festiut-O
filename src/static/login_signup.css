@@ -14,6 +14,31 @@ main {
 	justify-content: center;
 }
 
+.password-input-container {
+	position: relative;
+}
+
+.password-toggle {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	font-size: 20px;
+	color: #888;
+	padding: 0px;
+	margin-right: 5px;
+}
+
+.password-toggle.hidden {
+	color: #ccc;
+}
+
+#togglePasswordLogin, #togglePasswordInscription{
+	width: 20px;
+	height: auto;
+}
+
 .form-structor {
 	background-color: #222;
 	border-radius: 15px;
@@ -268,8 +293,4 @@ main {
 			-webkit-transition: all .3s ease;
 		}
 	}
-}
-
-a{
-	text-decoration:none;
 }
