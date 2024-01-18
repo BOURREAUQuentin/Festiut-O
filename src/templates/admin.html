@@ -107,7 +107,7 @@
                     <div class="st_column artiste">{{ artiste.get_courte_description() }}</div>
                     <div class="st_column artiste">{{ artiste.get_longue_description() }}</div>
                     <div class="st_column artiste">{{ artiste.get_lien_image() }}</div>
-                    <div class="st_column poubelle"><a><ion-icon class="icon-poubelle" name="trash"></ion-icon></a></div>
+                    <div class="st_column poubelle"><a href="{{ url_for('supprimer_artiste', id_artiste = artiste.get_id()) }}"><ion-icon class="icon-poubelle" name="trash"></ion-icon></a></div>
                 </div>
             {% endfor %}
         </div>

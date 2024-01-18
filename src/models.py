@@ -275,6 +275,16 @@ def supprimer_un_groupe(id_groupe):
     EVENEMENT.supprimer_avec_id_groupe(id_groupe)
     GROUPE.supprimer_groupe(id_groupe)
     
+def supprimer_un_artiste(id_artiste):
+    """Supprime un groupe dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du groupe à supprimer
+    """
+    JOUER.supprimer_avec_id_artiste(id_artiste)
+    FAIRE_PARTIE.supprimer_avec_id_artiste(id_artiste)
+    ARTISTE.supprimer_artiste(id_artiste)
+    
 def supprimer_un_evenement(id_evenement):
     """Supprime un evenement dans la base de donnée en prenant en compte toutes ses associations
 

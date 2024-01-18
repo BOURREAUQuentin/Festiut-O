@@ -86,3 +86,18 @@ class FairePartieBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def supprimer_avec_id_artiste(self, id_artiste):
+        """Supprime l'association faire partie dans la bd avec l'id de l'artiste
+
+        Args:
+            id_artiste (int): l'id de l'association
+        """
+        try:
+            query = text("delete from FAIRE_PARTIE where idA = " + str(id_artiste))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de faire_partie réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
