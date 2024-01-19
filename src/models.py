@@ -190,21 +190,26 @@ def supprimer_billet_panier(id_billet, id_spectateur):
     """
     PANIER.supprimer_billet(id_billet, id_spectateur)
 
-def ajouter_billet_panier(id_billet, id_spectateur):
+def ajouter_billet_panier(id_billet, id_spectateur, initialise=False):
     """
         Ajoute au panier le billet qui est associé au spectateur connecté.
 
         Args:
         Param: id_billet : l'id du billet.
         Param: id_spectateur : l'id du spectateur.
+        Param: initialise : true si c'est lors de l'inscription d'un nouvel utilisateur, sinon false.
     """
     if PANIER.get_billet_deja_dans_panier(id_billet, id_spectateur):
         print("deja billet dans panier")
         # si le billet est déjà dans le panier ca modifie la quantité de ce billet (donc ajoute 1)
         PANIER.update_quantite_billet_panier(id_billet, id_spectateur, 1)
     else:
-        # le billet n'est pas déjà dans le panier du spectateur donc ca l'ajoute au panier (quantiteB = 1 par défaut)
-        PANIER.ajouter_panier(id_billet, id_spectateur, 1)
+        if not initialise:
+            # le billet n'est pas déjà dans le panier du spectateur donc ca l'ajoute au panier (quantiteB = 1 par défaut)
+            PANIER.ajouter_panier(id_billet, id_spectateur, 1)
+        else:
+            # on ajoute juste le billet de quantite zéro pour pouvoir le modifier dans le panier plus tard
+            PANIER.ajouter_panier(id_billet, id_spectateur, 0)
 
 def modifier_quantite_billet_panier(id_billet, id_spectateur, nouvelle_quantite_billet):
     """
@@ -230,8 +235,8 @@ def payer_panier(id_spectateur):
             # si le spectateur a déjà le billet dans le panier, ca actualise juste la quantité de ce billet
             ACHETER.update_quantite_billet_achete(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         else:
-            ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
-        PANIER.supprimer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur())
+            if (int(billet_panier_spectateur.get_quantite_billet()) > 0):
+                ACHETER.payer_billet(billet_panier_spectateur.get_id_billet(), billet_panier_spectateur.get_id_spectateur(), billet_panier_spectateur.get_quantite_billet())
         
 def supprimer_un_spectateur(id_spect):
     """Supprime un spectateur dans la base de donnée en prenant en compte toutes ses associations

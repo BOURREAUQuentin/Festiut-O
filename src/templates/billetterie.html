@@ -10,10 +10,11 @@
                 <div class="row justify-content-center">
                     <div class="col-12 text-center">
                         <h1 class="pb-4">Choisissez votre <i class='uil uil-bus color-yellow'></i> billet</h1>
+                        <form id="billetsForm" action="{{ url_for('ajouter_billet') }}" method="post">
                         <div class="section">
                             <div>
                                 {% for i in range(3) %}
-                            <input class="checkbox-ticket" type="radio" name="ticket" id="ticket-{{ i }}">
+                            <input class="checkbox-ticket" type="radio" name="ticket" id="ticket-{{ i }}" value="{{ i+1 }}">
                             <label for="ticket-{{ i }}">
                                 <span class="top-dots">
                                     <span class="section dots">
@@ -116,13 +117,14 @@
                                 </span>
                             </label>
                             {% endfor %}
-                        </div>
+                            </div>
                             <div class="w-100"></div>
-                            <a href="{{ url_for("ajouter_billet", id_billet = 1) }}" class="btn mt-4 mb-5"><i class="uil uil-ticket size-22 mr-2"></i>Ajouter au panier</a>
+                            <button type="submit" class="btn mt-4 mb-5"><i class="uil uil-ticket size-22 mr-2"></i>Ajouter au panier</button>
+                        </form>
                         </div>	
                     </div>
                 </div>
-            </div>			
+            </div>
         </div>
     </main>
     {% endblock %}

@@ -75,12 +75,14 @@ class AcheterBD:
         try:
             query = text("select idB, idS, quantiteB from ACHETER where idB = "+ str(id_billet) + " and idS = " + str(id_spectateur))
             resultat = self.__connexion.execute(query)
-            if len(resultat) > 0:
+            print(resultat)
+            for id_billet, id_spectateur, quantite_billet in resultat:
                 # si le spectateur a déjà payé ce billet
                 return True
             return False
         except Exception as exp:
-            print("la connexion a échoué !")
+            print(exp)
+            print("la connexion a échoué get_billet_deja_achete !")
             return None
     
     def payer_billet(self, id_billet, id_spectateur, quantite_billet):
@@ -95,12 +97,13 @@ class AcheterBD:
             _type_: _description_
         """
         try:
-            query = text(f"insert into ACHETER values({str(id_billet)} , {str(id_spectateur)}, {str(quantite_billet)})")
+            query = text("insert into ACHETER values("+ str(id_billet) + ", "+ str(id_spectateur) + ", " + str(quantite_billet) + ")")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un acheter réussi !")
         except Exception as exp:
-            print("La connexion a échoué !")
+            print(exp)
+            print("La connexion a échoué payer_billet !")
             return None
 
     def update_quantite_billet_achete(self, id_billet, id_spectateur, quantite_billet):
@@ -110,7 +113,7 @@ class AcheterBD:
             self.__connexion.commit()
             print("Modification de la quantité réussi !")
         except Exception as exp:
-            print("La connexion a échoué !")
+            print("La connexion a échoué update_quantite_billet_achete !")
             return None
     
     def get_all_billets_achete_spectateur(self, id_spectateur):
