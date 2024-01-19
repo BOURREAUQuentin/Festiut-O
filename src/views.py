@@ -105,23 +105,35 @@ def inscrire():
 
 @app.route("/panier")
 def panier():
-    dico_billets_panier_spectateur = PANIER.get_all_billets_panier_spectateur(le_spectateur_connecte.get_id())
-    liste_journees_panier_spectateur = ACCEDER.get_les_journees_panier_spectateur(le_spectateur_connecte.get_id())
-    liste_groupes_samedi = []
-    liste_groupes_week_end = []
-    liste_groupes_dimanche = []
-    # test de quels jours le spectateur a dans son panier
-    for index_journee in range(len(liste_journees_panier_spectateur)):
-        if liste_journees_panier_spectateur[index_journee] == "Samedi":
-            liste_groupes_samedi = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-        elif liste_journees_panier_spectateur[index_journee] == "Week-end":
-            liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-        else:
-            liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-    return render_template("panier.html", page_panier=True, liste_billets=dico_billets_panier_spectateur,
-                           liste_journees=liste_journees_panier_spectateur, liste_groupes_samedi=liste_groupes_samedi,
-                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
-                           connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
+    if spectateur_est_connecte(le_spectateur_connecte):
+        quantites_billets_panier_spectateur = PANIER.get_all_quantites_billets_panier_spectateur(le_spectateur_connecte.get_id())
+        print(quantites_billets_panier_spectateur)
+        #liste_journees_panier_spectateur = ACCEDER.get_les_journees_panier_spectateur(le_spectateur_connecte.get_id())
+        # liste_groupes_samedi = []
+        # liste_groupes_week_end = []
+        # liste_groupes_dimanche = []
+        liste_journees = ACCEDER.get_les_journees_billetterie()
+        liste_billets = BILLET.get_all_billets()
+        liste_groupes_samedi = JOURNEE.get_groupes_par_journee(liste_journees[0])
+        liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees[1])
+        liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees[2])
+        print(liste_journees)
+        print(liste_groupes_samedi)
+        #liste_quantite_panier = []
+        # test de quels jours le spectateur a dans son panier
+        # for index_journee in range(len(liste_journees_panier_spectateur)):
+        #     if liste_journees_panier_spectateur[index_journee] == "Samedi":
+        #         liste_quantite_panier.append("Test")
+        #     elif liste_journees_panier_spectateur[index_journee] == "Week-end":
+        #         liste_quantite_panier.append("Test")
+        #     else:
+        #         liste_quantite_panier.append("Test")
+        return render_template("panier.html", page_panier=True,
+                            liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
+                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
+                            liste_billets=liste_billets, connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte),
+                            quantites_billets_panier_spectateur=quantites_billets_panier_spectateur)
+    return redirect(url_for("login"))
 
 @app.route("/billetterie")
 def billetterie():
@@ -135,6 +147,17 @@ def billetterie():
                            liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
                            connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
+
+@app.route("/ajouter_billet/<id_billet>")
+def ajouter_billet(id_billet):
+    """
+    Permet d'ajouter le billet au panier que s'il est connecté, sinon retourne vers la page de login
+    """
+    print(id_billet)
+    if spectateur_est_connecte(le_spectateur_connecte):
+        ajouter_billet_panier(id_billet, le_spectateur_connecte.get_id())
+        return redirect(url_for("panier"))
+    return redirect(url_for("login"))
 
 @app.route("/groupe/<id_groupe>")
 def groupes(id_groupe):

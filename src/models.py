@@ -134,23 +134,6 @@ def lister_evenements_pour_groupe(id_groupe):
             liste_evenements_du_groupe.append(evenementActuel)
     return liste_evenements_du_groupe
 
-def lister_billets_de_spectateur(id_spectateur):
-    """
-        Liste les billets possédés par le spectateur avec l'id entré en paramètre.
-
-        Args:
-            id_spectateur (int): l'id du spectateur.
-            
-        Returns:
-            (List[BILLET]) :la liste des billets possédés par l'utilisateur demandé.
-    """
-    liste_billets_du_spectateur = []
-    liste_spectateurs = SPECTATEUR.get_all_spectateurs()
-    for spectateurActuel in liste_spectateurs:
-        if spectateurActuel.get_id() == id_spectateur:
-            liste_billets_du_spectateur.append(spectateurActuel)
-    return liste_billets_du_spectateur
-
 def lister_groupes_meme_style(id_groupe):
     """
         Liste les id de groupe des groupes qui ont le même style que celui entré en paramètre (recommandation selon le style d groupe actuel).
@@ -215,7 +198,8 @@ def ajouter_billet_panier(id_billet, id_spectateur):
         Param: id_billet : l'id du billet.
         Param: id_spectateur : l'id du spectateur.
     """
-    if PANIER.get_billet_deja_dans_panier():
+    if PANIER.get_billet_deja_dans_panier(id_billet, id_spectateur):
+        print("deja billet dans panier")
         # si le billet est déjà dans le panier ca modifie la quantité de ce billet (donc ajoute 1)
         PANIER.update_quantite_billet_panier(id_billet, id_spectateur, 1)
     else:
