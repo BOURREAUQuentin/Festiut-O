@@ -3,7 +3,7 @@ import sys
 import hashlib
 
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, EVENEMENT, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin, supprimer_un_groupe, supprimer_un_evenement, supprimer_un_artiste, ajouter_artiste
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, EVENEMENT, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin, supprimer_un_groupe, supprimer_un_evenement, supprimer_un_artiste, ajouter_groupe, ajouter_artiste
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -221,6 +221,15 @@ def supprimer_groupe(id_groupe):
 def supprimer_artiste(id_artiste):
     supprimer_un_artiste(id_artiste)
     return redirect(url_for("admin"))
+
+@app.route("/inserer_groupe", methods=["GET", "POST"])
+def inserer_groupe():
+    if request.method == "POST":
+        nom = request.form.get("nom")
+        courte_description = request.form.get("courte_description")
+        longue_description = request.form.get("longue_description")
+        ajouter_groupe(nom, courte_description, longue_description, nom+".jpg")
+        return redirect(url_for("admin"))
 
 @app.route("/inserer_artiste", methods=["GET", "POST"])
 def inserer_artiste():
