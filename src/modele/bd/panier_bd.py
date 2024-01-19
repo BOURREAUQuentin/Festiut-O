@@ -68,24 +68,24 @@ class PanierBD:
                 liste_panier_spectateur.append(Panier(id_billet, id_spectateur, quantite_billet))
             return liste_panier_spectateur
         except Exception as exp:
-            print("la connexion a échoué !")
+            print("la connexion a échoué get_par_id_spectateur !")
             return None
     
     def get_billet_deja_dans_panier(self, id_billet, id_spectateur):
         try:
             query = text("select idB, idS, quantiteB from PANIER where idB = "+ str(id_billet) + " and idS = " + str(id_spectateur))
             resultat = self.__connexion.execute(query)
-            if len(resultat) > 0:
+            for _, _, _ in resultat:
                 # si le spectateur a déjà ce billet dans son panier
                 return True
             return False
         except Exception as exp:
-            print("la connexion a échoué !")
+            print("la connexion a échoué dans get_billet_deja_dans_panier!")
             return None
     
     def update_quantite_billet_panier(self, id_billet, id_spectateur, quantite_billet):
         try:
-            query = text("update PANIER set quantiteB = quantiteB +" + str(quantite_billet) + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            query = text("update PANIER set quantiteB = quantiteB + " + str(quantite_billet) + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Modification de la quantité réussi !")
@@ -102,12 +102,12 @@ class PanierBD:
             quantite_billet (int): la quantité de billets
         """
         try:
-            query = text(f"insert into PANIER values({str(id_billet)}, {str(id_spectateur)}, {str(quantite_billet)})")
+            query = text("insert into PANIER values("+ str(id_billet) + ", "+ str(id_spectateur) + ", " + str(quantite_billet) + ")")
             self.__connexion.execute(query)
             self.__connexion.commit()
             print("Ajout d'un panier réussi !")
         except Exception as exp:
-            print("La connexion a échoué !")
+            print("La connexion a échoué d'un ajout au panier !")
             return None
 
     def supprimer_billet(self, id_billet, id_spectateur):
@@ -123,7 +123,7 @@ class PanierBD:
             self.__connexion.commit()
             print("Suppression d'un billet du panier réussi !")
         except Exception as exp:
-            print("La connexion a échoué !")
+            print("La connexion a échoué supprimer_billet !")
             return None
     
     def modifier_quantite_billet(self, id_billet, id_spectateur, nouvelle_quantite_billet):
@@ -138,10 +138,11 @@ class PanierBD:
             _type_: _description_
         """
         try:
-            query = text("update PANIER set quantiteB = "+ nouvelle_quantite_billet + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
-            resultat = self.__connexion.execute(query)
+            query = text("update PANIER set quantiteB = "+ str(nouvelle_quantite_billet) + " where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
         except Exception as exp:
-            print("la connexion a échoué !")
+            print("la connexion a échoué modifier_quantite_billet !")
             return None
     
     def get_prix_total_billet_par_id_spectateur(self, id_billet, id_spectateur):
@@ -157,13 +158,15 @@ class PanierBD:
         """
         try:
             query = text("select quantiteB*prixB from PANIER natural join BILLET where idB = " + str(id_billet) + " and idS = " + str(id_spectateur))
-            resultat = self.__connexion.execute(query)
+            resultat = self.__connexion.execute(query).fetchone()
             prix_total_billet = 0
             for prix_total in resultat:
+                print(prix_total)
                 prix_total_billet = prix_total
             return prix_total_billet
         except Exception as exp:
-            print("la connexion a échoué !")
+            print(exp)
+            print("la connexion a échoué get_prix_total_billet_par_id_spectateur !")
             return None
     
     def get_prix_total_panier_par_id_spectateur(self, id_spectateur):
@@ -182,14 +185,15 @@ class PanierBD:
             query = text("select idB from PANIER where idS = " + str(id_spectateur))
             resultat = self.__connexion.execute(query)
             prix_total_panier = 0
-            for id_billet in resultat:
+            for (id_billet,) in resultat:
                 prix_total_panier += self.get_prix_total_billet_par_id_spectateur(id_billet, id_spectateur)
             return prix_total_panier
         except Exception as exp:
-            print("la connexion a échoué !")
+            print(exp)
+            print("la connexion a échoué get_prix_total_panier_par_id_spectateur !")
             return None
 
-    def get_all_billets_panier_spectateur(self, id_spectateur):
+    def get_all_quantites_billets_panier_spectateur(self, id_spectateur):
         """
         Retourne le dictionnaire des billets dans le panier du spectateur avec
         comme clé le Billet et comme valeur la quantité de ce billet.
@@ -202,14 +206,18 @@ class PanierBD:
             comme clé le Billet et comme valeur la quantité de ce billet.
         """
         try:
-            query = text("select idB, prixB, quantiteB from BILLET natural join PANIER where idS = " + str(id_spectateur))
+            query = text("SELECT PANIER.idB, quantiteB FROM BILLET LEFT JOIN PANIER ON BILLET.idB = PANIER.idB AND PANIER.idS = " + str(id_spectateur))
             resultat = self.__connexion.execute(query)
-            dico_billets_panier_spectateur = set()
-            for id_billet, prix_billet, quantite_billet in resultat:
-                dico_billets_panier_spectateur.add(Billet(id_billet, prix_billet), quantite_billet)
-            return dico_billets_panier_spectateur
+            liste_quantites_billets_panier_spectateur = []
+            print(resultat)
+            for id_billet, quantite_billet in resultat:
+                if id_billet is None:
+                    liste_quantites_billets_panier_spectateur.append(0)
+                else:
+                    liste_quantites_billets_panier_spectateur.append(quantite_billet)
+            return liste_quantites_billets_panier_spectateur
         except Exception as exp:
-            print(f"Erreur lors de la récupération des billets dans le panier du spectateur : {exp}")
+            print(f"Erreur lors de la récupération des quantités des billets dans le panier du spectateur : {exp}")
             return None
         
     def supprimer_avec_id_spectateur(self, id_spect):

@@ -31,16 +31,18 @@ class GroupeBD:
         """Renvoie la liste de tous les groupes
 
         Returns:
-            List(Group): la liste de tous les groupes
+            List(tuple(Groupe)): la liste de tous les groupes
         """
         try:
             query = text("select idG, nomG, courteDescriptionG, longueDescriptionG, lienImageG from GROUPE")
             resultat = self.__connexion.execute(query)
             liste_groupes = []
+            index_groupe = 1
             for id_groupe, nom, courte_description, longue_description, lien_image in resultat:
                 liste_groupes.append(
-                    Groupe(id_groupe, nom, courte_description, longue_description, lien_image)
+                    (index_groupe, Groupe(id_groupe, nom, courte_description, longue_description, lien_image))
                 )
+                index_groupe += 1
             return liste_groupes
         except Exception as exp:
             print(f"Erreur lors de la récupération des groupes : {exp}")

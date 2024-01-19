@@ -3,7 +3,7 @@ import sys
 import hashlib
 
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, EVENEMENT, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, supprimer_billet_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin, supprimer_un_groupe, supprimer_un_evenement, supprimer_un_artiste, ajouter_groupe, ajouter_artiste
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, EVENEMENT, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, payer_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin, supprimer_un_groupe, supprimer_un_evenement, supprimer_un_artiste, ajouter_groupe, ajouter_artiste
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -98,6 +98,8 @@ def inscrire():
         if insertion_passee:
             le_spectateur_connecte.set_all(SPECTATEUR.get_prochain_id_spectateur() - 1,
                                        nom, prenom, mail, date_naissance, telephone, username, password_chiffre, "N")
+            for id_billet in range(1, 4):
+                ajouter_billet_panier(id_billet, le_spectateur_connecte.get_id(), True)
             return jsonify({"success": "registered"})
         else: # erreur sur la date de naissance (le spectateur n'a pas 18 ans)
             return jsonify({"error": "not-age-required"})
@@ -105,23 +107,36 @@ def inscrire():
 
 @app.route("/panier")
 def panier():
-    dico_billets_panier_spectateur = PANIER.get_all_billets_panier_spectateur(le_spectateur_connecte.get_id())
-    liste_journees_panier_spectateur = ACCEDER.get_les_journees_panier_spectateur(le_spectateur_connecte.get_id())
-    liste_groupes_samedi = []
-    liste_groupes_week_end = []
-    liste_groupes_dimanche = []
-    # test de quels jours le spectateur a dans son panier
-    for index_journee in range(len(liste_journees_panier_spectateur)):
-        if liste_journees_panier_spectateur[index_journee] == "Samedi":
-            liste_groupes_samedi = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-        elif liste_journees_panier_spectateur[index_journee] == "Week-end":
-            liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-        else:
-            liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees_panier_spectateur[index_journee])
-    return render_template("panier.html", page_panier=True, liste_billets=dico_billets_panier_spectateur,
-                           liste_journees=liste_journees_panier_spectateur, liste_groupes_samedi=liste_groupes_samedi,
-                           liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
-                           connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
+    if spectateur_est_connecte(le_spectateur_connecte):
+        quantites_billets_panier_spectateur = PANIER.get_all_quantites_billets_panier_spectateur(le_spectateur_connecte.get_id())
+        liste_journees = ACCEDER.get_les_journees_billetterie()
+        liste_billets = BILLET.get_all_billets()
+        liste_groupes_samedi = JOURNEE.get_groupes_par_journee(liste_journees[0])
+        liste_groupes_week_end = JOURNEE.get_groupes_par_journee(liste_journees[1])
+        liste_groupes_dimanche = JOURNEE.get_groupes_par_journee(liste_journees[2])
+        prix_total_actuel_panier = PANIER.get_prix_total_panier_par_id_spectateur(le_spectateur_connecte.get_id())
+        return render_template("panier.html", page_panier=True,
+                            liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
+                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
+                            liste_billets=liste_billets, connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte),
+                            quantites_billets_panier_spectateur=quantites_billets_panier_spectateur, prix_total_actuel_panier=prix_total_actuel_panier)
+    return redirect(url_for("login"))
+
+@app.route("/modifier_quantite/<id_billet>/<quantite>", methods=['GET'])
+def modifier_quantite(id_billet, quantite):
+    """
+    Permet de modifier la quantité d'un billet au panier
+    """
+    PANIER.modifier_quantite_billet(id_billet, le_spectateur_connecte.get_id(), quantite)
+    return jsonify({'message': f'Quantité mise à jour avec succès pour le billet {id_billet}. Nouvelle quantité : {quantite}'})
+
+@app.route("/valider_panier", methods=['GET'])
+def valider_panier():
+    """
+    Permet de payer le panier du spectateur
+    """
+    payer_panier(le_spectateur_connecte.get_id())
+    return redirect(url_for("panier"))
 
 @app.route("/billetterie")
 def billetterie():
@@ -135,6 +150,18 @@ def billetterie():
                            liste_journees=liste_journees, liste_groupes_samedi=liste_groupes_samedi,
                            liste_groupes_week_end=liste_groupes_week_end, liste_groupes_dimanche=liste_groupes_dimanche,
                            connecte=spectateur_est_connecte(le_spectateur_connecte), admin=est_admin(le_spectateur_connecte))
+
+@app.route("/ajouter_billet", methods=["POST"])
+def ajouter_billet():
+    """
+    Permet d'ajouter le billet au panier que s'il est connecté, sinon retourne vers la page de login
+    """
+    if spectateur_est_connecte(le_spectateur_connecte):
+        if request.method == 'POST':
+            id_billet = request.form.get('ticket')
+            ajouter_billet_panier(id_billet, le_spectateur_connecte.get_id())
+            return redirect(url_for("panier"))
+    return redirect(url_for("login"))
 
 @app.route("/groupe/<id_groupe>")
 def groupes(id_groupe):
