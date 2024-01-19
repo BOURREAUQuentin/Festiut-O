@@ -280,6 +280,16 @@ def supprimer_un_groupe(id_groupe):
     EVENEMENT.supprimer_avec_id_groupe(id_groupe)
     GROUPE.supprimer_groupe(id_groupe)
     
+def supprimer_un_artiste(id_artiste):
+    """Supprime un groupe dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du groupe à supprimer
+    """
+    JOUER.supprimer_avec_id_artiste(id_artiste)
+    FAIRE_PARTIE.supprimer_avec_id_artiste(id_artiste)
+    ARTISTE.supprimer_artiste(id_artiste)
+    
 def supprimer_un_evenement(id_evenement):
     """Supprime un evenement dans la base de donnée en prenant en compte toutes ses associations
 
@@ -304,12 +314,12 @@ def ajouter_groupe(nom, courte_description, longue_description, lien_image):
     insertion_passee_groupe = GROUPE.ajouter_groupe(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_groupe
 
-def ajouter_artiste(nom, description, lien_image):
+def ajouter_artiste(nom, courte_description, longue_description, lien_image):
     """
         Cette fonction permet d'appeler la fonction pour insérer un nouvel artiste.
     """
     prochain_id = ARTISTE.get_prochain_id_artiste()
-    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, description, lien_image)
+    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_artiste
 
 def spectateur_est_connecte(spectateur_connecte):
@@ -325,6 +335,20 @@ def spectateur_est_connecte(spectateur_connecte):
         (bool): true si le spectateur est connecté, sinon false
     """
     return spectateur_connecte.get_id() != -1
+
+def est_admin(spectateur_connecte):
+    """
+    Retourne si le spectateur est connecté sur le site
+
+
+    Args:
+        spectateur_connecte (Spectateur): le spectateur connecté (s'il n'est pas connecté l'id = -1)
+
+
+    Returns:
+        (bool): true si le spectateur est connecté, sinon false
+    """
+    return spectateur_connecte.get_admin() == "O"
 
 def modifier_infos_spectateur(id_spectateur, nom, prenom, mail, date_naissance, tel, nom_utilisateur, mdp):
     """

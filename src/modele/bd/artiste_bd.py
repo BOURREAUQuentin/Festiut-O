@@ -157,3 +157,18 @@ class ArtisteBD:
         except Exception as exp:
             print("La connexion a échoué !")
             return None
+        
+    def supprimer_artiste(self, id_artiste):
+        """Supprime l'artiste dans la bd avec cet id
+
+        Args:
+            id_artiste (int): l'id de l'artiste a supprimer
+        """
+        try:
+            query = text("delete from ARTISTE where idA = " + str(id_artiste))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de artiste réussi !")
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
