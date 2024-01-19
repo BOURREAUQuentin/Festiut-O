@@ -62,14 +62,16 @@ class FairePartieBD:
     
     def get_artistes_par_id_groupe(self, id_groupe):
         try:
-            query = text("select idA, nomA, descriptionA, lienImageA from FAIRE_PARTIE natural join ARTISTE where idG = " + str(id_groupe))
+            query = text("select idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA from FAIRE_PARTIE natural join ARTISTE where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
             liste_artistes_groupe = []
-            for id_artiste, nom, description, lien_image in resultat:
-                liste_artistes_groupe.append(Artiste(id_artiste, nom, description, lien_image))
+            index_artiste = 1
+            for id_artiste, nom, courte_description, longue_description, lien_image in resultat:
+                liste_artistes_groupe.append((index_artiste, Artiste(id_artiste, nom, courte_description, longue_description, lien_image)))
+                index_artiste += 1
             return liste_artistes_groupe
         except Exception as exp:
-            print("la connexion a échoué !")
+            print("la connexion a échoué dans get_artistes_par_id_groupe!")
             return None
         
     def supprimer_avec_id_groupe(self, id_groupe):

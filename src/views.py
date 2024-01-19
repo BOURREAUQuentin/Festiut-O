@@ -139,7 +139,7 @@ def billetterie():
 @app.route("/groupe/<id_groupe>")
 def groupes(id_groupe):
     liste_artistes_groupe = []
-    if au_moins_deux_artistes_dans_groupe:
+    if au_moins_deux_artistes_dans_groupe(id_groupe):
         liste_artistes_groupe = FAIRE_PARTIE.get_artistes_par_id_groupe(id_groupe)
     return render_template("groupe.html", page_groupe=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
                            liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
@@ -147,10 +147,10 @@ def groupes(id_groupe):
                            admin=est_admin(le_spectateur_connecte))
 
 
-@app.route("/artiste/<id_artiste>")
-def artiste(id_artiste):
-    return render_template("artiste.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
-                           liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte))
+@app.route("/artiste/<id_artiste>/<id_groupe>")
+def artiste(id_artiste, id_groupe):
+    return render_template("artiste.html", page_artiste=True, artiste=ARTISTE.get_par_id_artiste(id_artiste), id_groupe=id_groupe,
+                           liste_artistes_meme_groupe=ARTISTE.get_artistes_meme_groupe(id_artiste, id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte))
 
 
 @app.route("/planning")

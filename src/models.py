@@ -163,9 +163,14 @@ def lister_groupes_meme_style(id_groupe):
     """
     liste_groupes_meme_style = []
     liste_groupes = GROUPE.get_all_groupes()
+    index_groupe = 1
     for groupeActuel in liste_groupes:
-        if GROUPE.get_style(groupeActuel.get_id()) == GROUPE.get_style(id_groupe):
-            liste_groupes_meme_style.append(groupeActuel)
+        if (groupeActuel.get_id() != int(id_groupe)) and (GROUPE.get_style(groupeActuel.get_id()) == GROUPE.get_style(id_groupe)):
+            if len(liste_groupes_meme_style) < 3: # faire une limite de 3
+                liste_groupes_meme_style.append((index_groupe, groupeActuel))
+                index_groupe += 1
+            else:
+                break
     return liste_groupes_meme_style
 
 def lister_evenements_par_journee(dateJournee):
