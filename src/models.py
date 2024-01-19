@@ -146,9 +146,14 @@ def lister_groupes_meme_style(id_groupe):
     """
     liste_groupes_meme_style = []
     liste_groupes = GROUPE.get_all_groupes()
+    index_groupe = 1
     for groupeActuel in liste_groupes:
-        if GROUPE.get_style(groupeActuel.get_id()) == GROUPE.get_style(id_groupe):
-            liste_groupes_meme_style.append(groupeActuel)
+        if (groupeActuel.get_id() != int(id_groupe)) and (GROUPE.get_style(groupeActuel.get_id()) == GROUPE.get_style(id_groupe)):
+            if len(liste_groupes_meme_style) < 3: # faire une limite de 3
+                liste_groupes_meme_style.append((index_groupe, groupeActuel))
+                index_groupe += 1
+            else:
+                break
     return liste_groupes_meme_style
 
 def lister_evenements_par_journee(dateJournee):
@@ -264,6 +269,16 @@ def supprimer_un_groupe(id_groupe):
     EVENEMENT.supprimer_avec_id_groupe(id_groupe)
     GROUPE.supprimer_groupe(id_groupe)
     
+def supprimer_un_artiste(id_artiste):
+    """Supprime un groupe dans la base de donnée en prenant en compte toutes ses associations
+
+    Args:
+        id_spect (int): l'id du groupe à supprimer
+    """
+    JOUER.supprimer_avec_id_artiste(id_artiste)
+    FAIRE_PARTIE.supprimer_avec_id_artiste(id_artiste)
+    ARTISTE.supprimer_artiste(id_artiste)
+    
 def supprimer_un_evenement(id_evenement):
     """Supprime un evenement dans la base de donnée en prenant en compte toutes ses associations
 
@@ -288,12 +303,12 @@ def ajouter_groupe(nom, courte_description, longue_description, lien_image):
     insertion_passee_groupe = GROUPE.ajouter_groupe(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_groupe
 
-def ajouter_artiste(nom, description, lien_image):
+def ajouter_artiste(nom, courte_description, longue_description, lien_image):
     """
         Cette fonction permet d'appeler la fonction pour insérer un nouvel artiste.
     """
     prochain_id = ARTISTE.get_prochain_id_artiste()
-    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, description, lien_image)
+    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_artiste
 
 def spectateur_est_connecte(spectateur_connecte):

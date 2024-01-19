@@ -107,12 +107,12 @@ class GroupeBD:
         try:
             query = text("select idSt from INTERPRETER where idG = " + str(id_groupe))
             resultat = self.__connexion.execute(query)
-            le_style = None
-            for id_style in resultat:
-                le_style = StyleMusical(id_style)
-            return le_style
+            id_style = None
+            for id in resultat:
+                id_style = id
+            return id_style
         except Exception as exp:
-            print("la connexion a échoué !")
+            print("la connexion a échoué dans le get_style !")
             return None
 
     def supprimer_groupe(self, id_groupe):

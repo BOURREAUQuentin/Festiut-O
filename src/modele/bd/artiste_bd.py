@@ -62,7 +62,31 @@ class ArtisteBD:
                 l_artiste = Artiste(id_artiste, nom, courte_description, longue_description, lien_image)
             return l_artiste
         except Exception as exp:
-            print("la connexion a échoué !")
+            print("la connexion a échoué get_par_id_artiste !")
+            return None
+    
+    def get_artistes_meme_groupe(self, id_artiste, id_groupe):
+        """Permet de récupérer la liste des artistes du même groupe de l'artiste
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+            id_groupe (int): l'id du groupe
+
+        Returns:
+            List(Artiste): la liste des artistes du même groupe de l'artiste
+        """
+        try:
+            query = text("select idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA from ARTISTE natural join FAIRE_PARTIE where idG = " + str(id_groupe))
+            resultat = self.__connexion.execute(query)
+            les_artistes_meme_groupe = []
+            index_artiste = 1
+            for id, nom, courte_description, longue_description, lien_image in resultat:
+                if int(id) != int(id_artiste):
+                    les_artistes_meme_groupe.append((index_artiste, Artiste(id, nom, courte_description, longue_description, lien_image)))
+                    index_artiste += 1
+            return les_artistes_meme_groupe
+        except Exception as exp:
+            print("la connexion a échoué get_artistes_meme_groupe !")
             return None
         
     def get_recherche_par_nom_artiste(self, nom_artiste):
@@ -130,6 +154,21 @@ class ArtisteBD:
             except Exception as excp:
                 print("erreur ajout artiste")
             return insertion_passee
+        except Exception as exp:
+            print("La connexion a échoué !")
+            return None
+        
+    def supprimer_artiste(self, id_artiste):
+        """Supprime l'artiste dans la bd avec cet id
+
+        Args:
+            id_artiste (int): l'id de l'artiste a supprimer
+        """
+        try:
+            query = text("delete from ARTISTE where idA = " + str(id_artiste))
+            self.__connexion.execute(query)
+            self.__connexion.commit()
+            print("Suppression de artiste réussi !")
         except Exception as exp:
             print("La connexion a échoué !")
             return None

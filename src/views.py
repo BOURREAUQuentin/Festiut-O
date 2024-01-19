@@ -3,7 +3,7 @@ import sys
 import hashlib
 
 from .app import app
-from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, payer_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin
+from .models import GROUPE, SPECTATEUR, BILLET, ACCEDER, JOURNEE, PANIER, FAIRE_PARTIE, ARTISTE, INSTRUMENT, ACHETER, EVENEMENT, spectateur_est_connecte, inserer_le_spectateur, ajouter_billet_panier, payer_panier, au_moins_deux_artistes_dans_groupe, lister_groupes_meme_style, lister_evenements_pour_groupe, lister_evenements_par_journee, est_admin, supprimer_un_groupe, supprimer_un_evenement, supprimer_un_artiste, ajouter_groupe, ajouter_artiste
 from flask import jsonify, render_template, url_for, redirect, request, redirect, url_for
 from spectateur import Spectateur
 
@@ -166,7 +166,7 @@ def ajouter_billet():
 @app.route("/groupe/<id_groupe>")
 def groupes(id_groupe):
     liste_artistes_groupe = []
-    if au_moins_deux_artistes_dans_groupe:
+    if au_moins_deux_artistes_dans_groupe(id_groupe):
         liste_artistes_groupe = FAIRE_PARTIE.get_artistes_par_id_groupe(id_groupe)
     return render_template("groupe.html", page_groupe=True, groupe=GROUPE.get_par_id_groupe(id_groupe),
                            liste_artistes=liste_artistes_groupe, liste_evenements_groupe=lister_evenements_pour_groupe(id_groupe),
@@ -174,10 +174,10 @@ def groupes(id_groupe):
                            admin=est_admin(le_spectateur_connecte))
 
 
-@app.route("/artiste/<id_artiste>")
-def artiste(id_artiste):
-    return render_template("artiste.html", page_artiste_details=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
-                           liste_instruments_artiste=INSTRUMENT.get_par_id_artiste(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte))
+@app.route("/artiste/<id_artiste>/<id_groupe>")
+def artiste(id_artiste, id_groupe):
+    return render_template("artiste.html", page_artiste=True, artiste=ARTISTE.get_par_id_artiste(id_artiste), id_groupe=id_groupe,
+                           liste_artistes_meme_groupe=ARTISTE.get_artistes_meme_groupe(id_artiste, id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte))
 
 
 @app.route("/planning")
@@ -219,15 +219,50 @@ def profil():
 
 @app.route("/admin")
 def admin():
-    dico_journees = JOURNEE.get_dico_journees()
-    liste_evenements_samedi = []
-    liste_evenements_dimanche = []
-    for journee, date_journee in dico_journees.items():
-        if journee == "Samedi":
-            liste_evenements_samedi = lister_evenements_par_journee(date_journee)
-        else:
-            liste_evenements_dimanche = lister_evenements_par_journee(date_journee)
-    return render_template("admin.html", page_admin=True, liste_evenements_samedi=liste_evenements_samedi,
-                           liste_groupes=GROUPE.get_all_groupes(), liste_artistes=ARTISTE.get_all_artistes(),
-                           liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte),
-                           admin=est_admin(le_spectateur_connecte))
+    if spectateur_est_connecte(le_spectateur_connecte):
+        dico_journees = JOURNEE.get_dico_journees()
+        liste_evenements_samedi = []
+        liste_evenements_dimanche = []
+        for journee, date_journee in dico_journees.items():
+            if journee == "Samedi":
+                liste_evenements_samedi = lister_evenements_par_journee(date_journee)
+            else:
+                liste_evenements_dimanche = lister_evenements_par_journee(date_journee)
+        return render_template("admin.html", page_admin=True, liste_evenements_samedi=liste_evenements_samedi,
+                            liste_groupes=GROUPE.get_all_groupes(), liste_artistes=ARTISTE.get_all_artistes(),
+                            liste_evenements_dimanche=liste_evenements_dimanche, connecte=spectateur_est_connecte(le_spectateur_connecte),
+                            admin=est_admin(le_spectateur_connecte))
+    return redirect(url_for("login"))
+    
+@app.route("/supprimer_evenement/<id_evenement>")
+def supprimer_evenement(id_evenement):
+    supprimer_un_evenement(id_evenement)
+    return redirect(url_for("admin"))
+
+@app.route("/supprimer_groupe/<id_groupe>")
+def supprimer_groupe(id_groupe):
+    supprimer_un_groupe(id_groupe)
+    return redirect(url_for("admin"))
+
+@app.route("/supprimer_artiste/<id_artiste>")
+def supprimer_artiste(id_artiste):
+    supprimer_un_artiste(id_artiste)
+    return redirect(url_for("admin"))
+
+@app.route("/inserer_groupe", methods=["GET", "POST"])
+def inserer_groupe():
+    if request.method == "POST":
+        nom = request.form.get("nom")
+        courte_description = request.form.get("courte_description")
+        longue_description = request.form.get("longue_description")
+        ajouter_groupe(nom, courte_description, longue_description, nom+".jpg")
+        return redirect(url_for("admin"))
+
+@app.route("/inserer_artiste", methods=["GET", "POST"])
+def inserer_artiste():
+    if request.method == "POST":
+        nom = request.form.get("nom")
+        courte_description = request.form.get("courte_description")
+        longue_description = request.form.get("longue_description")
+        ajouter_artiste(nom, courte_description, longue_description, nom+".jpg")
+        return redirect(url_for("admin"))

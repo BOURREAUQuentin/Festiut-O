@@ -10,6 +10,14 @@
     {% if page_les_groupes %}
         <link href="../static/les_groupes.css" rel="stylesheet" />
     {% endif %}
+    {% if page_groupe %}
+        <link href="../static/les_groupes.css" rel="stylesheet" />
+        <link href="../static/groupe.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_artiste %}
+        <link href="../static/les_groupes.css" rel="stylesheet" />
+        <link href="../static/groupe.css" rel="stylesheet" />
+    {% endif %}
     {% if page_billetterie %}
         <link href="../static/billetterie.css" rel="stylesheet" />
     {% endif %}
@@ -25,7 +33,7 @@
     {% if page_panier %}
         <link href="../static/panier.css" rel="stylesheet" />
     {% endif %}
-    <title>Document</title>
+    <title>FESTIUT'O</title>
     <script>
       function delayRedirect(url, delay) {
         setTimeout(function() {
@@ -43,12 +51,20 @@
               {% else %}  
                 {% if page_login_signup %}
                   <li class="list active">
-                {% else %} 
-                  {% if page_admin %}
+                {% else %}  
+                  {% if page_groupe %}
                     <li class="list active">
                   {% else %}  
-                  <li class="list">
+                    {% if page_artiste %}
+                      <li class="list active">
+                    {% else %}  
+                      {% if page_admin %}
+                        <li class="list active">
+                      {% else %}  
+                        <li class="list">
+                      {% endif %}
                     {% endif %}
+                  {% endif %}
                 {% endif %}
               {% endif %}
 

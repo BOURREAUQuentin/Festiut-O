@@ -3,14 +3,15 @@ INSERT INTO STYLE_MUSICAL (idSt, nomSt, caracteristiquesSt) VALUES
 (1, 'Jazz', 'Improvisation musicale'),
 (2, 'Rock', 'Rythmes puissants et guitares électriques'),
 (3, 'Rap', 'Couplets rimés séparés par des refrains'),
-(4, 'Classique', 'Musique orchestrale traditionnelle');
+(4, 'Rock', 'Musique qui déchire'),
+(5, 'Pop', 'Musique pop');
 
 -- Insertions pour la table SPECTATEUR
 INSERT INTO SPECTATEUR (idS, nomS, prenomS, mailS, dateNaissS, telS, nomUtilisateurS, mdpS, adminS) VALUES 
-(1, 'Doe', 'John', 'john.doe@example.com', '1990-01-15', '1234567890', 'adm', 'Test@123', 'O'),
-(2, 'Smith', 'Alice', 'alice.smith@example.com', '1985-05-22', '9876543210', 'alicesmith', 'password', 'N'),
-(3, 'Johnson', 'Michael', 'michael.johnson@example.com', '1982-11-10', '1122334455', 'michaeljohnson', 'password', 'N'),
-(4, 'Bourreau', 'Quentin', 'quentin.bourreau@example.com', '2004-12-14', '0684525642', 'quentin', 'quentin', 'N');
+(1, 'Doe', 'John', 'john.doe@example.com', '1990-01-15', '1234567890', 'adm', '54de7f606f2523cba8efac173fab42fb7f59d56ceff974c8fdb7342cf2cfe345', 'O'), -- Test123!
+(2, 'Smith', 'Alice', 'alice.smith@example.com', '1985-05-22', '9876543210', 'alicesmith', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'N'), -- password
+(3, 'Johnson', 'Michael', 'michael.johnson@example.com', '1982-11-10', '1122334455', 'michaeljohnson', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'N'), -- password
+(4, 'Bourreau', 'Quentin', 'quentin.bourreau@example.com', '2004-12-14', '0684525642', 'quentin', '42918bcc531588a6ba0387bc1ddc30176c08c390532074a8685f118bdea05a48', 'N'); -- quentin
 
 -- Insertions pour la table ARTISTE
 INSERT INTO ARTISTE (idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA) VALUES 
@@ -192,9 +193,26 @@ INSERT INTO HEBERGER (idH, idG) VALUES
 
 -- Insertions pour la table INTERPRETER
 INSERT INTO INTERPRETER (idG, idSt) VALUES 
-(1, 1),
-(2, 2),
-(3, 3);
+(1, 3),
+(2, 3),
+(3, 3),
+(4, 3),
+(5, 5),
+(6, 5),
+(7, 4),
+(8, 4),
+(9, 4),
+(10, 4),
+(11, 4),
+(12, 4),
+(13, 4),
+(14, 4),
+(15, 4),
+(16, 4),
+(17, 4),
+(18, 4),
+(19, 4),
+(20, 4);
 
 -- Insertions pour la table JOUER
 INSERT INTO JOUER (idA, idI) VALUES 
