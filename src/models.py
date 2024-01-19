@@ -309,12 +309,12 @@ def ajouter_groupe(nom, courte_description, longue_description, lien_image):
     insertion_passee_groupe = GROUPE.ajouter_groupe(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_groupe
 
-def ajouter_artiste(nom, description, lien_image):
+def ajouter_artiste(nom, courte_description, longue_description, lien_image):
     """
         Cette fonction permet d'appeler la fonction pour insérer un nouvel artiste.
     """
     prochain_id = ARTISTE.get_prochain_id_artiste()
-    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, description, lien_image)
+    insertion_passee_artiste = ARTISTE.ajouter_artiste(prochain_id, nom, courte_description, longue_description, lien_image)
     return insertion_passee_artiste
 
 def spectateur_est_connecte(spectateur_connecte):

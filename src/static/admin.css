@@ -26,12 +26,13 @@
     background-color: #FF1EFC;
   }
   
-  .evenement, .poubelle{
+  .evenement, .poubelle, .plus{
     width: 200px;
     text-align: center;
   }
 
   .desc{
+    width: 460px;
     text-align: justify;
   }
 
@@ -40,10 +41,20 @@
     text-align: center;
   }
 
-  .icon-poubelle{
+  .icon{
     width: 40px;
     height: 40px;
     justify-content: center;
+    text-decoration: none;
+    color: black;
+  }
+
+  .icon-plus{
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
   }
   
   pre{
