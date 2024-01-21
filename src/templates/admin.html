@@ -100,7 +100,7 @@
                 <form action="{{ url_for('inserer_groupe')}}" role="form" method="POST">
                     <input type="text" class="input, groupe" name="nom" id="nom" placeholder="Nom" required />
                     <input type="text" class="input, groupe" name="courte_description" id="courte_description" placeholder="Courte description" required />
-                    <input type="text" class="input, groupe" name="longue_description" id="longue_description" placeholder="Longue description" required />
+                    <input type="text" class="input, groupe" name="longue_description" id="longue_description" pattern=".{280,}" placeholder="Longue description (minimum 280 caractères)" required />
                     <button type="submit">Ajouter</button>
                     <div class="st_column groupe"></div>
                 </form>
@@ -126,14 +126,14 @@
                     <div class="st_column desc">{{ artiste.get_longue_description() }}</div>
                     <div class="st_column artiste">{{ artiste.get_lien_image() }}</div>
                     <div class="st_column poubelle"><a href="{{ url_for('supprimer_artiste', id_artiste = artiste.get_id()) }}"><ion-icon class="icon-admin" name="trash"></ion-icon></a></div>
-                    <div class="st_column artiste"><a href="{{ url_for('artiste', id_artiste = artiste.get_id(), id_groupe = artiste.get_id()) }}"><ion-icon class="icon-admin" name="book"></a></ion-icon> </div>
+                    <div class="st_column artiste"><a href="{{ url_for('artiste', id_artiste = artiste.get_id()) }}"><ion-icon class="icon-admin" name="book"></a></ion-icon> </div>
                 </div>
             {% endfor %}
             <div class="st_row">
                 <form action="{{ url_for('inserer_artiste')}}" role="form" method="POST">
                     <input type="text" class="input, artiste" name="nom" id="nom" placeholder="Nom" required />
                     <input type="text" class="input, artiste" name="courte_description" id="courte_description" placeholder="Courte description" required />
-                    <input type="text" class="input, artiste" name="longue_description" id="longue_description" placeholder="Longue description" required />
+                    <input type="text" class="input, artiste" name="longue_description" id="longue_description" pattern=".{280,}" placeholder="Longue description (minimum 280 caractères)" required />
                     <button type="submit">Ajouter</button>
                     <div class="st_column artiste"></div>
                     
