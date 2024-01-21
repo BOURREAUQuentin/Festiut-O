@@ -79,7 +79,7 @@
             </div>
 		</div>
           <div class="st_table">
-            {% for groupe in liste_groupes %}
+            {% for _,groupe in liste_groupes %}
 				<div class="st_row">
 					<div class="st_column groupe">{{ groupe.get_nom() }}</div>
 					<div class="st_column groupe">{{ groupe.get_courte_description() }}</div>
