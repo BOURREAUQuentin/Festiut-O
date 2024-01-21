@@ -7,10 +7,6 @@
         <div class="topg">
             <img class="imgg" src="../static/img/{{ artiste.get_lien_image() }}" alt="">
             <p class="titleg">{{ artiste.get_nom() }}</p>
-            <button class="buttonfav">
-                <img class="fav" src="../static/img/fav.png" alt="">
-
-            </button>
         </div>
         <div class="col">
             <div class="descg">
@@ -44,7 +40,7 @@
                             
             
                         </div>
-                        <a href="{{ url_for('artiste', id_artiste = tupleartiste[1].get_id(), id_groupe = id_groupe) }}"><button class="button">Plus d'infos</button></a>
+                        <a href="{{ url_for('artiste', id_artiste = tupleartiste[1].get_id()) }}"><button class="button">Plus d'infos</button></a>
                     </div>
                     </div>
                 </div>

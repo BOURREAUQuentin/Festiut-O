@@ -174,10 +174,10 @@ def groupes(id_groupe):
                            admin=est_admin(le_spectateur_connecte))
 
 
-@app.route("/artiste/<id_artiste>/<id_groupe>")
-def artiste(id_artiste, id_groupe):
-    return render_template("artiste.html", page_artiste=True, artiste=ARTISTE.get_par_id_artiste(id_artiste), id_groupe=id_groupe,
-                           liste_artistes_meme_groupe=ARTISTE.get_artistes_meme_groupe(id_artiste, id_groupe), connecte=spectateur_est_connecte(le_spectateur_connecte))
+@app.route("/artiste/<id_artiste>")
+def artiste(id_artiste):
+    return render_template("artiste.html", page_artiste=True, artiste=ARTISTE.get_par_id_artiste(id_artiste),
+                           liste_artistes_meme_groupe=ARTISTE.get_artistes_meme_groupe(id_artiste), connecte=spectateur_est_connecte(le_spectateur_connecte))
 
 
 @app.route("/planning")
