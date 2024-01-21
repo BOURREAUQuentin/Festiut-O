@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/base_header_footer.css" rel="stylesheet" />
+    {% if page_home %}
+        <link href="../static/accueil.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_les_groupes %}
+        <link href="../static/les_groupes.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_groupe %}
+        <link href="../static/les_groupes.css" rel="stylesheet" />
+        <link href="../static/groupe.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_artiste %}
+        <link href="../static/les_groupes.css" rel="stylesheet" />
+        <link href="../static/groupe.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_billetterie %}
+        <link href="../static/billetterie.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_login_signup %}
+        <link href="../static/login_signup.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_planning %}
+        <link href="../static/planning.css" rel="stylesheet" />
+    {% endif %}
+    {% if page_admin %}
+        <link href="../static/admin.css" rel="stylesheet" />
+        <script src="../static/script/redirectionSection.js"></script>
+    {% endif %}
+    {% if page_panier %}
+        <link href="../static/panier.css" rel="stylesheet" />
+    {% endif %}
+    <title>FESTIUT'O</title>
+    <script>
+      function delayRedirect(url, delay) {
+        setTimeout(function() {
+          window.location.href = url;
+        }, delay);
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="navigation">
+            <ul>
+              {% if page_home %}
+                <li class="list active">
+              {% else %}  
+                {% if page_login_signup %}
+                  <li class="list active">
+                {% else %}  
+                  {% if page_groupe %}
+                    <li class="list active">
+                  {% else %}  
+                    {% if page_artiste %}
+                      <li class="list active">
+                    {% else %}  
+                      {% if page_admin %}
+                        <li class="list active">
+                      {% else %}  
+                        <li class="list">
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+
+              {% if admin %}
+            <div class="admin">
+              <a href="{{ url_for('admin') }}"><p>Administrateur</p> </a>
+            </div>
+            {% endif %}
+              
+                <a href="{{ url_for('accueil') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('accueil') }}', 400)">
+                  <span class="icon">
+                    <ion-icon name="home-outline"></ion-icon>
+                  </span>
+                  <span class="text">Accueil</span>
+                </a>
+              </li>
+              {% if page_les_groupes %}
+                <li class="list active">
+              {% else %}  
+                <li class="list">
+              {% endif %}
+                <a href="{{ url_for('les_groupes') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('les_groupes') }}', 400)">
+                  <span class="icon">
+                    <ion-icon name="person-outline"></ion-icon>
+                  </span>
+                  <span class="text">Groupes</span>
+                </a>
+              </li>
+              {% if page_billetterie %}
+                <li class="list active">
+              {% else %}  
+                <li class="list">
+              {% endif %}
+                <a href="{{ url_for('billetterie') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('billetterie') }}', 400)">
+                  <span class="icon">
+                    <ion-icon name="ticket-outline"></ion-icon>
+                  </span>
+                  <span class="text">Billetterie</span>
+                </a>
+              </li>
+              {% if page_planning %}
+                <li class="list active">
+              {% else %}  
+                <li class="list">
+              {% endif %}
+                <a href="{{ url_for('planning') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('planning') }}', 400)">
+                  <span class="icon">
+                    <ion-icon name="calendar-clear-outline"></ion-icon>
+                  </span>
+                  <span class="text">Planning</span>
+                </a>
+              </li>
+              {% if page_panier %}
+                <li class="list active">
+              {% else %}  
+                <li class="list">
+              {% endif %}
+                <a href="{{ url_for('panier') }}" onclick="event.preventDefault(); delayRedirect('{{ url_for('panier') }}', 400)">
+                  <span class="icon">
+                    <ion-icon name="cart-outline"></ion-icon>
+                  </span>
+                  <span class="text">Panier</span>
+                </a>
+              </li>
+              <div class="indicator"></div>
+            </ul>
+          </div>
+          {% if connecte %}
+          <div class="signup">
+            <a href="{{ url_for('deconnexion') }}"><p >Déconnexion</p> </a>
+          </div>
+          {% else %}
+          <div class="signup">
+            <a href="{{ url_for('login') }}"><p >Connexion</p> </a>
+          </div>
+          {% endif %}
+    </header>
+        {% block content %}
+        {% endblock %}
+    <footer>
+        <p class="copyright">Copyright</p>
+    </footer>
+      <script src="../static/script/test.js"></script>
+      {% if page_panier %}
+      <script src="../static/script/plusmoins.js"></script>
+      {% endif %}
+      {% if page_login_signup %}
+      <script src="../static/script/login_signup.js"></script>
+      <script src="../static/script/toggle_password.js"></script>
+      <!-- script en dur car on ne peut pas le mettre dans un fichier js et l'appeler -->
+      <script>
+        function showPopup(message) {
+          alert(message);
+        }
+        document.querySelector('.form-login').addEventListener('submit', function (event) {
+            event.preventDefault();
+        
+            const form = event.target;
+            const formData = new FormData(form);
+        
+            fetch('{{ url_for("inscrire") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error === 'exists-mail') {
+                  showPopup("Votre mail est déjà existant.");
+                  window.location.href = '{{ url_for("login") }}';
+                }
+                else if (data.error === 'exists-nomutilisateur') {
+                  showPopup("Votre nom d'utilisateur est déjà existant.");
+                  window.location.href = '{{ url_for("login") }}';
+                }
+                else if (data.success === 'registered') {
+                  showPopup("Merci d'avoir rejoint Festiut'O pour profiter de la musique ensemble.");
+                  window.location.href = '{{ url_for("accueil") }}';
+                }
+            });
+        });
+      </script>
+    {% endif %}
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

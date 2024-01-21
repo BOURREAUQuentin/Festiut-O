@@ -1,0 +1,131 @@
+{% extends "base_header_footer.html" %}
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <main>
+    
+        <div class="section">	
+            <div class="container pt-5">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <h1 class="pb-4">Choisissez votre <i class='uil uil-bus color-yellow'></i> billet</h1>
+                        <form id="billetsForm" action="{{ url_for('ajouter_billet') }}" method="post">
+                        <div class="section">
+                            <div>
+                                {% for i in range(3) %}
+                            <input class="checkbox-ticket" type="radio" name="ticket" id="ticket-{{ i }}" value="{{ i+1 }}">
+                            <label for="ticket-{{ i }}">
+                                <span class="top-dots">
+                                    <span class="section dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </span>
+                                </span>
+                                <span class="date">
+                                    {{ liste_journees[i] }}
+                                </span>
+                                <span class="price mt-2 pb-4 mb-3">
+                                    {{ liste_billets[i].get_prix() }}€
+                                </span>
+                                <span class="section dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                                <span class="section pt-4">
+                                    <i class='uil uil-clock-two mt-3'></i>
+                                </span>
+                                <span class="artists mt-2">
+                                    {% if i == 0 %}
+                                        {% for groupe_samedi in liste_groupes_samedi %}
+                                            {% if groupe_samedi != liste_groupes_samedi[-1] %}
+                                                {{ groupe_samedi.get_nom() }} -
+                                            {% else %}
+                                                {{ groupe_samedi.get_nom() }}...
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if i == 1 %}
+                                        {% for groupe_weekend in liste_groupes_week_end %}
+                                            {% if groupe_weekend != liste_groupes_week_end[-1] %}
+                                                {{ groupe_weekend.get_nom() }} -
+                                            {% else %}
+                                                {{ groupe_weekend.get_nom() }}...
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if i == 2 %}
+                                        {% for groupe_dimanche in liste_groupes_dimanche %}
+                                            {% if groupe_dimanche != liste_groupes_dimanche[-1] %}
+                                                {{ groupe_dimanche.get_nom() }} -
+                                            {% else %}
+                                                {{ groupe_dimanche.get_nom() }}...
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </span>
+                                <span class="bottom-dots">
+                                    <span class="section dots">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </span>
+                                </span>
+                            </label>
+                            {% endfor %}
+                            </div>
+                            <div class="w-100"></div>
+                            <button type="submit" class="btn mt-4 mb-5"><i class="uil uil-ticket size-22 mr-2"></i>Ajouter au panier</button>
+                        </form>
+                        </div>	
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}
+

@@ -52,7 +52,7 @@ Pour lancer le projet, le mieux est d’avoir un environnement virtuel (virtuale
 Une fois récupéré le projet, vous avez simplement à suivre ces commandes pour la créer si vous ne l'avez pas encore fait :
 
 ```python
-cd SAE-FESTIUT-O
+cd Festiut-O
 ```
 Ceci va créé un répertoire venv
 ```python
@@ -68,9 +68,18 @@ Puis, il faut installer toutes les bibliotèques de notre site contenues dans le
 pip install -r requirements.txt
 ```
 
-Une fois ceci fait ou si vous aviez déjà votre virtualenv, vous avez juste à taper cette commande pour lancer le site :
+Pour finir, la dernière installation est celle pour se connecter à notre base de données locale, vous devrez taper cette commande :
+```python
+pip install mysql-connector-python
+pip install pymysql
+pip install sqlachemy
+pip install Flask-SQLAlchemy
+```
+
+Une fois ceci fait ou si vous aviez déjà votre virtualenv, vous avez juste à vous déplacer dans le dossier src et taper cette commande pour lancer le site :
 
 ```python
+cd src
 flask run
 ```
 

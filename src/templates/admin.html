@@ -1,0 +1,146 @@
+{% extends "base_header_footer.html" %}
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <main class="st_viewport">
+        <div class="div_admin">
+            <button class="bouton_admin" onclick="scrollToSection('sectionEvenementsSamedi')"><p>Evenements samedi</p> </button>
+            <button class="bouton_admin" onclick="scrollToSection('sectionEvenementsDimanche')"><p>Evenements dimanche</p> </button>
+            <button class="bouton_admin" onclick="scrollToSection('sectionGroupes')"><p>Groupes</p> </button>
+            <button class="bouton_admin" onclick="scrollToSection('sectionArtistes')"><p>Artistes</p> </button>
+        </div>
+        <div class="st_wrap_table" data-table_id="0" id="sectionEvenementsSamedi">
+            <div class="st_table_header">
+              <h2>Evenements Samedi</h2>
+              <div class="st_row title">
+                <div class="st_column evenement">Nom</div>
+                <div class="st_column evenement">Groupe</div>
+                <div class="st_column evenement">Lieu</div>
+                <div class="st_column evenement">Heure début</div>
+                <div class="st_column evenement">Description</div>
+                <div class="st_column evenement">Durée</div>
+                <div class="st_column evenement">temps montage</div>
+                <div class="st_column evenement">temps demontage</div>
+                <div class="st_column poubelle"></div>
+              </div>
+          </div>
+          <div class="st_table">
+              {% for tuple_evenement_samedi in liste_evenements_samedi %}
+                  <div class="st_row">
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_nom() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[1].get_nom() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[2].get_nom() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_heure_debut() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_description() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_duree() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_tps_montage() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_samedi[0].get_tps_demontage() }}</div>
+                      <div class="st_column poubelle"><a href="{{ url_for('supprimer_evenement', id_evenement = tuple_evenement_samedi[0].get_id()) }}"><ion-icon class="icon-admin" name="trash"></a></ion-icon> </div>
+                  </div>
+              {% endfor %}
+          </div>
+
+        <div class="st_wrap_table" data-table_id="1" id="sectionEvenementsDimanche">
+            <div class="st_table_header">
+              <h2>Evenements Dimanche</h2>
+              <div class="st_row title">
+                <div class="st_column evenement">Nom</div>
+                <div class="st_column evenement">Groupe</div>
+                <div class="st_column evenement">Lieu</div>
+                <div class="st_column evenement">Heure début</div>
+                <div class="st_column evenement">Description</div>
+                <div class="st_column evenement">Durée</div>
+                <div class="st_column evenement">temps montage</div>
+                <div class="st_column evenement">temps demontage</div>
+                <div class="st_column poubelle"></div>
+              </div>
+          </div>
+          <div class="st_table">
+              {% for tuple_evenement_dimanche in liste_evenements_dimanche %}
+                  <div class="st_row">
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_nom() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[1].get_nom() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[2].get_nom() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_heure_debut() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_description() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_duree() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_tps_montage() }}</div>
+                      <div class="st_column evenement">{{ tuple_evenement_dimanche[0].get_tps_demontage() }}</div>
+                      <div class="st_column poubelle"><a href="{{ url_for('supprimer_evenement', id_evenement = tuple_evenement_dimanche[0].get_id()) }}"><ion-icon class="icon-admin" name="trash"></a></ion-icon> </div>
+                  </div>
+              {% endfor %}
+          </div>
+
+
+        <div class="st_wrap_table" data-table_id="2" id="sectionGroupes">
+          <div class="st_table_header">
+            <h2>Groupes</h2>
+            <div class="st_row title">
+              <div class="st_column groupe">Nom</div>
+              <div class="st_column groupe">Courte description</div>
+              <div class="st_column groupe">Longue description</div>
+              <div class="st_column groupe">Lien image</div>
+              <div class="st_column poubelle"></div>
+              <div class="st_column groupe"></div>
+            </div>
+		</div>
+          <div class="st_table">
+            {% for _,groupe in liste_groupes %}
+				<div class="st_row" href="{{ url_for('groupes', id_groupe = groupe.get_id()) }}">
+					<div class="st_column groupe">{{ groupe.get_nom() }}</div>
+					<div class="st_column groupe">{{ groupe.get_courte_description() }}</div>
+					<div class="st_column desc">{{ groupe.get_longue_description() }}</div>
+					<div class="st_column groupe">{{ groupe.get_lien_image() }}</div>
+                    <div class="st_column poubelle"><a href="{{ url_for('supprimer_groupe', id_groupe = groupe.get_id()) }}"><ion-icon class="icon-admin" name="trash"></a></ion-icon> </div>
+                    <div class="st_column groupe"><a href="{{ url_for('groupes', id_groupe = groupe.get_id()) }}"><ion-icon class="icon-admin" name="book"></a></ion-icon> </div>
+				</div>
+			{% endfor %}
+            <div class="st_row">
+                <form action="{{ url_for('inserer_groupe')}}" role="form" method="POST">
+                    <input type="text" class="input, groupe" name="nom" id="nom" placeholder="Nom" required />
+                    <input type="text" class="input, groupe" name="courte_description" id="courte_description" placeholder="Courte description" required />
+                    <input type="text" class="input, groupe" name="longue_description" id="longue_description" pattern=".{280,}" placeholder="Longue description (minimum 280 caractères)" required />
+                    <button type="submit">Ajouter</button>
+                    <div class="st_column groupe"></div>
+                </form>
+            </div>
+          </div>
+
+        <div class="st_wrap_table" data-table_id="3" id="sectionArtistes">
+        <div class="st_table_header">
+            <h2>Artistes</h2>
+            <div class="st_row title">
+            <div class="st_column artiste">Nom</div>
+            <div class="st_column artiste">Courte description</div>
+            <div class="st_column artiste">Longue description</div>
+            <div class="st_column artiste">Lien image</div>
+            <div class="st_column poubelle"></div>
+            </div>
+        </div>
+        <div class="st_table">
+            {% for artiste in liste_artistes %}
+                <div class="st_row">
+                    <div class="st_column artiste">{{ artiste.get_nom() }}</div>
+                    <div class="st_column artiste">{{ artiste.get_courte_description() }}</div>
+                    <div class="st_column desc">{{ artiste.get_longue_description() }}</div>
+                    <div class="st_column artiste">{{ artiste.get_lien_image() }}</div>
+                    <div class="st_column poubelle"><a href="{{ url_for('supprimer_artiste', id_artiste = artiste.get_id()) }}"><ion-icon class="icon-admin" name="trash"></ion-icon></a></div>
+                    <div class="st_column artiste"><a href="{{ url_for('artiste', id_artiste = artiste.get_id()) }}"><ion-icon class="icon-admin" name="book"></a></ion-icon> </div>
+                </div>
+            {% endfor %}
+            <div class="st_row">
+                <form action="{{ url_for('inserer_artiste')}}" role="form" method="POST">
+                    <input type="text" class="input, artiste" name="nom" id="nom" placeholder="Nom" required />
+                    <input type="text" class="input, artiste" name="courte_description" id="courte_description" placeholder="Courte description" required />
+                    <input type="text" class="input, artiste" name="longue_description" id="longue_description" pattern=".{280,}" placeholder="Longue description (minimum 280 caractères)" required />
+                    <button type="submit">Ajouter</button>
+                    <div class="st_column artiste"></div>
+                    
+                </form>
+            </div>
+        </div>
+        </div>
+        </div>
+    </main>
+	  {% endblock %}

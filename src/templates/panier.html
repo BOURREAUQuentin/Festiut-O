@@ -1,0 +1,83 @@
+{% extends "base_header_footer.html" %}
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+        <h1 class="panier">Panier</h1>
+        {% for i in range(3) %}
+            <div class="item">
+                <div class="item-right">
+                <h2 class="day">{{ liste_journees[i] }}</h2>
+                <span class="up-border"></span>
+                <span class="down-border"></span>
+                </div>
+                
+                <div class="item-left">
+                <p class="price">PRIX :</p>
+                <h2 class="valprice" data-prix="{{ liste_billets[i].get_prix() }}">{{ liste_billets[i].get_prix() }}€</h2>
+                
+                <div class="lesartites">
+                    <p id="idBillet-{{ i+1 }}" class="billet-item" data-id="{{ i+1 }}">
+                    {% if i == 0 %}
+                        {% for groupe_samedi in liste_groupes_samedi %}
+                            {% if groupe_samedi != liste_groupes_samedi[-1] %}
+                                {{ groupe_samedi.get_nom() }} -
+                            {% else %}
+                                {{ groupe_samedi.get_nom() }}...
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if i == 1 %}
+                        {% for groupe_weekend in liste_groupes_week_end %}
+                            {% if groupe_weekend != liste_groupes_week_end[-1] %}
+                                {{ groupe_weekend.get_nom() }} -
+                            {% else %}
+                                {{ groupe_weekend.get_nom() }}...
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if i == 2 %}
+                        {% for groupe_dimanche in liste_groupes_dimanche %}
+                            {% if groupe_dimanche != liste_groupes_dimanche[-1] %}
+                                {{ groupe_dimanche.get_nom() }} -
+                            {% else %}
+                                {{ groupe_dimanche.get_nom() }}...
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="fix"></div>
+                
+                <div class="input-row">
+                    <div class="input">
+                    <button class="minus button" aria-label="Decrease by one">
+                        <svg width="16" height="2" viewBox="0 0 16 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line y1="1" x2="16" y2="1" stroke="#0064FE" stroke-width="2" class="icon" />
+                        </svg>
+                    </button>
+                    <div id="quantiteActuelle-{{ i }}" class="number dim">{{ quantites_billets_panier_spectateur[i] }}</div>
+                    <button class="plus button" aria-label="Increase by one">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                        <line x1="8" y1="4.37114e-08" x2="8" y2="16" stroke="#0064FE" stroke-width="2" />
+                        <line y1="8" x2="16" y2="8" stroke="#0064FE" stroke-width="2" />
+                        </svg>
+                    </button>
+                    </div>
+                </div>
+                <button class="delete delete-button">Supprimer</button>
+                </div>
+            </div>
+        {% endfor %}
+
+        <p id="totalAmount" class="total">
+            TOTAL : {{ prix_total_actuel_panier }}€
+        </p>
+        <div class="w-100"></div>
+        <a href="#" class="btn mt-4 mb-5 payer-button"><i class="uil uil-ticket size-22 mr-2"></i>Payer</a>
+    </div>
+    </div>
+    </main>
+    {% endblock %}
