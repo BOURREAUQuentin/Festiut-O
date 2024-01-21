@@ -55,35 +55,60 @@ class ArtisteBD:
             Artiste: l'artiste correspondant à l'id
         """
         try:
+            print(type(id_artiste))
+            print(id_artiste)
             query = text("select idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA from ARTISTE where idA = " + str(id_artiste))
             resultat = self.__connexion.execute(query)
             l_artiste = None
-            for id_artiste, nom, courte_description, longue_description, lien_image in resultat:
-                l_artiste = Artiste(id_artiste, nom, courte_description, longue_description, lien_image)
+            for (id, nom, courte_description, longue_description, lien_image) in resultat:
+                return Artiste(id, nom, courte_description, longue_description, lien_image)
             return l_artiste
         except Exception as exp:
+            print(exp)
             print("la connexion a échoué get_par_id_artiste !")
             return None
+
+    def get_id_groupe_par_id_artiste(self, id_artiste):
+        """Permet de récupérer l'id du groupe de l'artiste
+
+        Args:
+            id_artiste (int): l'id de l'artiste
+
+        Returns:
+            int: l'id du groupe de l'artiste
+        """
+        try:
+            query = text("select idG from ARTISTE natural join FAIRE_PARTIE where idA = " + str(id_artiste))
+            resultat = self.__connexion.execute(query)
+            id_groupe_artiste = None
+            for (id_groupe,) in resultat:
+                return id_groupe
+            return id_groupe_artiste
+        except Exception as exp:
+            print("la connexion a échoué get_id_groupe_par_id_artiste !")
+            return None
     
-    def get_artistes_meme_groupe(self, id_artiste, id_groupe):
+    def get_artistes_meme_groupe(self, id_artiste):
         """Permet de récupérer la liste des artistes du même groupe de l'artiste
 
         Args:
             id_artiste (int): l'id de l'artiste
-            id_groupe (int): l'id du groupe
 
         Returns:
             List(Artiste): la liste des artistes du même groupe de l'artiste
         """
         try:
-            query = text("select idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA from ARTISTE natural join FAIRE_PARTIE where idG = " + str(id_groupe))
+            id_groupe_artiste = self.get_id_groupe_par_id_artiste(id_artiste)
+            print(id_groupe_artiste)
+            query = text("select idA, nomA, courteDescriptionA, longueDescriptionA, lienImageA from ARTISTE natural join FAIRE_PARTIE where idG = " + str(id_groupe_artiste))
             resultat = self.__connexion.execute(query)
             les_artistes_meme_groupe = []
             index_artiste = 1
-            for id, nom, courte_description, longue_description, lien_image in resultat:
-                if int(id) != int(id_artiste):
+            for (id, nom, courte_description, longue_description, lien_image) in resultat:
+                if str(id) != str(id_artiste):
                     les_artistes_meme_groupe.append((index_artiste, Artiste(id, nom, courte_description, longue_description, lien_image)))
                     index_artiste += 1
+            print(les_artistes_meme_groupe)
             return les_artistes_meme_groupe
         except Exception as exp:
             print("la connexion a échoué get_artistes_meme_groupe !")
