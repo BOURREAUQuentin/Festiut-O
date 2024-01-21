@@ -126,6 +126,7 @@
                     <div class="st_column desc">{{ artiste.get_longue_description() }}</div>
                     <div class="st_column artiste">{{ artiste.get_lien_image() }}</div>
                     <div class="st_column poubelle"><a href="{{ url_for('supprimer_artiste', id_artiste = artiste.get_id()) }}"><ion-icon class="icon-admin" name="trash"></ion-icon></a></div>
+                    <div class="st_column artiste"><a href="{{ url_for('artiste', id_artiste = artiste.get_id(), id_groupe = artiste.get_id()) }}"><ion-icon class="icon-admin" name="book"></a></ion-icon> </div>
                 </div>
             {% endfor %}
             <div class="st_row">
