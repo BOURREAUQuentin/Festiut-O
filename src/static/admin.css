@@ -117,3 +117,16 @@
   .title{
     width: 100%;
   }
+
+  .div_admin{
+    display: grid;
+    padding-top: 70px;
+    justify-items: center;
+    justify-content: center;
+  }
+  
+  .bouton_admin{
+    width: 200px;
+    margin: 5px;
+  }
+  
