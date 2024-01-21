@@ -4,7 +4,13 @@
 {% endblock %}
 {% block content %}
     <main class="st_viewport">
-        <div class="st_wrap_table" data-table_id="0" id="goEvenementSamedi">
+        <div class="div_admin">
+            <button class="bouton_admin" onclick="scrollToSection('sectionEvenementsSamedi')"><p>Evenements samedi</p> </button>
+            <button class="bouton_admin" onclick="scrollToSection('sectionEvenementsDimanche')"><p>Evenements dimanche</p> </button>
+            <button class="bouton_admin" onclick="scrollToSection('sectionGroupes')"><p>Groupes</p> </button>
+            <button class="bouton_admin" onclick="scrollToSection('sectionArtistes')"><p>Artistes</p> </button>
+        </div>
+        <div class="st_wrap_table" data-table_id="0" id="sectionEvenementsSamedi">
             <div class="st_table_header">
               <h2>Evenements Samedi</h2>
               <div class="st_row title">
@@ -35,7 +41,7 @@
               {% endfor %}
           </div>
 
-        <div class="st_wrap_table" data-table_id="1" id="goEvenementDimanche">
+        <div class="st_wrap_table" data-table_id="1" id="sectionEvenementsDimanche">
             <div class="st_table_header">
               <h2>Evenements Dimanche</h2>
               <div class="st_row title">
@@ -67,7 +73,7 @@
           </div>
 
 
-        <div class="st_wrap_table" data-table_id="2" id="goGroupe">
+        <div class="st_wrap_table" data-table_id="2" id="sectionGroupes">
           <div class="st_table_header">
             <h2>Groupes</h2>
             <div class="st_row title">
@@ -99,7 +105,7 @@
             </div>
           </div>
 
-        <div class="st_wrap_table" data-table_id="3" id="goArtiste">
+        <div class="st_wrap_table" data-table_id="3" id="sectionArtistes">
         <div class="st_table_header">
             <h2>Artistes</h2>
             <div class="st_row title">
@@ -135,4 +141,3 @@
         </div>
     </main>
 	  {% endblock %}
-

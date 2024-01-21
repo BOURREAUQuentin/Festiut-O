@@ -16,8 +16,10 @@ def ouvrir_connexion(user, passwd, host, database):
         print("le serveur n'est pas connecté !")
         return err
 
-connexion = ouvrir_connexion("bourreau", "bourreau", "servinfo-maria",
-                       "DBbourreau")
+# connexion = ouvrir_connexion("bourreau", "bourreau", "servinfo-maria",
+#                        "DBbourreau")
+
+connexion = ouvrir_connexion("loann", "loann", "localhost", "festiuto")
 
 def fermer_connexion():
     connexion.close()

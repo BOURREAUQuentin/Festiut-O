@@ -249,6 +249,10 @@ def supprimer_artiste(id_artiste):
     supprimer_un_artiste(id_artiste)
     return redirect(url_for("admin"))
 
+@app.route("/goArtistes")
+def go_artistes():
+    return url_for("admin#goArtistes")
+
 @app.route("/inserer_groupe", methods=["GET", "POST"])
 def inserer_groupe():
     if request.method == "POST":
